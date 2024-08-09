@@ -5,6 +5,7 @@ import { AuthComponent } from './auth/auth.component';
 import { MatIconModule } from '@angular/material/icon';
 import { EmailInputComponent } from '../shared/email-input/email-input.component';
 import { PasswordInputComponent } from '../shared/password-input/password-input.component';
+import { ButtonFlatComponent } from '../shared/button-flat/button-flat.component';
 
 @NgModule({
     declarations: [AuthComponent],
@@ -14,6 +15,7 @@ import { PasswordInputComponent } from '../shared/password-input/password-input.
         MatIconModule,
         EmailInputComponent,
         PasswordInputComponent,
+        ButtonFlatComponent,
     ],
 })
 export class PagesModule {}

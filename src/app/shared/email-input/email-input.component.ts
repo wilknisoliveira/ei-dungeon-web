@@ -7,6 +7,7 @@ import {
 } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { CommonModule } from '@angular/common';
 
 /**
  * @title Input with error messages
@@ -22,6 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         MatFormFieldModule,
         MatInputModule,
         ReactiveFormsModule,
+        CommonModule,
     ],
 })
 export class EmailInputComponent {

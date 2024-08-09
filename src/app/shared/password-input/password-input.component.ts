@@ -19,8 +19,4 @@ import { MatInputModule } from '@angular/material/input';
 })
 export class PasswordInputComponent {
     hide = signal(true);
-    clickEvent(event: MouseEvent) {
-        this.hide.set(!this.hide());
-        event.stopPropagation();
-    }
 }

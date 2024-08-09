@@ -1,19 +1,18 @@
-<header>
-    <div>
-        <mat-icon aria-hidden="false" aria-label="logo" fontIcon="explore"></mat-icon>DUNGEON
-    </div>
-</header>
-
 <body>
-    <P>Log in to your account</P>
-
-    <app-email-input></app-email-input>
-    <app-password-input></app-password-input>
-    
-    <button>Login</button>
-    <p>Don't have an account? Sign Up Now</p>
+    <main>
+        <div class="login">
+            <div class="title">
+                <mat-icon aria-hidden="false" aria-label="logo" fontIcon="explore"></mat-icon>EI-DUNGEON
+            </div>
+            <div class="description">Log in to your account</div>
+            
+            <app-email-input></app-email-input>
+            <app-password-input></app-password-input>
+            
+            <div class="login-button">
+                <app-button-flat></app-button-flat>
+            </div>
+        </div>
+        <div class="sign-up">Don't have an account? <a href="">Sign Up Now</a></div>
+    </main>
 </body>
-
-
-
-
