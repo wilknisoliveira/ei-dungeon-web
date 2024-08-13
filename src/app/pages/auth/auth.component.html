@@ -6,12 +6,24 @@
             </div>
             <div class="description">Log in to your account</div>
             
-            <app-email-input></app-email-input>
-            <app-password-input></app-password-input>
+            <form action="">
+                <mat-form-field>
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput [formControl]="emailFormControl" placeholder="Ex. pat@example.com">
+                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">Please enter a valid email address</mat-error>
+                    <mat-error *ngIf="emailFormControl.hasError('required')">Email is <strong>required</strong></mat-error>
+                </mat-form-field>
+
+                <mat-form-field class="form-field">
+                    <mat-label>Enter your password</mat-label>
+                    <input matInput [type]="hide() ? 'password' : 'text'" />
+                </mat-form-field>
+                
+                <div class="login-button">
+                    <button mat-flat-button>Login</button>
+                </div>
+            </form>
             
-            <div class="login-button">
-                <app-button-flat buttonName = "Login"></app-button-flat>
-            </div>
         </div>
         <div class="sign-up">Don't have an account? <a href="">Sign Up Now</a></div>
     </main>
