@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,4 +10,6 @@ import { MatButtonModule } from '@angular/material/button';
     standalone: true,
     imports: [MatButtonModule, MatDividerModule, MatIconModule],
 })
-export class ButtonFlatComponent {}
+export class ButtonFlatComponent {
+    @Input() buttonName: string = 'default name';
+}
