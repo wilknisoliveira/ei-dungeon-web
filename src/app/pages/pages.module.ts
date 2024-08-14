@@ -8,9 +8,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-    declarations: [AuthComponent],
+    declarations: [AuthComponent, HomeComponent],
     imports: [
         CommonModule,
         RoutingModule,
@@ -21,6 +23,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
         MatFormFieldModule,
         MatInputModule,
         ReactiveFormsModule,
+        HttpClientModule,
     ],
 })
 export class PagesModule {}

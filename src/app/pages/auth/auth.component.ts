@@ -1,5 +1,7 @@
 import { Component, signal } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth/auth.service';
+import { UserLogin } from 'src/app/types/auth/user-login';
 
 @Component({
     selector: 'app-auth',
@@ -7,10 +9,21 @@ import { FormControl, Validators } from '@angular/forms';
     styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent {
-    emailFormControl = new FormControl('', [
-        Validators.required,
-        Validators.email,
-    ]);
-
     hide = signal(true);
+    userLogin: UserLogin = {
+        userName: '',
+        password: '',
+    };
+
+    constructor(private authService: AuthService, private router: Router) {}
+
+    async onSubmit() {
+        try {
+            const result = await this.authService.login(this.userLogin);
+            console.log(`Login process: ${result}`);
+            this.router.navigate(['home']);
+        } catch (error) {
+            console.log(`Login error: ${error}`);
+        }
+    }
 }
