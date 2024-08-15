@@ -1,14 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserLogin } from 'src/app/types/auth/user-login';
-import { BehaviorSubject, Observable, lastValueFrom, map, tap } from 'rxjs';
+import { BehaviorSubject, lastValueFrom, tap } from 'rxjs';
 import { TokenObject } from 'src/app/types/auth/token-object';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root',
 })
 export class AuthService {
-    private baseUrl = 'https://localhost:7114';
+    private baseUrl = environment.api;
     private headers;
     private tokenSubject = new BehaviorSubject<any>(null);
 
