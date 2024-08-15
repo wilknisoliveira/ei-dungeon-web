@@ -4,6 +4,7 @@ import { UserLogin } from 'src/app/types/auth/user-login';
 import { BehaviorSubject, lastValueFrom, tap } from 'rxjs';
 import { TokenObject } from 'src/app/types/auth/token-object';
 import { environment } from 'src/environments/environment';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
     providedIn: 'root',
@@ -49,5 +50,43 @@ export class AuthService {
             const tokenObject: TokenObject = JSON.parse(tokenJson);
             return tokenObject.accessToken;
         } else return '';
+    }
+
+    isUserLoggedIn(): boolean {
+        const token = this.getAuthToken();
+
+        if (!token) {
+            return false;
+        } else if (this.isTokenExpired(token)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    isTokenExpired(token?: string): boolean {
+        if (!token) {
+            return true;
+        }
+
+        const expirationDate = this.getTokenExpirationDate(token);
+        if (expirationDate === undefined || expirationDate == null) {
+            return false;
+        }
+
+        let date: Date = expirationDate;
+        return !(date.valueOf() > new Date().valueOf());
+    }
+
+    getTokenExpirationDate(token: string) {
+        const decoded: any = jwtDecode(token);
+
+        if (decoded.exp === undefined) {
+            return null;
+        }
+
+        const date = new Date(0);
+        date.setUTCSeconds(decoded.exp);
+        return date;
     }
 }
