@@ -20,7 +20,6 @@ export class AuthComponent {
     async onSubmit() {
         try {
             const result = await this.authService.login(this.userLogin);
-            console.log(`Login process: ${result}`);
             this.router.navigate(['home']);
         } catch (error) {
             console.log(`Login error: ${error}`);
