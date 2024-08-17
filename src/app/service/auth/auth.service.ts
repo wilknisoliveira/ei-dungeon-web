@@ -89,4 +89,16 @@ export class AuthService {
         date.setUTCSeconds(decoded.exp);
         return date;
     }
+
+    getRoles(): string[] {
+        const token = this.getAuthToken();
+
+        if (token != '') {
+            const decoded: any = jwtDecode(token);
+
+            if (decoded.roles !== undefined) {
+                return JSON.parse(decoded.roles);
+            } else return [''];
+        } else return [''];
+    }
 }
