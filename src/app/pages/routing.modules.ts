@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
-import { AuthGuardsGuard } from '../guards/auth.guard';
+import { AuthGuard } from '../guards/auth.guard';
 import { HomeComponent } from './home/home.component';
-import { HasRoleGuardsGuard } from '../guards/has-role.guard';
+import { HasRoleGuard } from '../guards/has-role.guard';
 
 const routes: Routes = [
-    { path: 'login', component: AuthComponent },
+    { path: 'login', component: AuthComponent, canActivate: [AuthGuard] },
     {
         path: 'home',
         component: HomeComponent,
-        canActivate: [AuthGuardsGuard, HasRoleGuardsGuard],
+        canActivate: [AuthGuard, HasRoleGuard],
         data: {
             roles: ['Admin', 'CommonUser'],
         },
