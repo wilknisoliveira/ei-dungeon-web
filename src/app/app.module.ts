@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { httpInterceptorProviders } from './http-interceptors';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
     declarations: [AppComponent],
@@ -14,6 +15,7 @@ import { httpInterceptorProviders } from './http-interceptors';
         AppRoutingModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        MatSnackBarModule,
     ],
     providers: [httpInterceptorProviders],
     bootstrap: [AppComponent],

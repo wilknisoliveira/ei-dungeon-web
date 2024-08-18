@@ -16,11 +16,10 @@ export class AuthComponent {
         password: '',
     };
 
-    //test: SnackbarService = inject(SnackbarService);
-
     constructor(
         private authService: AuthService,
-        private router: Router //private snackBar: SnackbarService
+        private router: Router,
+        private snackBar: SnackbarService
     ) {}
 
     async onSubmit() {
@@ -28,7 +27,7 @@ export class AuthComponent {
             const result = await this.authService.login(this.userLogin);
             this.router.navigate(['home']);
         } catch (error) {
-            //this.snackBar.addError("You don't has access to this route.");
+            this.snackBar.addError('Something went wrong :(');
             console.log(`Login error: ${error}`);
         }
     }
