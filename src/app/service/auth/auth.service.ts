@@ -5,6 +5,7 @@ import { BehaviorSubject, lastValueFrom, tap } from 'rxjs';
 import { TokenObject } from 'src/app/types/auth/token-object';
 import { environment } from 'src/environments/environment';
 import { jwtDecode } from 'jwt-decode';
+import { UserSignUp } from 'src/app/types/auth/user-signup';
 
 @Injectable({
     providedIn: 'root',
@@ -100,5 +101,14 @@ export class AuthService {
                 return JSON.parse(decoded.roles);
             } else return [''];
         } else return [''];
+    }
+
+    async signup(userSignUp: UserSignUp): Promise<any> {
+        const result$ = this.http.post<any>(
+            `${this.baseUrl}/api/user`,
+            userSignUp
+        );
+
+        return lastValueFrom(result$);
     }
 }

@@ -1,4 +1,4 @@
-import { Component, inject, Inject, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';

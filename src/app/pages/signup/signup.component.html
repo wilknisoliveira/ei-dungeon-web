@@ -1,0 +1,40 @@
+<body>
+    <main>
+        <div class="login">
+            <div class="title">
+                <mat-icon aria-hidden="false" aria-label="logo" fontIcon="explore"></mat-icon>EI-DUNGEON
+            </div>
+            <div class="description">Sign Up</div>
+            
+            <form (ngSubmit)="onSubmit()" #form="ngForm">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Username</mat-label>
+                    <input matInput [(ngModel)]="userSignUp.userName" name="username" required>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Fullname</mat-label>
+                    <input matInput [(ngModel)]="userSignUp.fullName" name="fullName" required>
+                </mat-form-field>
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input type="email" matInput [(ngModel)]="userSignUp.email" [formControl]="emailFormControl" placeholder="Ex. pat@example.com" required="">
+                    <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">Please enter a valid email address</mat-error>
+                    <mat-error *ngIf="emailFormControl.hasError('required')">Email is <strong>required</strong></mat-error>
+                </mat-form-field>
+                
+                <mat-form-field class="form-field">
+                    <mat-label>Enter your password</mat-label>
+                    <input matInput [type]="hide() ? 'password' : 'text'" [(ngModel)]="userSignUp.password" name="password" required>
+                </mat-form-field>
+                
+                <div class="login-button">
+                    <button type="submit" mat-flat-button [disabled]="form.form.invalid">Sign Up</button>
+                </div>
+            </form>
+            
+        </div>
+        <div class="sign-up">Do you already have an account? <a [routerLink]="['/login']">Sign In Now</a></div>
+    </main>
+</body>
