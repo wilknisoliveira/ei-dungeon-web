@@ -1,0 +1,56 @@
+@import "../../styles/variables.scss";
+
+body {
+    background-color: $secondary-color;
+    .drawer {
+        background-color: $secondary-color;
+        display: flex;
+        height: 100%;
+        border: 1px solid rgba(0, 0, 0, 0.5);
+
+        .sidenav {
+            background-color: $primary-color;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 250px;
+
+            .new-play-btn-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin: 30px;
+                margin-top: 50px;
+
+                .new-play-btn {
+                    background-color: $secondary-color;
+                    color: $white;
+                    border-radius: 30px;
+                }
+            }
+
+            .plays {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+
+                mat-icon {
+                    color: $white;
+                }
+                button {
+                    background-color: transparent;
+                    color: $white;
+                    margin: 20px;
+                }
+            }
+        }
+
+        .sidenav-content {
+            .nav-button {
+                mat-icon {
+                    color: $white;
+                }
+            }
+        }
+    }
+}

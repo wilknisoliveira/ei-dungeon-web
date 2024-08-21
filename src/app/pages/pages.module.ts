@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './signup/signup.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
     declarations: [AuthComponent, HomeComponent, SignupComponent],
@@ -25,6 +26,7 @@ import { SignupComponent } from './signup/signup.component';
         MatInputModule,
         ReactiveFormsModule,
         HttpClientModule,
+        MatSidenavModule,
     ],
 })
 export class PagesModule {}

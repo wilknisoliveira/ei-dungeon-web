@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-root',
-  template: '<router-outlet></router-outlet>',
+    selector: 'app-root',
+    templateUrl: 'app.component.html',
 })
 export class AppComponent {
-  title = 'ei-dungeon-web';
+    title = 'ei-dungeon-web';
 }

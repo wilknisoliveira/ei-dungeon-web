@@ -1,1 +1,30 @@
-<p>home works!</p>
+<body>
+    <mat-drawer-container class="drawer" autosize>
+        <mat-drawer #drawer class="sidenav" mode="side" opened>
+            <div class="new-play-btn-container">
+                <button class="new-play-btn" (click)="newRole()" mat-raised-button>
+                    <mat-icon aria-hidden="false" aria-label="logo" fontIcon="add"></mat-icon>New Role
+                </button>
+            </div>
+          
+
+            <div class="plays">
+                <div *ngFor="let play of plays">
+                    
+                    <button mat-flat-button>
+                        <mat-icon aria-hidden="false" aria-label="logo" fontIcon="bolt"></mat-icon>
+                        {{ play }}
+                    </button>
+                </div>
+            </div>
+        </mat-drawer>
+      
+        <div class="sidenav-content">
+          <button class="nav-button" type="button" mat-button (click)="drawer.toggle()">
+            <mat-icon aria-hidden="false" aria-label="logo" fontIcon="menu"></mat-icon>
+          </button>
+        </div>
+      
+    </mat-drawer-container>
+</body>
+
