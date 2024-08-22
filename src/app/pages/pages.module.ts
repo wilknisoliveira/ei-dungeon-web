@@ -12,9 +12,16 @@ import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './signup/signup.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { ChatComponent } from './home/components/chat/chat.component';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
-    declarations: [AuthComponent, HomeComponent, SignupComponent],
+    declarations: [
+        AuthComponent,
+        HomeComponent,
+        SignupComponent,
+        ChatComponent,
+    ],
     imports: [
         CommonModule,
         RoutingModule,
@@ -27,6 +34,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
         ReactiveFormsModule,
         HttpClientModule,
         MatSidenavModule,
+        MatListModule,
     ],
+    exports: [ChatComponent],
 })
 export class PagesModule {}

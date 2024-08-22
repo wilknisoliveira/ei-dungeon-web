@@ -1,0 +1,53 @@
+@import "../../../../styles/variables.scss";
+
+body {
+    .messages {
+        mat-list {
+            mat-list-item {
+                span {
+                    color: $white;
+                }
+            }
+        }
+    }
+
+    .input {
+        display: flex;
+        justify-content: center;
+        .input-area {
+            display: flex;
+            justify-content: center;
+            width: 80%;
+
+            background-color: $primary-color;
+            border-radius: 30px;
+
+            form {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+
+                textarea {
+                    color: $white;
+                    width: 100%;
+                    background-color: transparent;
+                    border: none;
+                    margin: 15px;
+                    outline: none;
+                    resize: none;
+                    overflow: hidden;
+                }
+
+                button {
+                    width: 10px;
+                    background-color: transparent;
+
+                    mat-icon {
+                        color: $white;
+                    }
+                }
+            }
+        }
+    }
+}

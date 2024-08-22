@@ -1,0 +1,25 @@
+<body>
+    <div class="messages">
+        <mat-list role="list">
+            <mat-list-item *ngFor="let message of messages" role="listitem"><span>{{ message }}</span></mat-list-item>
+        </mat-list>
+    </div>
+
+    <div class="input">
+        <div class="input-area">
+            <form (ngSubmit)="onSubmit()" #form="ngForm">
+                <textarea 
+                    [(ngModel)]="newMessage" 
+                    placeholder="What do you do?" 
+                    (input)="adjustTextAreaHeight($event)" 
+                    rows="1" 
+                ></textarea>
+    
+                <button type="submit" mat-flat-button [disabled]="form.form.invalid">
+                    <mat-icon aria-hidden="false" aria-label="play" fontIcon="send"></mat-icon>
+                </button>
+            </form>
+        </div>
+    </div>
+</body>
+

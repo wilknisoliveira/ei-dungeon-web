@@ -20,9 +20,15 @@
         </mat-drawer>
       
         <div class="sidenav-content">
-          <button class="nav-button" type="button" mat-button (click)="drawer.toggle()">
-            <mat-icon aria-hidden="false" aria-label="logo" fontIcon="menu"></mat-icon>
-          </button>
+            <div class="nav-btn-container">
+                <button type="button" mat-button (click)="drawer.toggle()">
+                    <mat-icon aria-hidden="false" aria-label="logo" fontIcon="menu"></mat-icon>
+                </button>
+            </div>
+            
+            <div class="main-content">
+                    <app-chat></app-chat>
+            </div>
         </div>
       
     </mat-drawer-container>
