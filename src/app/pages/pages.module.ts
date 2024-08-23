@@ -5,7 +5,7 @@ import { AuthComponent } from './auth/auth.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HomeComponent } from './home/home.component';
@@ -14,6 +14,8 @@ import { SignupComponent } from './signup/signup.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ChatComponent } from './home/components/chat/chat.component';
 import { MatListModule } from '@angular/material/list';
+import { FirstStepsComponent } from './home/components/first-steps/first-steps.component';
+import { MatStepperModule } from '@angular/material/stepper';
 
 @NgModule({
     declarations: [
@@ -21,6 +23,7 @@ import { MatListModule } from '@angular/material/list';
         HomeComponent,
         SignupComponent,
         ChatComponent,
+        FirstStepsComponent,
     ],
     imports: [
         CommonModule,
@@ -35,7 +38,8 @@ import { MatListModule } from '@angular/material/list';
         HttpClientModule,
         MatSidenavModule,
         MatListModule,
+        MatStepperModule,
     ],
-    exports: [ChatComponent],
+    exports: [ChatComponent, FirstStepsComponent],
 })
 export class PagesModule {}

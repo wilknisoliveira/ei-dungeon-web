@@ -27,7 +27,8 @@
             </div>
             
             <div class="main-content">
-                    <app-chat></app-chat>
+                    <app-chat *ngIf="roleId != ''"></app-chat>
+                    <app-first-steps *ngIf="roleId == ''"></app-first-steps>
             </div>
         </div>
       

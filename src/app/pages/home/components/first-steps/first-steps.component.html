@@ -1,0 +1,42 @@
+<body>
+    <div class="first-steps">
+        <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+            <mat-step [stepControl]="gameSystemFormGroup">
+              <form [formGroup]="gameSystemFormGroup">
+                <ng-template matStepLabel>Game System</ng-template>
+                <mat-selection-list formControlName="gameSystemControl" name="gameSystemControl" [multiple]="false">
+                      <mat-list-option *ngFor="let gameSystem of gameSystems" [value]="gameSystem.value">{{gameSystem.name}}</mat-list-option>
+                </mat-selection-list>
+                <div>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup">
+              <form [formGroup]="secondFormGroup">
+                <ng-template matStepLabel>Fill out your address</ng-template>
+                <mat-form-field>
+                  <mat-label>Address</mat-label>
+                  <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                         required>
+                </mat-form-field>
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step>
+              <ng-template matStepLabel>Done</ng-template>
+              <p>You are now done.</p>
+              <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+              </div>
+            </mat-step>
+          </mat-stepper>
+    </div>
+    
+</body>
+
+

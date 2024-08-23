@@ -7,6 +7,8 @@ import { ChatComponent } from './components/chat/chat.component';
     styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent {
+    roleId: string = '';
+
     plays: string[] = [
         'Play 1',
         'Play 2',
