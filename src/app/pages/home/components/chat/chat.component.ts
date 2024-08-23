@@ -7,13 +7,32 @@ import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
     styleUrls: ['./chat.component.scss'],
 })
 export class ChatComponent {
-    messages: string[] = [
-        'Message 1',
-        'Message 2',
-        'Message 3',
-        'Message 4',
-        'Message 5',
-        'Message 6',
+    messages: { user: string; message: string; type: number }[] = [
+        {
+            user: 'User 1',
+            message: 'sdgsgs sdgds g s dgs ',
+            type: 1,
+        },
+        {
+            user: 'User 2',
+            message: 'sdg sg dsg s dgdg',
+            type: 0,
+        },
+        {
+            user: 'User 1',
+            message: 'ds gdsggs dgdsg sd',
+            type: 1,
+        },
+        {
+            user: 'User 2',
+            message: ' sdgdsg sdgdg sgd ',
+            type: 0,
+        },
+        {
+            user: 'User 1',
+            message: ' sgddg sddg sgs ',
+            type: 1,
+        },
     ];
 
     newMessage: string = '';

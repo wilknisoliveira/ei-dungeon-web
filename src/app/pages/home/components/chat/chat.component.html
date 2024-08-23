@@ -1,8 +1,19 @@
 <body>
     <div class="messages">
-        <mat-list role="list">
-            <mat-list-item *ngFor="let message of messages" role="listitem"><span>{{ message }}</span></mat-list-item>
-        </mat-list>
+        <div class="messages-content">
+            <mat-list role="list">
+                <mat-list-item 
+                    *ngFor="let message of messages" 
+                    role="listitem" 
+                    [ngClass]="{'user' : message.type === 0, 'other-player' : message.type === 1}"
+                >
+                    <div class="span-container">
+                        <span matListItemTitle>{{ message.user }}</span>
+                        <span matListItemLine>{{ message.message }}</span>
+                    </div>
+                </mat-list-item>
+            </mat-list>
+        </div>
     </div>
 
     <div class="input">

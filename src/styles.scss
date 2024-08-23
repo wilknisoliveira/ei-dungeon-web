@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import "/src/app/styles/variables.scss";
 
 html,
 body {
@@ -9,10 +10,18 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
-.snackbar-error {
-    border-color: red;
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
 }
 
-.snackbar-sucess {
-    border-color: green;
+::-webkit-scrollbar-thumb {
+    background-color: $primary-color;
+    border-radius: 10px;
+    border: 2px solid $secondary-color;
+}
+
+::-webkit-scrollbar-track {
+    background-color: $secondary-color;
+    border-radius: 10px;
 }

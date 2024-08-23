@@ -1,11 +1,45 @@
 @import "../../../../styles/variables.scss";
 
 body {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+
     .messages {
-        mat-list {
-            mat-list-item {
-                span {
-                    color: $white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-height: 80vh;
+        overflow-y: auto;
+
+        .messages-content {
+            width: 80%;
+
+            mat-list {
+                mat-list-item {
+                    span {
+                        color: $white;
+                    }
+                }
+
+                .user {
+                    .span-container {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        span {
+                            width: 80%;
+                            text-align: right;
+                        }
+                    }
+                }
+
+                .other-player {
+                    .span-container {
+                        span {
+                            width: 90%;
+                        }
+                    }
                 }
             }
         }
@@ -14,6 +48,8 @@ body {
     .input {
         display: flex;
         justify-content: center;
+        padding-bottom: 25px;
+
         .input-area {
             display: flex;
             justify-content: center;
