@@ -12,13 +12,37 @@
                 </div>
               </form>
             </mat-step>
-            <mat-step [stepControl]="secondFormGroup">
-              <form [formGroup]="secondFormGroup">
-                <ng-template matStepLabel>Fill out your address</ng-template>
-                <mat-form-field>
-                  <mat-label>Address</mat-label>
-                  <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                         required>
+            <mat-step [stepControl]="numberOfArtificialPlayersFormGroup">
+              <form [formGroup]="numberOfArtificialPlayersFormGroup">
+                <ng-template matStepLabel>Set the number of artificial players</ng-template>
+                <mat-slider 
+                    formControlName="numberOfArtificialPlayersControl" 
+                    name="numberOfArtificialPlayersControl"
+                    class="slider"
+                    [max]="5"
+                    [min]="0"
+                    [step]="1"
+                    [discrete]="true"
+                    [showTickMarks]="false">
+                  <input matSliderThumb [(ngModel)]="numberOfArtificialPlayers" #slider>
+                </mat-slider>
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="characterDescriptionFormGroup">
+              <form [formGroup]="characterDescriptionFormGroup">
+                <ng-template matStepLabel>Full fill your character description</ng-template>
+                <mat-form-field class="text-area-form">
+                  <mat-label>Tell your story...</mat-label>
+                  <textarea 
+                    matInput 
+                    placeholder="I'm..."
+                    formControlName="characterDescriptionControl" 
+                    name="characterDescriptionControl"
+                    rows="5"></textarea>
                 </mat-form-field>
                 <div>
                   <button mat-button matStepperPrevious>Back</button>
@@ -31,7 +55,7 @@
               <p>You are now done.</p>
               <div>
                 <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
+                <button mat-button (click)="submit()">Start</button>
               </div>
             </mat-step>
           </mat-stepper>

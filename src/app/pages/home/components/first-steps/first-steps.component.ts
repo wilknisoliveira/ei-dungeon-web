@@ -13,9 +13,12 @@ import {
 })
 export class FirstStepsComponent {
     isLinear = true;
+    numberOfArtificialPlayers: number = 2;
+    characterDescription: string = '';
 
     gameSystemFormGroup: FormGroup;
-    secondFormGroup: FormGroup;
+    numberOfArtificialPlayersFormGroup: FormGroup;
+    characterDescriptionFormGroup: FormGroup;
 
     gameSystems: { value: string; name: string }[] = [
         { value: 'DeD', name: 'Dungeons & Dragons (D&D)' },
@@ -33,8 +36,14 @@ export class FirstStepsComponent {
             gameSystemControl: ['', Validators.required],
         });
 
-        this.secondFormGroup = this._formBuilder.group({
-            secondCtrl: ['', Validators.required],
+        this.numberOfArtificialPlayersFormGroup = this._formBuilder.group({
+            numberOfArtificialPlayersControl: [0, Validators.required],
+        });
+
+        this.characterDescriptionFormGroup = this._formBuilder.group({
+            characterDescriptionControl: ['', Validators.required],
         });
     }
+
+    submit() {}
 }

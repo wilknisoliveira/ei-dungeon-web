@@ -1,5 +1,20 @@
+@import "../../../../styles/variables.scss";
+
 body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    //background-color: $white;
+
+    .first-steps {
+        .slider {
+            margin: 30px;
+            width: 50%;
+        }
+
+        .text-area-form {
+            width: 80%;
+            color: red;
+        }
+    }
 }

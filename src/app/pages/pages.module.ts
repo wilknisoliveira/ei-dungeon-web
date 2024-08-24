@@ -16,6 +16,7 @@ import { ChatComponent } from './home/components/chat/chat.component';
 import { MatListModule } from '@angular/material/list';
 import { FirstStepsComponent } from './home/components/first-steps/first-steps.component';
 import { MatStepperModule } from '@angular/material/stepper';
+import { MatSliderModule } from '@angular/material/slider';
 
 @NgModule({
     declarations: [
@@ -39,6 +40,7 @@ import { MatStepperModule } from '@angular/material/stepper';
         MatSidenavModule,
         MatListModule,
         MatStepperModule,
+        MatSliderModule,
     ],
     exports: [ChatComponent, FirstStepsComponent],
 })
