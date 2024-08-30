@@ -1,7 +1,7 @@
 <body>
     <mat-drawer-container class="drawer" autosize>
         <mat-drawer #drawer class="sidenav" mode="side" opened>
-            <div class="new-play-btn-container">
+            <div class="center-btn-container">
                 <button class="new-play-btn" (click)="newRole()" mat-raised-button>
                     <mat-icon aria-hidden="false" aria-label="logo" fontIcon="add"></mat-icon>New Role
                 </button>
@@ -16,6 +16,11 @@
                         {{ game.name }}
                     </button>
                 </div>
+            </div>
+            <div class="center-btn-container" *ngIf="enableShowMoreBtn">
+                <button class="show-more-btn" (click)="showMore()" mat-flat-button>
+                    Show more
+                </button>
             </div>
         </mat-drawer>
       

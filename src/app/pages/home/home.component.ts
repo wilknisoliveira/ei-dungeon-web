@@ -11,7 +11,8 @@ import { GameService } from 'src/app/service/game/game.service';
 })
 export class HomeComponent implements OnInit {
     gameSelected: string = '';
-    pageSize = 10;
+    pageSize = 0;
+    enableShowMoreBtn: boolean = true;
 
     gamePagedSearch: PagedSearch<Game> | null = null;
 
@@ -21,7 +22,7 @@ export class HomeComponent implements OnInit {
     ) {}
 
     async ngOnInit(): Promise<void> {
-        this.gamePagedSearch = await this.getGames(10);
+        this.showMore();
     }
 
     async getGames(listSize: number): Promise<PagedSearch<Game> | null> {
@@ -39,8 +40,17 @@ export class HomeComponent implements OnInit {
         return result;
     }
 
-    showMore() {
+    async showMore() {
         this.pageSize = this.pageSize + 10;
+
+        this.gamePagedSearch = await this.getGames(this.pageSize);
+
+        if (
+            this.gamePagedSearch != null &&
+            this.pageSize >= this.gamePagedSearch.totalResults
+        ) {
+            this.enableShowMoreBtn = false;
+        }
     }
 
     newRole() {}

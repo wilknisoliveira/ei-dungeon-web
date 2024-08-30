@@ -17,7 +17,7 @@ body {
             align-items: center;
             width: 250px;
 
-            .new-play-btn-container {
+            .center-btn-container {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
@@ -28,6 +28,12 @@ body {
                     background-color: $secondary-color;
                     color: $white;
                     border-radius: 30px;
+                }
+
+                .show-more-btn {
+                    background-color: transparent;
+                    color: $white;
+                    font-size: smaller;
                 }
             }
 
