@@ -9,11 +9,11 @@
           
 
             <div class="plays">
-                <div *ngFor="let play of plays">
+                <div *ngFor="let game of gamePagedSearch?.list">
                     
                     <button mat-flat-button>
                         <mat-icon aria-hidden="false" aria-label="logo" fontIcon="bolt"></mat-icon>
-                        {{ play }}
+                        {{ game.name }}
                     </button>
                 </div>
             </div>
@@ -27,8 +27,8 @@
             </div>
             
             <div class="main-content">
-                    <app-chat *ngIf="roleId != ''"></app-chat>
-                    <app-first-steps *ngIf="roleId == ''"></app-first-steps>
+                    <app-chat *ngIf="gameSelected != ''"></app-chat>
+                    <app-first-steps *ngIf="gameSelected == ''"></app-first-steps>
             </div>
         </div>
       
