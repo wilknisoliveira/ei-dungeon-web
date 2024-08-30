@@ -32,6 +32,23 @@
                 </div>
               </form>
             </mat-step>
+            <mat-step [stepControl]="characterNameFormGroup">
+              <form [formGroup]="characterNameFormGroup">
+                <ng-template matStepLabel>Full fill your character name</ng-template>
+                <mat-form-field class="text-area-form">
+                  <mat-label>Set the character name...</mat-label>
+                  <input 
+                    matInput 
+                    placeholder="Name..."
+                    formControlName="characterNameControl" 
+                    name="characterNameControl">
+                </mat-form-field>
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
             <mat-step [stepControl]="characterDescriptionFormGroup">
               <form [formGroup]="characterDescriptionFormGroup">
                 <ng-template matStepLabel>Full fill your character description</ng-template>
@@ -43,6 +60,23 @@
                     formControlName="characterDescriptionControl" 
                     name="characterDescriptionControl"
                     rows="5"></textarea>
+                </mat-form-field>
+                <div>
+                  <button mat-button matStepperPrevious>Back</button>
+                  <button mat-button matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="gameNameFormGroup">
+              <form [formGroup]="gameNameFormGroup">
+                <ng-template matStepLabel>Set your game name</ng-template>
+                <mat-form-field class="text-area-form">
+                  <mat-label>Set the game name...</mat-label>
+                  <input 
+                    matInput 
+                    placeholder="Game name..."
+                    formControlName="gameNameControl" 
+                    name="gameNameControl">
                 </mat-form-field>
                 <div>
                   <button mat-button matStepperPrevious>Back</button>

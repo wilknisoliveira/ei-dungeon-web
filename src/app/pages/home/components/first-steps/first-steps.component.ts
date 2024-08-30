@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
-import {
-    FormBuilder,
-    FormControl,
-    FormGroup,
-    Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-first-steps',
@@ -19,6 +14,8 @@ export class FirstStepsComponent {
     gameSystemFormGroup: FormGroup;
     numberOfArtificialPlayersFormGroup: FormGroup;
     characterDescriptionFormGroup: FormGroup;
+    characterNameFormGroup: FormGroup;
+    gameNameFormGroup: FormGroup;
 
     gameSystems: { value: string; name: string }[] = [
         { value: 'DeD', name: 'Dungeons & Dragons (D&D)' },
@@ -40,8 +37,16 @@ export class FirstStepsComponent {
             numberOfArtificialPlayersControl: [0, Validators.required],
         });
 
+        this.characterNameFormGroup = this._formBuilder.group({
+            characterNameControl: ['', Validators.required],
+        });
+
         this.characterDescriptionFormGroup = this._formBuilder.group({
             characterDescriptionControl: ['', Validators.required],
+        });
+
+        this.gameNameFormGroup = this._formBuilder.group({
+            gameNameControl: ['', Validators.required],
         });
     }
 
