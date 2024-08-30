@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 import { Game } from 'src/app/types/game/game';
+import { NewGame } from 'src/app/types/game/new-game';
 import { PagedSearch } from 'src/app/types/general/paged-search';
 import { environment } from 'src/environments/environment';
 
@@ -23,5 +24,14 @@ export class GameService {
         );
 
         return lastValueFrom(gamesPaged$);
+    }
+
+    async newGame(newGame: NewGame): Promise<Game> {
+        const gameObject$ = this.http.post<Game>(
+            `${this.baseUrl}/api/Game`,
+            newGame
+        );
+
+        return lastValueFrom(gameObject$);
     }
 }

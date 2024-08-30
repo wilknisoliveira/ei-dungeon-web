@@ -50,5 +50,7 @@ export class FirstStepsComponent {
         });
     }
 
-    submit() {}
+    submit() {
+        //Chama o service
+    }
 }
