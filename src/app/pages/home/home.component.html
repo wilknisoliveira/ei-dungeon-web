@@ -11,7 +11,7 @@
             <div class="plays">
                 <div *ngFor="let game of gamePagedSearch?.list">
                     
-                    <button mat-flat-button>
+                    <button (click)="setGame(game.id)" mat-flat-button>
                         <mat-icon aria-hidden="false" aria-label="logo" fontIcon="bolt"></mat-icon>
                         {{ game.name }}
                     </button>
@@ -32,7 +32,7 @@
             </div>
             
             <div class="main-content">
-                    <app-chat *ngIf="gameSelected != ''"></app-chat>
+                    <app-chat *ngIf="gameSelected != ''" [gameId]="gameSelected"></app-chat>
                     <app-first-steps *ngIf="gameSelected == ''"></app-first-steps>
             </div>
         </div>

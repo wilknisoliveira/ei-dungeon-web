@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 
 @Component({
@@ -6,7 +6,9 @@ import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit {
+    @Input() gameId: string = '';
+
     messages: { user: string; message: string; type: number }[] = [
         {
             user: 'User 1',
@@ -38,6 +40,8 @@ export class ChatComponent {
     newMessage: string = '';
 
     constructor(private snackBar: SnackbarService) {}
+
+    ngOnInit(): void {}
 
     async onSubmit() {
         try {

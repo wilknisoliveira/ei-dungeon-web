@@ -53,5 +53,9 @@ export class HomeComponent implements OnInit {
         }
     }
 
+    async setGame(gameId: string) {
+        this.gameSelected = gameId;
+    }
+
     newRole() {}
 }
