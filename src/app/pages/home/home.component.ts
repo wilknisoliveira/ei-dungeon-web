@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
         private gameService: GameService
     ) {}
 
-    async ngOnInit(): Promise<void> {
+    ngOnInit(): void {
         this.showMore();
     }
 
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
             this.snackBar.addError(
                 'Something went wrong while attempting to get the game list.'
             );
-            console.log(`Login error: ${error}`);
+            console.log(`Error: ${error}`);
         }
 
         return result;
