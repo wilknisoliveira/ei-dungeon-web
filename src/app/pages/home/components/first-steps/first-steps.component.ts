@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { GameService } from 'src/app/service/game/game.service';
+import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
+import { NewGame } from 'src/app/types/game/new-game';
 
 @Component({
     selector: 'app-first-steps',
@@ -7,9 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
     styleUrls: ['./first-steps.component.scss'],
 })
 export class FirstStepsComponent {
-    isLinear = true;
-    numberOfArtificialPlayers: number = 2;
-    characterDescription: string = '';
+    @Output() gameCreated = new EventEmitter<string>();
 
     gameSystemFormGroup: FormGroup;
     numberOfArtificialPlayersFormGroup: FormGroup;
@@ -18,17 +19,21 @@ export class FirstStepsComponent {
     gameNameFormGroup: FormGroup;
 
     gameSystems: { value: string; name: string }[] = [
-        { value: 'DeD', name: 'Dungeons & Dragons (D&D)' },
+        { value: 'Dungeons & Dragons (D&D)', name: 'Dungeons & Dragons (D&D)' },
         { value: 'Pathfinder', name: 'Pathfinder' },
-        { value: 'CoC', name: 'Call of Cthulhu' },
+        { value: 'Call of Cthulhu', name: 'Call of Cthulhu' },
         { value: 'Shadowrun', name: 'Shadowrun' },
         {
-            value: 'GURPS',
+            value: 'GURPS (Generic Universal RolePlaying System)',
             name: 'GURPS (Generic Universal RolePlaying System)',
         },
     ];
 
-    constructor(private _formBuilder: FormBuilder) {
+    constructor(
+        private _formBuilder: FormBuilder,
+        private gameService: GameService,
+        private snackBar: SnackbarService
+    ) {
         this.gameSystemFormGroup = this._formBuilder.group({
             gameSystemControl: ['', Validators.required],
         });
@@ -50,7 +55,33 @@ export class FirstStepsComponent {
         });
     }
 
-    submit() {
-        //Chama o service
+    submit(): void {
+        let newGame: NewGame = {
+            systemGame:
+                this.gameSystemFormGroup.get('gameSystemControl')?.value[0],
+            numberOfArtificialPlayers:
+                this.numberOfArtificialPlayersFormGroup.get(
+                    'numberOfArtificialPlayersControl'
+                )?.value,
+            characterName: this.characterNameFormGroup.get(
+                'characterNameControl'
+            )?.value,
+            characterDescription: this.characterDescriptionFormGroup.get(
+                'characterDescriptionControl'
+            )?.value,
+            name: this.gameNameFormGroup.get('gameNameControl')?.value,
+        };
+
+        this.gameService
+            .newGame(newGame)
+            .then(() => {
+                this.gameCreated.emit(newGame.name);
+                this.snackBar.addSuccess(`Game ${newGame.name} created!`);
+            })
+            .catch(() => {
+                this.snackBar.addError(
+                    'Something went wrong while attempting to create the game. Please, try again.'
+                );
+            });
     }
 }

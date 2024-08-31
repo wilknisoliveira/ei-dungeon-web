@@ -2,7 +2,7 @@
     <mat-drawer-container class="drawer" autosize>
         <mat-drawer #drawer class="sidenav" mode="side" opened>
             <div class="center-btn-container">
-                <button class="new-play-btn" (click)="newRole()" mat-raised-button>
+                <button class="new-play-btn" (click)="gameSelected = ''" mat-raised-button>
                     <mat-icon aria-hidden="false" aria-label="logo" fontIcon="add"></mat-icon>New Role
                 </button>
             </div>
@@ -33,7 +33,7 @@
             
             <div class="main-content">
                     <app-chat *ngIf="gameSelected != ''" [gameId]="gameSelected"></app-chat>
-                    <app-first-steps *ngIf="gameSelected == ''"></app-first-steps>
+                    <app-first-steps *ngIf="gameSelected == ''" (gameCreated)="gameCreated($event)"></app-first-steps>
             </div>
         </div>
       

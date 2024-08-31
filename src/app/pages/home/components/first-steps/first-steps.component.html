@@ -1,6 +1,6 @@
 <body>
     <div class="first-steps">
-        <mat-stepper orientation="vertical" [linear]="isLinear" #stepper>
+        <mat-stepper orientation="vertical" [linear]="true" #stepper>
             <mat-step [stepControl]="gameSystemFormGroup">
               <form [formGroup]="gameSystemFormGroup">
                 <ng-template matStepLabel>Game System</ng-template>
@@ -16,15 +16,18 @@
               <form [formGroup]="numberOfArtificialPlayersFormGroup">
                 <ng-template matStepLabel>Set the number of artificial players</ng-template>
                 <mat-slider 
-                    formControlName="numberOfArtificialPlayersControl" 
-                    name="numberOfArtificialPlayersControl"
                     class="slider"
                     [max]="5"
                     [min]="0"
                     [step]="1"
                     [discrete]="true"
                     [showTickMarks]="false">
-                  <input matSliderThumb [(ngModel)]="numberOfArtificialPlayers" #slider>
+                  <input 
+                    matSliderThumb 
+                    formControlName="numberOfArtificialPlayersControl" 
+                    name="numberOfArtificialPlayersControl" 
+                    #slider
+                  >
                 </mat-slider>
                 <div>
                   <button mat-button matStepperPrevious>Back</button>

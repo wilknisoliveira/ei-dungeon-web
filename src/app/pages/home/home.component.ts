@@ -57,5 +57,13 @@ export class HomeComponent implements OnInit {
         this.gameSelected = gameId;
     }
 
-    newRole() {}
+    gameCreated(gameName: string): void {
+        this.showMore();
+
+        if (gameName != null && gameName != '') {
+            let gameId = this.gamePagedSearch?.list[0].id ?? '';
+            this.gameSelected = gameId;
+            console.log('Game Selected: ' + gameId);
+        }
+    }
 }
