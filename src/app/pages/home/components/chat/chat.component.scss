@@ -17,21 +17,14 @@ body {
 
             mat-list {
                 mat-list-item {
+                    height: auto;
                     span {
                         color: $white;
                     }
-                }
-
-                .user {
-                    height: auto;
                     .span-container {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: flex-end;
                         span,
                         textarea {
                             width: 80%;
-                            text-align: right;
                         }
                         textarea {
                             background-color: transparent;
@@ -41,6 +34,18 @@ body {
                             outline: none;
                             resize: none;
                             overflow: hidden;
+                        }
+                    }
+                }
+
+                .user {
+                    .span-container {
+                        display: flex;
+                        flex-direction: column;
+                        align-items: flex-end;
+                        span,
+                        textarea {
+                            text-align: right;
                         }
                     }
                 }
