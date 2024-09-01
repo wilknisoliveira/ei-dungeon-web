@@ -42,6 +42,8 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     }
 
     ngAfterViewChecked(): void {
+        this.adjustAllReadyOnlyTextArea();
+
         if (this.goToBotton) {
             this.scrollBotton();
             this.goToBotton = false;
@@ -133,5 +135,14 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                 this.messagesContainer.nativeElement;
             container.scrollTop = container.scrollHeight;
         }
+    }
+
+    adjustAllReadyOnlyTextArea(): void {
+        const readyOnlyTextAreas: NodeListOf<Element> =
+            document.querySelectorAll('textarea[readonly]');
+
+        readyOnlyTextAreas.forEach((textarea) => {
+            this.adjustTextAreaHeightElement(textarea as HTMLTextAreaElement);
+        });
     }
 }

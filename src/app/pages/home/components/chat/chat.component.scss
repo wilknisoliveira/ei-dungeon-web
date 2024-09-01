@@ -9,7 +9,7 @@ body {
         display: flex;
         flex-direction: column;
         align-items: center;
-        max-height: 80vh;
+        max-height: auto;
         overflow-y: auto;
 
         .messages-content {
@@ -23,13 +23,24 @@ body {
                 }
 
                 .user {
+                    height: auto;
                     .span-container {
                         display: flex;
                         flex-direction: column;
                         align-items: flex-end;
-                        span {
+                        span,
+                        textarea {
                             width: 80%;
                             text-align: right;
+                        }
+                        textarea {
+                            background-color: transparent;
+                            color: $white;
+                            white-space: pre-wrap;
+                            border: none;
+                            outline: none;
+                            resize: none;
+                            overflow: hidden;
                         }
                     }
                 }
@@ -48,7 +59,7 @@ body {
     .input {
         display: flex;
         justify-content: center;
-        padding-bottom: 25px;
+        padding-bottom: 10px;
 
         .input-area {
             display: flex;

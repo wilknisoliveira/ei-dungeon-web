@@ -9,7 +9,10 @@
                 >
                     <div class="span-container">
                         <span matListItemTitle>{{ play.playerDtoResponse.name }}</span>
-                        <span matListItemLine>{{ play.prompt }}</span>
+                        <textarea 
+                            matListItemLine 
+                            readonly
+                        >{{ play.prompt }}</textarea>
                     </div>
                 </mat-list-item>
             </mat-list>
