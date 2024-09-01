@@ -1,9 +1,9 @@
 <body>
-    <div class="messages">
+    <div class="messages" #messagesContainer>
         <div class="messages-content">
             <mat-list role="list">
                 <mat-list-item 
-                    *ngFor="let play of playsPagedSearch?.list" 
+                    *ngFor="let play of playsPagedSearch?.list?.slice()?.reverse()" 
                     role="listitem" 
                     [ngClass]="{'user' : play.playerDtoResponse.type === 0, 'other-player' : play.playerDtoResponse.type > 0}"
                 >
@@ -18,15 +18,17 @@
 
     <div class="input">
         <div class="input-area">
-            <form (ngSubmit)="onSubmit()" #form="ngForm">
-                <textarea 
-                    [(ngModel)]="newMessage" 
+            <form [formGroup]="newPlayFormGroup">
+                <textarea
                     placeholder="What do you do?" 
-                    (input)="adjustTextAreaHeight($event)" 
-                    rows="1" 
+                    (input)="adjustTextAreaHeightEvent($event)" 
+                    rows="1"
+                    formControlName="newPlayControl" 
+                    name="newPlayControl" 
+                    #textAreaContainer
                 ></textarea>
     
-                <button type="submit" mat-flat-button [disabled]="form.form.invalid">
+                <button type="submit" mat-flat-button (click)="onSubmit()" [disabled]="newPlayFormGroup.get('newPlayControl')?.value == ''">
                     <mat-icon aria-hidden="false" aria-label="play" fontIcon="send"></mat-icon>
                 </button>
             </form>

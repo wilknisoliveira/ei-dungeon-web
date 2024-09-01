@@ -1,13 +1,18 @@
 import {
+    AfterViewChecked,
     Component,
+    ElementRef,
     Input,
     OnChanges,
     OnInit,
     SimpleChanges,
+    ViewChild,
 } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PlayService } from 'src/app/service/play/play.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { PagedSearch } from 'src/app/types/general/paged-search';
+import { NewPlay } from 'src/app/types/play/new-play';
 import { Play } from 'src/app/types/play/play';
 
 @Component({
@@ -15,29 +20,45 @@ import { Play } from 'src/app/types/play/play';
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit, OnChanges {
+export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     @Input() gameId: string = '';
+    @ViewChild('messagesContainer') messagesContainer!: ElementRef;
+    @ViewChild('textAreaContainer') textAreaContainer!: ElementRef;
 
     pageSize: number = 0;
     enableShowMoreAction = true;
     playsPagedSearch: PagedSearch<Play> | null = null;
-
-    newMessage: string = '';
+    newPlayFormGroup: FormGroup;
+    goToBotton: boolean = false;
 
     constructor(
         private snackBar: SnackbarService,
-        private playService: PlayService
-    ) {}
+        private playService: PlayService,
+        private _formBuilder: FormBuilder
+    ) {
+        this.newPlayFormGroup = this._formBuilder.group({
+            newPlayControl: ['', Validators.required],
+        });
+    }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes['gameId']) {
-            this.pageSize = 0;
-            this.showMore();
+    ngAfterViewChecked(): void {
+        if (this.goToBotton) {
+            this.scrollBotton();
+            this.goToBotton = false;
         }
     }
 
-    ngOnInit(): void {
-        this.showMore();
+    async ngOnChanges(changes: SimpleChanges): Promise<void> {
+        if (changes['gameId']) {
+            this.pageSize = 0;
+            await this.showMore();
+            this.goToBotton = true;
+        }
+    }
+
+    async ngOnInit(): Promise<void> {
+        await this.showMore();
+        this.scrollBotton();
     }
 
     async getPlays(size: number): Promise<PagedSearch<Play> | null> {
@@ -55,7 +76,7 @@ export class ChatComponent implements OnInit, OnChanges {
         return result;
     }
 
-    async showMore() {
+    async showMore(): Promise<void> {
         this.pageSize = this.pageSize + 20;
 
         this.playsPagedSearch = await this.getPlays(this.pageSize);
@@ -68,20 +89,49 @@ export class ChatComponent implements OnInit, OnChanges {
         }
     }
 
-    async onSubmit() {
-        try {
-            //const result = await this.authService.login(this.userLogin);
-        } catch (error) {
-            this.snackBar.addError(
-                'Something went wrong while attempting to send your play.'
-            );
-            console.log(`Error: ${error}`);
-        }
+    async onSubmit(): Promise<void> {
+        let newPlay: NewPlay = {
+            gameId: this.gameId,
+            prompt: this.newPlayFormGroup.get('newPlayControl')?.value ?? '',
+        };
+
+        this.playService
+            .newPlay(newPlay)
+            .then(async () => {
+                this.playsPagedSearch = await this.getPlays(this.pageSize);
+                this.newPlayFormGroup.reset();
+
+                if (this.textAreaContainer) {
+                    this.adjustTextAreaHeightElement(
+                        this.textAreaContainer
+                            .nativeElement as HTMLTextAreaElement
+                    );
+                }
+
+                this.goToBotton = true;
+            })
+            .catch(() => {
+                this.snackBar.addError(
+                    'Something went wrong while attempting to send your play.'
+                );
+            });
     }
 
-    adjustTextAreaHeight(event: Event) {
+    adjustTextAreaHeightEvent(event: Event): void {
         const textArea = event.target as HTMLTextAreaElement;
+        this.adjustTextAreaHeightElement(textArea);
+    }
+
+    adjustTextAreaHeightElement(textArea: HTMLTextAreaElement): void {
         textArea.style.height = 'auto';
         textArea.style.height = `${textArea.scrollHeight}px`;
+    }
+
+    scrollBotton(): void {
+        if (this.messagesContainer) {
+            const container: HTMLDivElement =
+                this.messagesContainer.nativeElement;
+            container.scrollTop = container.scrollHeight;
+        }
     }
 }
