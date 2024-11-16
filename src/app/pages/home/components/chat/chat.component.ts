@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import {
     AfterViewChecked,
     Component,
@@ -112,9 +113,11 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
 
                 this.goToBotton = true;
             })
-            .catch(() => {
+            .catch((error: HttpErrorResponse) => {
+                //TODO: Exibir erro e tratar
+
                 this.snackBar.addError(
-                    'Something went wrong while attempting to send your play.'
+                    'Something went wrong while attempting to send your play. Verify with the admin if you have the permissions.'
                 );
             });
     }

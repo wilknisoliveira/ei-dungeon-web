@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GameService } from 'src/app/service/game/game.service';
@@ -72,16 +73,18 @@ export class FirstStepsComponent {
             name: this.gameNameFormGroup.get('gameNameControl')?.value,
         };
 
-        this.gameService
-            .newGame(newGame)
-            .then(() => {
+        this.gameService.newGame(newGame).subscribe({
+            next: () => {
                 this.gameCreated.emit(newGame.name);
                 this.snackBar.addSuccess(`Game ${newGame.name} created!`);
-            })
-            .catch(() => {
+            },
+            error: (error: HttpErrorResponse) => {
+                //TODO: Exibir erro e tratar
+
                 this.snackBar.addError(
-                    'Something went wrong while attempting to create the game. Please, try again.'
+                    'Something went wrong while attempting to create the game. Verify with the admin if you have the permissions.'
                 );
-            });
+            },
+        });
     }
 }
