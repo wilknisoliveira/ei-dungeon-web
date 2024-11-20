@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    api: 'https://localhost:7114',
+    api: 'https://ei-dungeon-back-production.up.railway.app',
 };
