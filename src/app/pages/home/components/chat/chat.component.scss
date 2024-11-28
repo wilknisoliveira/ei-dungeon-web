@@ -20,21 +20,11 @@ body {
                     height: auto;
                     span {
                         color: $white;
-                    }
-                    .span-container {
-                        span,
-                        textarea {
-                            width: 80%;
-                        }
-                        textarea {
-                            background-color: transparent;
-                            color: $white;
-                            white-space: pre-wrap;
-                            border: none;
-                            outline: none;
-                            resize: none;
-                            overflow: hidden;
-                        }
+                        white-space: pre-wrap;
+                        overflow-wrap: break-word;
+                        width: auto;
+                        max-width: 100%;
+                        overflow: visible;
                     }
                 }
 
