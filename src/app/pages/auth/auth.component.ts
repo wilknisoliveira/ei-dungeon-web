@@ -16,6 +16,8 @@ export class AuthComponent {
         password: '',
     };
 
+    loading: boolean = false;
+
     constructor(
         private authService: AuthService,
         private router: Router,
@@ -25,8 +27,10 @@ export class AuthComponent {
     async onSubmit() {
         try {
             const result = await this.authService.login(this.userLogin);
+            this.loading = false;
             this.router.navigate(['home']);
         } catch (error) {
+            this.loading = false;
             this.snackBar.addError('Something went wrong :(');
             console.log(`Login error: ${error}`);
         }
