@@ -10,6 +10,7 @@ import {
     ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { timeout } from 'rxjs';
 import { PlayService } from 'src/app/service/play/play.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { PagedSearch } from 'src/app/types/general/paged-search';
@@ -31,6 +32,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     playsPagedSearch: PagedSearch<Play> | null = null;
     newPlayFormGroup: FormGroup;
     goToBotton: boolean = false;
+    loading: boolean = false;
 
     constructor(
         private snackBar: SnackbarService,
@@ -93,6 +95,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     }
 
     async onSubmit(): Promise<void> {
+        this.loading = true;
         let newPlay: NewPlay = {
             gameId: this.gameId,
             prompt: this.newPlayFormGroup.get('newPlayControl')?.value ?? '',
@@ -101,6 +104,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         this.playService
             .newPlay(newPlay)
             .then(async () => {
+                this.loading = false;
                 this.playsPagedSearch = await this.getPlays(this.pageSize);
                 this.newPlayFormGroup.reset();
 
@@ -115,7 +119,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
             })
             .catch((error: HttpErrorResponse) => {
                 //TODO: Exibir erro e tratar
-
+                this.loading = false;
                 this.snackBar.addError(
                     'Something went wrong while attempting to send your play. Verify with the admin if you have the permissions.'
                 );

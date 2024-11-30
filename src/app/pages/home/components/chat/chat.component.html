@@ -29,9 +29,12 @@
                     #textAreaContainer
                 ></textarea>
     
-                <button type="submit" mat-flat-button (click)="onSubmit()" [disabled]="newPlayFormGroup.get('newPlayControl')?.value == ''">
+                <button *ngIf="!loading" type="submit" mat-flat-button (click)="onSubmit()" [disabled]="newPlayFormGroup.get('newPlayControl')?.value == ''">
                     <mat-icon aria-hidden="false" aria-label="play" fontIcon="send"></mat-icon>
                 </button>
+                <div *ngIf="loading" class="loading">
+                    <app-small-loading [isLoading]="loading"></app-small-loading>
+                </div>
             </form>
         </div>
     </div>
