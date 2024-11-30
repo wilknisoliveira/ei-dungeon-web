@@ -3,6 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { GameService } from 'src/app/service/game/game.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
+import { LoadingComponent } from 'src/app/shared/loading/loading.component';
 import { NewGame } from 'src/app/types/game/new-game';
 
 @Component({
@@ -29,6 +30,8 @@ export class FirstStepsComponent {
             name: 'GURPS (Generic Universal RolePlaying System)',
         },
     ];
+
+    loading: boolean = false;
 
     constructor(
         private _formBuilder: FormBuilder,
@@ -57,6 +60,7 @@ export class FirstStepsComponent {
     }
 
     submit(): void {
+        this.loading = true;
         let newGame: NewGame = {
             systemGame:
                 this.gameSystemFormGroup.get('gameSystemControl')?.value[0],
@@ -76,11 +80,12 @@ export class FirstStepsComponent {
         this.gameService.newGame(newGame).subscribe({
             next: () => {
                 this.gameCreated.emit(newGame.name);
+                this.loading = false;
                 this.snackBar.addSuccess(`Game ${newGame.name} created!`);
             },
             error: (error: HttpErrorResponse) => {
                 //TODO: Exibir erro e tratar
-
+                this.loading = false;
                 this.snackBar.addError(
                     'Something went wrong while attempting to create the game. Verify with the admin if you have the permissions.'
                 );

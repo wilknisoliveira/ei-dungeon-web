@@ -17,6 +17,8 @@ import { MatListModule } from '@angular/material/list';
 import { FirstStepsComponent } from './home/components/first-steps/first-steps.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSliderModule } from '@angular/material/slider';
+import { LoadingComponent } from '../shared/loading/loading.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
     declarations: [
@@ -41,6 +43,7 @@ import { MatSliderModule } from '@angular/material/slider';
         MatListModule,
         MatStepperModule,
         MatSliderModule,
+        SharedModule,
     ],
     exports: [ChatComponent, FirstStepsComponent],
 })

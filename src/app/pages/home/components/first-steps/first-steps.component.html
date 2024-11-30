@@ -1,4 +1,5 @@
 <body>
+    <app-loading [isLoading]="loading"></app-loading>
     <div class="first-steps">
         <mat-stepper orientation="vertical" [linear]="true" #stepper>
             <mat-step [stepControl]="gameSystemFormGroup">
@@ -97,7 +98,6 @@
             </mat-step>
           </mat-stepper>
     </div>
-    
 </body>
 
 
