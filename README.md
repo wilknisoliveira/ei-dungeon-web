@@ -1,27 +1,74 @@
-# EiDungeonWeb
+# EI Dungeon Web
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.6.
+> Status: Developing ⚠️
 
-## Development server
+A Angular.js interface for the Ei Dungeon application. The project consists of a Role Playing Game (RPG) simulator with artificial players controlled by generative AI.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+We also have a [API](https://github.com/wilknisoliveira/ei-dungeon-back) in development.
 
-## Code scaffolding
+Do you want to know more about the project goals? Go to the 'Next steps' section.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+![Angular](https://img.shields.io/badge/Angular-0F0F11?style=flat&logo=angular&logoColor=white)
+![Boostrap](https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white)
 
-## Build
+# Index
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+-   <a href="#✔️-project-features">Project features</a>
+-   <a href="#🔨-how-to-install-this-project">Install</a>
+-   <a href="#👨‍💻-next-steps">Next steps</a>
+-   <a href="#author">Author steps</a>
 
-## Running unit tests
+# ✔️ Project features
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+-   [x] Auth Guard with Role Based JWT
+-   [x] Login page
+-   [x] Side bar game list
+-   [x] Chat plays
 
-## Running end-to-end tests
+# 🔨 How to install this project?
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+## Stack
 
-## Further help
+First of all, make sure that you have the following technologies in your environment:
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+-   Npm
+-   Angular CLI
+
+## Git clone
+
+```
+# Clone this repository
+$ git clone https://github.com/wilknisoliveira/ei-dungeon-web.git
+```
+
+## Run
+
+Now you can start the application with the following commands:
+
+```
+npm install
+ng serve
+```
+
+# 👨‍💻 Next Steps
+
+The long-term goal would be to scale the application so RPG lovers can create quick matches.
+
+-   [ ] Bug fixing
+-   [ ] Logout
+-   [ ] Delete game
+-   [ ] Keep user logged option
+-   [ ] Improve security
+-   [ ] Messages response by stream
+-   [ ] Focus on D&D system
+-   [ ] PremiumUser Enable Flow
+-   [ ] Admin page for tunning the AI responses and manage users
+-   [ ] Multilanguage
+-   [ ] Skip turn
+-   [ ] Home page
+
+# Author
+
+Wilknis Deyvis
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/wilknis/)
