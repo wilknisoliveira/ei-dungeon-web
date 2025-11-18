@@ -10,7 +10,6 @@ import {
     ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { timeout } from 'rxjs';
 import { PlayService } from 'src/app/service/play/play.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { PagedSearch } from 'src/app/types/general/paged-search';
@@ -24,6 +23,7 @@ import { Play } from 'src/app/types/play/play';
 })
 export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     @Input() gameId: string = '';
+    @Input() gameStatus: number = 0;
     @ViewChild('messagesContainer') messagesContainer!: ElementRef;
     @ViewChild('textAreaContainer') textAreaContainer!: ElementRef;
 

@@ -11,6 +11,7 @@ import { GameService } from 'src/app/service/game/game.service';
 })
 export class HomeComponent implements OnInit {
     gameSelected: string = '';
+    gameSelectedStatus: number = 0;
     pageSize = 0;
     enableShowMoreBtn: boolean = true;
 
@@ -53,8 +54,9 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    async setGame(gameId: string) {
+    async setGame(gameId: string, gameStatus: number) {
         this.gameSelected = gameId;
+        this.gameSelectedStatus = gameStatus;
     }
 
     gameCreated(gameName: string): void {
@@ -63,7 +65,6 @@ export class HomeComponent implements OnInit {
         if (gameName != null && gameName != '') {
             let gameId = this.gamePagedSearch?.list[0].id ?? '';
             this.gameSelected = gameId;
-            console.log('Game Selected: ' + gameId);
         }
     }
 }
