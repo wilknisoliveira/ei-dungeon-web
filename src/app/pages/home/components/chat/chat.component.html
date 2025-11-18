@@ -21,12 +21,12 @@
         <div class="input-area">
             <form [formGroup]="newPlayFormGroup">
                 <textarea
-                    [placeholder]="gameStatus === 0 ? 'What do you do?' : 'Esse jogo foi finalizado, crie um novo para mais uma aventura!'" 
+                    [placeholder]="game?.gameStatus === 0 ? 'What do you do?' : 'Esse jogo foi finalizado, crie um novo para mais uma aventura!'" 
                     (input)="adjustTextAreaHeightEvent($event)" 
                     rows="1"
                     formControlName="newPlayControl" 
                     name="newPlayControl"
-                    [disabled]="gameStatus === 1"
+                    [disabled]="game?.gameStatus === 1"
                     #textAreaContainer
                 ></textarea>
     
@@ -34,7 +34,7 @@
                     *ngIf="!loading" 
                     type="submit" 
                     mat-flat-button (click)="onSubmit()" 
-                    [disabled]="newPlayFormGroup.get('newPlayControl')?.value == '' || gameStatus === 1"
+                    [disabled]="newPlayFormGroup.get('newPlayControl')?.value == '' || game?.gameStatus === 1"
                 >
                     <mat-icon aria-hidden="false" aria-label="play" fontIcon="send"></mat-icon>
                 </button>

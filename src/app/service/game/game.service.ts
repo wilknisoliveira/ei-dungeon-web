@@ -26,6 +26,12 @@ export class GameService {
         return lastValueFrom(gamesPaged$);
     }
 
+    async getById(id: string): Promise<Game> {
+        const game$ = this.http.get<Game>(`${this.baseUrl}/api/Game/${id}`);
+
+        return lastValueFrom(game$);
+    }
+
     newGame(newGame: NewGame): Observable<Game> {
         return this.http.post<Game>(`${this.baseUrl}/api/Game`, newGame);
     }

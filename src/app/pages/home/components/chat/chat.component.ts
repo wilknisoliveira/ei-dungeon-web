@@ -10,8 +10,10 @@ import {
     ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { GameService } from 'src/app/service/game/game.service';
 import { PlayService } from 'src/app/service/play/play.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
+import { Game } from 'src/app/types/game/game';
 import { PagedSearch } from 'src/app/types/general/paged-search';
 import { NewPlay } from 'src/app/types/play/new-play';
 import { Play } from 'src/app/types/play/play';
@@ -23,7 +25,6 @@ import { Play } from 'src/app/types/play/play';
 })
 export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     @Input() gameId: string = '';
-    @Input() gameStatus: number = 0;
     @ViewChild('messagesContainer') messagesContainer!: ElementRef;
     @ViewChild('textAreaContainer') textAreaContainer!: ElementRef;
 
@@ -33,10 +34,12 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     newPlayFormGroup: FormGroup;
     goToBotton: boolean = false;
     loading: boolean = false;
+    game: Game | null = null;
 
     constructor(
         private snackBar: SnackbarService,
         private playService: PlayService,
+        private gameService: GameService,
         private _formBuilder: FormBuilder
     ) {
         this.newPlayFormGroup = this._formBuilder.group({
@@ -54,6 +57,8 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     }
 
     async ngOnChanges(changes: SimpleChanges): Promise<void> {
+        this.game = await this.gameService.getById(this.gameId);
+
         if (changes['gameId']) {
             this.pageSize = 0;
             await this.showMore();
@@ -62,6 +67,8 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     }
 
     async ngOnInit(): Promise<void> {
+        this.game = await this.gameService.getById(this.gameId);
+
         await this.showMore();
         this.scrollBotton();
     }
@@ -105,6 +112,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
             .newPlay(newPlay)
             .then(async () => {
                 this.loading = false;
+                this.game = await this.gameService.getById(this.gameId);
                 this.playsPagedSearch = await this.getPlays(this.pageSize);
                 this.newPlayFormGroup.reset();
 
