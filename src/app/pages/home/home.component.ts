@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+
 import { PagedSearch } from 'src/app/types/general/paged-search';
 import { Game } from 'src/app/types/game/game';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { GameService } from 'src/app/service/game/game.service';
+import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
     selector: 'app-home',
@@ -17,6 +20,7 @@ export class HomeComponent implements OnInit {
     gamePagedSearch: PagedSearch<Game> | null = null;
 
     constructor(
+        public dialog: MatDialog,
         private snackBar: SnackbarService,
         private gameService: GameService
     ) {}
@@ -88,6 +92,19 @@ export class HomeComponent implements OnInit {
                 );
                 console.log(`Error: ${error}`);
             },
+        });
+    }
+
+    openDeleteDialog(gameId: string, gameName: string): void {
+        const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+            width: '250px',
+            data: `Tem certeza que deseja apagar o jogo '${gameName}'?`,
+        });
+
+        dialogRef.afterClosed().subscribe((result: boolean): void => {
+            if (result) {
+                this.deleteGame(gameId);
+            }
         });
     }
 }

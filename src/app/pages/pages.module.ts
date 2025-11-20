@@ -19,6 +19,7 @@ import { MatStepperModule } from '@angular/material/stepper';
 import { MatSliderModule } from '@angular/material/slider';
 import { LoadingComponent } from '../shared/loading/loading.component';
 import { SharedModule } from '../shared/shared.module';
+import { MatDialogModule } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { SharedModule } from '../shared/shared.module';
         MatStepperModule,
         MatSliderModule,
         SharedModule,
+        MatDialogModule,
     ],
     exports: [ChatComponent, FirstStepsComponent],
 })
