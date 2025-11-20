@@ -35,4 +35,8 @@ export class GameService {
     newGame(newGame: NewGame): Observable<Game> {
         return this.http.post<Game>(`${this.baseUrl}/api/Game`, newGame);
     }
+
+    deleteGame(id: string): Observable<Object> {
+        return this.http.delete(`${this.baseUrl}/api/Game/${id}`);
+    }
 }

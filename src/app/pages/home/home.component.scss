@@ -38,17 +38,33 @@ body {
             }
 
             .plays {
-                display: flex;
-                flex-direction: column;
-                align-items: flex-start;
+                .game-name {
+                    display: flex;
+                    align-items: center;
+                    width: 100%;
+                    margin-bottom: 20px;
 
-                mat-icon {
-                    color: $white;
-                }
-                button {
-                    background-color: transparent;
-                    color: $white;
-                    margin: 20px;
+                    .game-button {
+                        flex: 1;
+                        display: flex;
+                        justify-content: flex-start;
+                    }
+
+                    .trash-button {
+                        flex: 0;
+                        display: flex;
+                        justify-content: flex-end;
+                    }
+
+                    button {
+                        background-color: transparent;
+                        color: $white;
+
+                        mat-icon {
+                            -webkit-text-stroke: 1px $white;
+                            color: transparent;
+                        }
+                    }
                 }
             }
         }

@@ -10,11 +10,19 @@
 
             <div class="plays">
                 <div *ngFor="let game of gamePagedSearch?.list">
-                    
-                    <button (click)="setGame(game.id)" mat-flat-button>
-                        <mat-icon aria-hidden="false" aria-label="logo" fontIcon="bolt"></mat-icon>
-                        {{ game.name }}
-                    </button>
+                    <div class="game-name">
+                        <div class="game-button">
+                            <button (click)="setGame(game.id)" mat-flat-button>
+                                <mat-icon aria-hidden="false" aria-label="logo" fontIcon="bolt"></mat-icon>
+                                {{ game.name }}
+                            </button>
+                        </div>
+                        <div class="trash-button">
+                            <button (click)="deleteGame(game.id)" mat-flat-button>
+                                <mat-icon aria-hidden="false" aria-label="logo" fontIcon="delete"></mat-icon>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="center-btn-container" *ngIf="enableShowMoreBtn">

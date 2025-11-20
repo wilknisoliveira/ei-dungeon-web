@@ -65,4 +65,29 @@ export class HomeComponent implements OnInit {
             this.gameSelected = gameId;
         }
     }
+
+    async deleteGame(gameId: string): Promise<void> {
+        this.gameService.deleteGame(gameId).subscribe({
+            next: () => {
+                if (this.gameSelected === gameId) {
+                    this.gameSelected = '';
+                }
+
+                this.gamePagedSearch?.list.splice(
+                    this.gamePagedSearch?.list.findIndex(
+                        (game) => game.id === gameId
+                    ),
+                    1
+                );
+
+                this.snackBar.addSuccess('Game deleted successfully.');
+            },
+            error: (error) => {
+                this.snackBar.addError(
+                    'Something went wrong while attempting to delete the game.'
+                );
+                console.log(`Error: ${error}`);
+            },
+        });
+    }
 }
