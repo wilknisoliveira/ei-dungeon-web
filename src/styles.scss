@@ -1,5 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
-@import "/src/app/styles/variables.scss";
+@use "@angular/material" as mat;
+@include mat.core();
+
+// @import "/src/app/styles/variables.scss";
 
 html,
 body {
@@ -10,6 +13,7 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+/*
 ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -24,4 +28,73 @@ body {
 ::-webkit-scrollbar-track {
     background-color: $secondary-color;
     border-radius: 10px;
+}
+*/
+
+// Theme system
+$my-primary: mat.define-palette(mat.$indigo-palette, 500);
+$my-accent: mat.define-palette(mat.$deep-orange-palette, A200, A100, A400);
+$my-warn: mat.define-palette(mat.$red-palette);
+
+$my-theme: mat.define-light-theme(
+    (
+        color: (
+            primary: $my-primary,
+            accent: $my-accent,
+            warn: $my-warn,
+        ),
+        typography: mat.define-typography-config(),
+        density: 0,
+    )
+);
+
+$my-theme-dark: mat.define-dark-theme(
+    (
+        color: (
+            primary: $my-primary,
+            accent: $my-accent,
+            warn: $my-warn,
+        ),
+        typography: mat.define-typography-config(),
+        density: 0,
+    )
+);
+
+// Variables
+@mixin expose-theme($theme) {
+    $colors: mat.get-color-config($theme);
+
+    $primary: map-get($colors, primary);
+    $accent: map-get($colors, accent);
+    $warn: map-get($colors, warn);
+    $is-dark: map-get($colors, is-dark);
+    $background: map-get($colors, background);
+    $foreground: map-get($colors, foreground);
+
+    --color-primary: #{mat.get-color-from-palette($primary)};
+    --color-primary-contrast: #{mat.get-color-from-palette(
+            $primary,
+            default-contrast
+        )};
+    --color-accent: #{mat.get-color-from-palette($accent)};
+    --color-warn: #{mat.get-color-from-palette($warn)};
+    --is-dark: #{$is-dark};
+
+    --background: #{map-get($background, background)};
+    --surface: #{map-get($background, card)};
+    --surface-elevated: #{map-get($background, dialog)};
+
+    --text-primary: #{map-get($foreground, text)};
+    --text-secondary: #{map-get($foreground, secondary-text)};
+}
+
+// Switch theme
+.theme-dark {
+    @include mat.all-component-themes($my-theme-dark);
+    @include expose-theme($my-theme-dark);
+}
+
+.theme-light {
+    @include mat.all-component-themes($my-theme);
+    @include expose-theme($my-theme);
 }

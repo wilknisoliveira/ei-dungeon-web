@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostBinding, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { PagedSearch } from 'src/app/types/general/paged-search';
@@ -6,6 +6,8 @@ import { Game } from 'src/app/types/game/game';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { GameService } from 'src/app/service/game/game.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
+import { FormControl } from '@angular/forms';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
     selector: 'app-home',
@@ -13,6 +15,11 @@ import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/
     styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+    switchTheme = new FormControl(false);
+    @HostBinding('class') className = '';
+    darkClass = 'theme-dark';
+    lightClass = 'theme-light';
+
     gameSelected: string = '';
     pageSize = 0;
     enableShowMoreBtn: boolean = true;
@@ -22,10 +29,25 @@ export class HomeComponent implements OnInit {
     constructor(
         public dialog: MatDialog,
         private snackBar: SnackbarService,
-        private gameService: GameService
+        private gameService: GameService,
+        private overlay: OverlayContainer,
     ) {}
 
     ngOnInit(): void {
+        this.switchTheme.valueChanges.subscribe((currentMode) => {
+            this.className = currentMode ? this.darkClass : this.lightClass;
+
+            if (currentMode) {
+                this.overlay
+                    .getContainerElement()
+                    .classList.add(this.darkClass);
+            } else {
+                this.overlay
+                    .getContainerElement()
+                    .classList.remove(this.darkClass);
+            }
+        });
+
         this.showMore();
     }
 
@@ -36,7 +58,7 @@ export class HomeComponent implements OnInit {
             result = await this.gameService.getGames('desc', listSize, 1);
         } catch (error) {
             this.snackBar.addError(
-                'Something went wrong while attempting to get the game list.'
+                'Something went wrong while attempting to get the game list.',
             );
             console.log(`Error: ${error}`);
         }
@@ -79,16 +101,16 @@ export class HomeComponent implements OnInit {
 
                 this.gamePagedSearch?.list.splice(
                     this.gamePagedSearch?.list.findIndex(
-                        (game) => game.id === gameId
+                        (game) => game.id === gameId,
                     ),
-                    1
+                    1,
                 );
 
                 this.snackBar.addSuccess('Game deleted successfully.');
             },
             error: (error) => {
                 this.snackBar.addError(
-                    'Something went wrong while attempting to delete the game.'
+                    'Something went wrong while attempting to delete the game.',
                 );
                 console.log(`Error: ${error}`);
             },

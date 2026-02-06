@@ -2,49 +2,87 @@
     <mat-drawer-container class="drawer" autosize>
         <mat-drawer #drawer class="sidenav" mode="side" opened>
             <div class="center-btn-container">
-                <button class="new-play-btn" (click)="gameSelected = ''" mat-raised-button>
-                    <mat-icon aria-hidden="false" aria-label="logo" fontIcon="add"></mat-icon>New Role
+                <button
+                    class="new-play-btn"
+                    (click)="gameSelected = ''"
+                    mat-raised-button
+                >
+                    <mat-icon
+                        aria-hidden="false"
+                        aria-label="logo"
+                        fontIcon="add"
+                    ></mat-icon
+                    >New Role
                 </button>
             </div>
-          
 
             <div class="plays">
                 <div *ngFor="let game of gamePagedSearch?.list">
                     <div class="game-name">
                         <div class="game-button">
                             <button (click)="setGame(game.id)" mat-flat-button>
-                                <mat-icon aria-hidden="false" aria-label="logo" fontIcon="bolt"></mat-icon>
+                                <mat-icon
+                                    aria-hidden="false"
+                                    aria-label="logo"
+                                    fontIcon="bolt"
+                                ></mat-icon>
                                 {{ game.name }}
                             </button>
                         </div>
                         <div class="trash-button">
-                            <button (click)="openDeleteDialog(game.id, game.name)" mat-flat-button>
-                                <mat-icon aria-hidden="false" aria-label="logo" fontIcon="delete"></mat-icon>
+                            <button
+                                (click)="openDeleteDialog(game.id, game.name)"
+                                mat-flat-button
+                            >
+                                <mat-icon
+                                    aria-hidden="false"
+                                    aria-label="logo"
+                                    fontIcon="delete"
+                                ></mat-icon>
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="center-btn-container" *ngIf="enableShowMoreBtn">
-                <button class="show-more-btn" (click)="showMore()" mat-flat-button>
+                <button
+                    class="show-more-btn"
+                    (click)="showMore()"
+                    mat-flat-button
+                >
                     Show more
                 </button>
             </div>
         </mat-drawer>
-      
+
         <div class="sidenav-content">
-            <div class="nav-btn-container">
-                <button type="button" mat-button (click)="drawer.toggle()">
-                    <mat-icon aria-hidden="false" aria-label="logo" fontIcon="menu"></mat-icon>
-                </button>
+            <div class="header-menu">
+                <div class="nav-btn-container">
+                    <button type="button" mat-button (click)="drawer.toggle()">
+                        <mat-icon
+                            aria-hidden="false"
+                            aria-label="logo"
+                            fontIcon="menu"
+                        ></mat-icon>
+                    </button>
+                </div>
+                <div class="theme-button">
+                    <mat-slide-toggle [formControl]="switchTheme"
+                        >Slide me!</mat-slide-toggle
+                    >
+                </div>
             </div>
-            
+
             <div class="main-content">
-                    <app-chat *ngIf="gameSelected != ''" [gameId]="gameSelected"></app-chat>
-                    <app-first-steps *ngIf="gameSelected == ''" (gameCreated)="gameCreated($event)"></app-first-steps>
+                <app-chat
+                    *ngIf="gameSelected != ''"
+                    [gameId]="gameSelected"
+                ></app-chat>
+                <app-first-steps
+                    *ngIf="gameSelected == ''"
+                    (gameCreated)="gameCreated($event)"
+                ></app-first-steps>
             </div>
         </div>
-      
     </mat-drawer-container>
 </body>
-
