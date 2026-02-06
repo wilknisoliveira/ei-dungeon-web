@@ -21,6 +21,8 @@ import { LoadingComponent } from '../shared/loading/loading.component';
 import { SharedModule } from '../shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
     declarations: [
@@ -48,6 +50,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
         SharedModule,
         MatDialogModule,
         MatSlideToggleModule,
+        MatSelectModule,
+        MatCardModule,
     ],
     exports: [ChatComponent, FirstStepsComponent],
 })

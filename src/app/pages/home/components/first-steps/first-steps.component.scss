@@ -1,19 +1,28 @@
-@import "../../../../styles/variables.scss";
+.first-steps {
+    background-color: var(--background);
+    margin: 5rem;
 
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100%;
 
-    .first-steps {
-        .slider {
-            margin: 30px;
-            width: 50%;
+        .value-card-container {
+            display: flex;
+            justify-content: space-between;
+            box-sizing: border-box;
+            margin-right: 2rem;
         }
 
-        .text-area-form {
-            width: 80%;
-            color: red;
+        mat-slider {
+            width: 95%;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin: 2rem;
         }
     }
 }

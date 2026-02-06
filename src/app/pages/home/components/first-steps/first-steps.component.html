@@ -1,103 +1,100 @@
-<body>
-    <app-loading [isLoading]="loading"></app-loading>
-    <div class="first-steps">
-        <mat-stepper orientation="vertical" [linear]="true" #stepper>
-            <mat-step [stepControl]="gameSystemFormGroup">
-              <form [formGroup]="gameSystemFormGroup">
-                <ng-template matStepLabel>Game System</ng-template>
-                <mat-selection-list formControlName="gameSystemControl" name="gameSystemControl" [multiple]="false">
-                      <mat-list-option *ngFor="let gameSystem of gameSystems" [value]="gameSystem.value">{{gameSystem.name}}</mat-list-option>
-                </mat-selection-list>
-                <div>
-                  <button mat-button matStepperNext>Next</button>
-                </div>
-              </form>
-            </mat-step>
-            <mat-step [stepControl]="numberOfArtificialPlayersFormGroup">
-              <form [formGroup]="numberOfArtificialPlayersFormGroup">
-                <ng-template matStepLabel>Set the number of artificial players</ng-template>
-                <mat-slider 
-                    class="slider"
-                    [max]="5"
-                    [min]="0"
-                    [step]="1"
-                    [discrete]="true"
-                    [showTickMarks]="false">
-                  <input 
-                    matSliderThumb 
-                    formControlName="numberOfArtificialPlayersControl" 
-                    name="numberOfArtificialPlayersControl" 
-                    #slider
-                  >
-                </mat-slider>
-                <div>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext>Next</button>
-                </div>
-              </form>
-            </mat-step>
-            <mat-step [stepControl]="characterNameFormGroup">
-              <form [formGroup]="characterNameFormGroup">
-                <ng-template matStepLabel>Full fill your character name</ng-template>
-                <mat-form-field class="text-area-form">
-                  <mat-label>Set the character name...</mat-label>
-                  <input 
-                    matInput 
-                    placeholder="Name..."
-                    formControlName="characterNameControl" 
-                    name="characterNameControl">
-                </mat-form-field>
-                <div>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext>Next</button>
-                </div>
-              </form>
-            </mat-step>
-            <mat-step [stepControl]="characterDescriptionFormGroup">
-              <form [formGroup]="characterDescriptionFormGroup">
-                <ng-template matStepLabel>Full fill your character description</ng-template>
-                <mat-form-field class="text-area-form">
-                  <mat-label>Tell your story...</mat-label>
-                  <textarea 
-                    matInput 
-                    placeholder="I'm..."
-                    formControlName="characterDescriptionControl" 
-                    name="characterDescriptionControl"
-                    rows="5"></textarea>
-                </mat-form-field>
-                <div>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext>Next</button>
-                </div>
-              </form>
-            </mat-step>
-            <mat-step [stepControl]="gameNameFormGroup">
-              <form [formGroup]="gameNameFormGroup">
-                <ng-template matStepLabel>Set your game name</ng-template>
-                <mat-form-field class="text-area-form">
-                  <mat-label>Set the game name...</mat-label>
-                  <input 
-                    matInput 
-                    placeholder="Game name..."
-                    formControlName="gameNameControl" 
-                    name="gameNameControl">
-                </mat-form-field>
-                <div>
-                  <button mat-button matStepperPrevious>Back</button>
-                  <button mat-button matStepperNext>Next</button>
-                </div>
-              </form>
-            </mat-step>
-            <mat-step>
-              <ng-template matStepLabel>Done</ng-template>
-              <p>You are now done.</p>
-              <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="submit()">Start</button>
-              </div>
-            </mat-step>
-          </mat-stepper>
-    </div>
-</body>
+<app-loading [isLoading]="loading"></app-loading>
+<div class="first-steps">
+    <form
+        [formGroup]="gameFormGroup"
+        #gameNgForm="ngForm"
+        (ngSubmit)="onSubmit()"
+    >
+        <mat-form-field>
+            <mat-label>Game name</mat-label>
+            <input
+                matInput
+                #nameInput
+                minlength="2"
+                maxlength="50"
+                id="gameName"
+                formControlName="gameNameControl"
+                placeholder="Nome do jogo"
+            />
+            <mat-hint align="end">{{ nameInput.value.length }} / 50</mat-hint>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Character name</mat-label>
+            <input
+                matInput
+                #characterNameInput
+                minlength="4"
+                maxlength="50"
+                id="characterName"
+                formControlName="characterNameControl"
+                placeholder="Nome do personagem"
+            />
+            <mat-hint align="end"
+                >{{ characterNameInput.value.length }} / 50</mat-hint
+            >
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Character description</mat-label>
+            <textarea
+                matInput
+                #characterDescriptionInput
+                minlength="4"
+                maxlength="2000"
+                placeholder="Descrição do personagem"
+                id="characterDescription"
+                formControlName="characterDescriptionControl"
+            ></textarea>
+            <mat-hint align="end"
+                >{{ characterDescriptionInput.value.length }} / 2000</mat-hint
+            >
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Race</mat-label>
+            <mat-select formControlName="characterRaceControl">
+                <mat-option *ngFor="let race of races" [value]="race.value">
+                    {{ race.name }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-card>
+            <mat-card-content>
+                <h2>Skills</h2>
 
-
+                <div formGroupName="skillsGroup">
+                    <div *ngFor="let skill of skills">
+                        <div class="value-card-container">
+                            <label [id]="skill.value + '-label'">{{
+                                skill.name
+                            }}</label>
+                            <span>{{
+                                gameFormGroup.get("skillsGroup." + skill.value)
+                                    ?.value
+                            }}</span>
+                        </div>
+                        <mat-slider
+                            [max]="20"
+                            [min]="12"
+                            [step]="1"
+                            [attr.aria-labelledby]="skill.value + '-label'"
+                        >
+                            <input
+                                matSliderThumb
+                                [formControlName]="skill.value"
+                            />
+                        </mat-slider>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        <div class="form-actions">
+            <button
+                mat-raised-button
+                color="primary"
+                type="submit"
+                [disabled]="gameFormGroup.invalid || loading"
+            >
+                Start game
+            </button>
+        </div>
+    </form>
+</div>

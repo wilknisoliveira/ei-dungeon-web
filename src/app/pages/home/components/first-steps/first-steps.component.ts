@@ -1,9 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { GameService } from 'src/app/service/game/game.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
-import { LoadingComponent } from 'src/app/shared/loading/loading.component';
 import { NewGame } from 'src/app/types/game/new-game';
 
 @Component({
@@ -14,21 +13,28 @@ import { NewGame } from 'src/app/types/game/new-game';
 export class FirstStepsComponent {
     @Output() gameCreated = new EventEmitter<string>();
 
-    gameSystemFormGroup: FormGroup;
-    numberOfArtificialPlayersFormGroup: FormGroup;
-    characterDescriptionFormGroup: FormGroup;
-    characterNameFormGroup: FormGroup;
-    gameNameFormGroup: FormGroup;
+    @ViewChild('gameNgForm') gameNgForm!: NgForm;
 
-    gameSystems: { value: string; name: string }[] = [
-        { value: 'Dungeons & Dragons (D&D)', name: 'Dungeons & Dragons (D&D)' },
-        { value: 'Pathfinder', name: 'Pathfinder' },
-        { value: 'Call of Cthulhu', name: 'Call of Cthulhu' },
-        { value: 'Shadowrun', name: 'Shadowrun' },
-        {
-            value: 'GURPS (Generic Universal RolePlaying System)',
-            name: 'GURPS (Generic Universal RolePlaying System)',
-        },
+    gameFormGroup: FormGroup;
+    races: { name: string; value: string }[] = [
+        { name: 'Human', value: 'Human' },
+        { name: 'Elf', value: 'Elf' },
+        { name: 'Dwarf', value: 'Dwarf' },
+        { name: 'HalfElf', value: 'HalfElf' },
+        { name: 'Halfling', value: 'Halfling' },
+        { name: 'Tiefling', value: 'Tiefling' },
+        { name: 'Dragonborn', value: 'Dragonborn' },
+        { name: 'HalfOrc', value: 'HalfOrc' },
+        { name: 'Gnome', value: 'Gnome' },
+    ];
+
+    skills: { name: string; value: string }[] = [
+        { name: 'Strength', value: 'Strength' },
+        { name: 'Dexterity', value: 'Dexterity' },
+        { name: 'Intelligence', value: 'Intelligence' },
+        { name: 'Constitution', value: 'Constitution' },
+        { name: 'Charisma', value: 'Charisma' },
+        { name: 'Wisdom', value: 'Wisdom' },
     ];
 
     loading: boolean = false;
@@ -36,45 +42,45 @@ export class FirstStepsComponent {
     constructor(
         private _formBuilder: FormBuilder,
         private gameService: GameService,
-        private snackBar: SnackbarService
+        private snackBar: SnackbarService,
     ) {
-        this.gameSystemFormGroup = this._formBuilder.group({
-            gameSystemControl: ['', Validators.required],
-        });
-
-        this.numberOfArtificialPlayersFormGroup = this._formBuilder.group({
-            numberOfArtificialPlayersControl: [0, Validators.required],
-        });
-
-        this.characterNameFormGroup = this._formBuilder.group({
-            characterNameControl: ['', Validators.required],
-        });
-
-        this.characterDescriptionFormGroup = this._formBuilder.group({
-            characterDescriptionControl: ['', Validators.required],
-        });
-
-        this.gameNameFormGroup = this._formBuilder.group({
+        this.gameFormGroup = this._formBuilder.group({
             gameNameControl: ['', Validators.required],
+            characterNameControl: ['', Validators.required],
+            characterDescriptionControl: ['', Validators.required],
+            characterRaceControl: ['', Validators.required],
+            skillsGroup: this._formBuilder.group({
+                Strength: [12, Validators.required],
+                Dexterity: [12, Validators.required],
+                Constitution: [12, Validators.required],
+                Intelligence: [12, Validators.required],
+                Wisdom: [12, Validators.required],
+                Charisma: [12, Validators.required],
+            }),
         });
     }
 
-    submit(): void {
+    onSubmit(): void {
         this.loading = true;
         let newGame: NewGame = {
-            systemGame:
-                this.gameSystemFormGroup.get('gameSystemControl')?.value[0],
-            numberOfArtificialPlayers:
-                this.numberOfArtificialPlayersFormGroup.get(
-                    'numberOfArtificialPlayersControl'
-                )?.value,
-            characterName: this.characterNameFormGroup.get(
-                'characterNameControl'
+            characterDescription: this.gameFormGroup.get(
+                'characterDescriptionControl',
             )?.value,
-            characterDescription: this.characterDescriptionFormGroup.get(
-                'characterDescriptionControl'
-            )?.value,
-            name: this.gameNameFormGroup.get('gameNameControl')?.value,
+            characterName: this.gameFormGroup.get('characterNameControl')
+                ?.value,
+            name: this.gameFormGroup.get('gameNameControl')?.value,
+            race: this.gameFormGroup.get('characterRaceControl')?.value,
+            skills: {
+                Strength: this.gameFormGroup.get('skillsGroup.Strength')?.value,
+                Dexterity: this.gameFormGroup.get('skillsGroup.Dexterity')
+                    ?.value,
+                Constitution: this.gameFormGroup.get('skillsGroup.Constitution')
+                    ?.value,
+                Intelligence: this.gameFormGroup.get('skillsGroup.Intelligence')
+                    ?.value,
+                Wisdom: this.gameFormGroup.get('skillsGroup.Wisdom')?.value,
+                Charisma: this.gameFormGroup.get('skillsGroup.Charisma')?.value,
+            },
         };
 
         this.gameService.newGame(newGame).subscribe({
@@ -87,7 +93,7 @@ export class FirstStepsComponent {
                 //TODO: Exibir erro e tratar
                 this.loading = false;
                 this.snackBar.addError(
-                    'Something went wrong while attempting to create the game. Verify with the admin if you have the permissions.'
+                    'Something went wrong while attempting to create the game. Verify with the admin if you have the permissions.',
                 );
             },
         });
