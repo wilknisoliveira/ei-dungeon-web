@@ -67,9 +67,15 @@
                     </button>
                 </div>
                 <div class="theme-button">
-                    <mat-slide-toggle [formControl]="switchTheme"
-                        >Slide me!</mat-slide-toggle
+                    <button
+                        mat-icon-button
+                        aria-label="Dark/Light mode"
+                        (click)="toggleTheme()"
                     >
+                        <mat-icon>{{
+                            switchTheme.value ? "light_mode" : "dark_mode"
+                        }}</mat-icon>
+                    </button>
                 </div>
             </div>
 

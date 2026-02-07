@@ -129,4 +129,8 @@ export class HomeComponent implements OnInit {
             }
         });
     }
+
+    toggleTheme(): void {
+        this.switchTheme.setValue(!this.switchTheme.value);
+    }
 }
