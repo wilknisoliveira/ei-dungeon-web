@@ -1,20 +1,22 @@
 body {
     background-color: var(--background);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    overflow-y: auto;
 
     main {
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        width: clamp(320px, 50%, 600px);
 
         .login {
             display: flex;
             flex-direction: column;
             background-color: var(--surface);
-            padding: 30px 110px 30px 110px;
-            border-radius: 20px;
+            padding: 2rem 5rem 2rem 5rem;
+            border-radius: 1rem;
 
             .theme-button {
                 width: 100%;
@@ -26,17 +28,17 @@ body {
                 display: flex;
                 align-items: center;
                 color: var(--text-primary);
-                margin-bottom: 20px;
+                margin-bottom: 1.5rem;
                 font-size: x-large;
 
                 mat-icon {
-                    margin-right: 10px;
+                    margin-right: 0.5rem;
                 }
             }
 
             .description {
                 color: var(--text-secondary);
-                margin-bottom: 20px;
+                margin-bottom: 1rem;
             }
 
             form {
@@ -44,27 +46,16 @@ body {
                 flex-direction: column;
 
                 mat-form-field {
-                    min-width: 390px;
-                    max-width: 43px;
-                    width: 100%;
-                }
-
-                mat-form-field {
-                    min-width: 390px;
-                    max-width: 43px;
-                    width: 100%;
+                    width: clamp(200px, 100%, 600px);
                 }
 
                 .login-button {
                     margin: 1rem 0 2rem 0;
 
                     button {
-                        font-size: 14px;
+                        font-size: medium;
                         height: 100%;
-                        width: 100%;
-                        height: 100%;
-                        min-height: 43px;
-                        max-width: 390px;
+                        width: clamp(200px, 100%, 600px);
                     }
                 }
             }
@@ -73,7 +64,7 @@ body {
         .sign-up {
             color: var(--text-secondary);
             text-align: center;
-            padding-top: 20px;
+            margin: 1rem 0;
 
             a {
                 color: var(--text-primary);
