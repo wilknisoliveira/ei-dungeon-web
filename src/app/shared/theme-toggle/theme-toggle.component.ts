@@ -9,7 +9,7 @@ import { DOCUMENT } from '@angular/common';
     styleUrls: ['./theme-toggle.component.scss'],
 })
 export class ThemeToggleComponent implements OnInit {
-    switchTheme = new FormControl(true);
+    isDarkMode = new FormControl(true);
     darkClass = 'theme-dark';
     lightClass = 'theme-light';
 
@@ -19,27 +19,40 @@ export class ThemeToggleComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        this.document.body.classList.remove(this.lightClass);
-        this.document.body.classList.add(this.darkClass);
+        const savedTheme = localStorage.getItem('app-theme') ?? this.darkClass;
+        if (savedTheme === this.lightClass) {
+            this.isDarkMode.setValue(false);
+        }
 
-        this.switchTheme.valueChanges.subscribe((isDarkMode) => {
-            if (isDarkMode) {
-                this.document.body.classList.add(this.darkClass);
-                this.document.body.classList.remove(this.lightClass);
-                this.overlay
-                    .getContainerElement()
-                    .classList.add(this.darkClass);
-            } else {
-                this.document.body.classList.add(this.lightClass);
-                this.document.body.classList.remove(this.darkClass);
-                this.overlay
-                    .getContainerElement()
-                    .classList.remove(this.darkClass);
-            }
+        this.setTheme(savedTheme === this.darkClass);
+
+        this.isDarkMode.valueChanges.subscribe((isDarkMode) => {
+            this.setTheme(isDarkMode ?? true);
         });
     }
 
     toggleTheme(): void {
-        this.switchTheme.setValue(!this.switchTheme.value);
+        this.isDarkMode.setValue(!this.isDarkMode.value);
+    }
+
+    setTheme(isDarkMode: boolean): void {
+        localStorage.setItem(
+            'app-theme',
+            isDarkMode ? this.darkClass : this.lightClass,
+        );
+
+        if (isDarkMode) {
+            this.document.body.classList.add(this.darkClass);
+            this.document.body.classList.remove(this.lightClass);
+            this.overlay.getContainerElement().classList.add(this.darkClass);
+            this.overlay
+                .getContainerElement()
+                .classList.remove(this.lightClass);
+        } else {
+            this.document.body.classList.add(this.lightClass);
+            this.document.body.classList.remove(this.darkClass);
+            this.overlay.getContainerElement().classList.add(this.lightClass);
+            this.overlay.getContainerElement().classList.remove(this.darkClass);
+        }
     }
 }
