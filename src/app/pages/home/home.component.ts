@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { PagedSearch } from 'src/app/types/general/paged-search';
@@ -6,8 +6,6 @@ import { Game } from 'src/app/types/game/game';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { GameService } from 'src/app/service/game/game.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
-import { FormControl } from '@angular/forms';
-import { OverlayContainer } from '@angular/cdk/overlay';
 
 @Component({
     selector: 'app-home',
@@ -15,11 +13,6 @@ import { OverlayContainer } from '@angular/cdk/overlay';
     styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-    switchTheme = new FormControl(false);
-    @HostBinding('class') className = '';
-    darkClass = 'theme-dark';
-    lightClass = 'theme-light';
-
     gameSelected: string = '';
     pageSize = 0;
     enableShowMoreBtn: boolean = true;
@@ -30,24 +23,9 @@ export class HomeComponent implements OnInit {
         public dialog: MatDialog,
         private snackBar: SnackbarService,
         private gameService: GameService,
-        private overlay: OverlayContainer,
     ) {}
 
     ngOnInit(): void {
-        this.switchTheme.valueChanges.subscribe((currentMode) => {
-            this.className = currentMode ? this.darkClass : this.lightClass;
-
-            if (currentMode) {
-                this.overlay
-                    .getContainerElement()
-                    .classList.add(this.darkClass);
-            } else {
-                this.overlay
-                    .getContainerElement()
-                    .classList.remove(this.darkClass);
-            }
-        });
-
         this.showMore();
     }
 
@@ -128,9 +106,5 @@ export class HomeComponent implements OnInit {
                 this.deleteGame(gameId);
             }
         });
-    }
-
-    toggleTheme(): void {
-        this.switchTheme.setValue(!this.switchTheme.value);
     }
 }

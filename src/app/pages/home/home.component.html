@@ -67,15 +67,7 @@
                     </button>
                 </div>
                 <div class="theme-button">
-                    <button
-                        mat-icon-button
-                        aria-label="Dark/Light mode"
-                        (click)="toggleTheme()"
-                    >
-                        <mat-icon>{{
-                            switchTheme.value ? "light_mode" : "dark_mode"
-                        }}</mat-icon>
-                    </button>
+                    <app-theme-toggle></app-theme-toggle>
                 </div>
             </div>
 
