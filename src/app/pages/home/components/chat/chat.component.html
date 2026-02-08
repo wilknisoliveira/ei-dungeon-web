@@ -2,15 +2,21 @@
     <div class="messages" #messagesContainer>
         <div class="messages-content">
             <mat-list role="list">
-                <mat-list-item 
-                    *ngFor="let play of playsPagedSearch?.list?.slice()?.reverse()" 
-                    role="listitem" 
-                    [ngClass]="{'user' : play.playerDtoResponse.type === 0, 'other-player' : play.playerDtoResponse.type > 0}"
+                <mat-list-item
+                    *ngFor="
+                        let play of playsPagedSearch?.list?.slice()?.reverse()
+                    "
+                    role="listitem"
+                    [ngClass]="{
+                        user: play.playerDtoResponse.type === 0,
+                        'other-player': play.playerDtoResponse.type > 0,
+                    }"
                 >
                     <div class="span-container">
-                        <span matListItemTitle>{{ play.playerDtoResponse.name }}</span>
-                        <span
-                        >{{ play.prompt }}</span>
+                        <span matListItemTitle>{{
+                            play.playerDtoResponse.name
+                        }}</span>
+                        <span>{{ play.prompt }}</span>
                     </div>
                 </mat-list-item>
             </mat-list>
@@ -21,28 +27,42 @@
         <div class="input-area">
             <form [formGroup]="newPlayFormGroup">
                 <textarea
-                    [placeholder]="game?.gameStatus === 0 ? 'What do you do?' : 'Esse jogo foi finalizado, crie um novo para mais uma aventura!'" 
-                    (input)="adjustTextAreaHeightEvent($event)" 
+                    [placeholder]="
+                        game?.gameStatus === 0
+                            ? 'What do you do?'
+                            : 'Esse jogo foi finalizado, crie um novo para mais uma aventura!'
+                    "
+                    (input)="adjustTextAreaHeightEvent($event)"
                     rows="1"
-                    formControlName="newPlayControl" 
+                    formControlName="newPlayControl"
                     name="newPlayControl"
                     [disabled]="game?.gameStatus === 1"
                     #textAreaContainer
                 ></textarea>
-    
-                <button 
-                    *ngIf="!loading" 
-                    type="submit" 
-                    mat-flat-button (click)="onSubmit()" 
-                    [disabled]="newPlayFormGroup.get('newPlayControl')?.value == '' || game?.gameStatus === 1"
+
+                <button
+                    *ngIf="!loading"
+                    type="submit"
+                    mat-icon-button
+                    color="primary"
+                    (click)="onSubmit()"
+                    [disabled]="
+                        newPlayFormGroup.get('newPlayControl')?.value == '' ||
+                        game?.gameStatus === 1
+                    "
                 >
-                    <mat-icon aria-hidden="false" aria-label="play" fontIcon="send"></mat-icon>
+                    <mat-icon
+                        aria-hidden="false"
+                        aria-label="play"
+                        fontIcon="send"
+                    ></mat-icon>
                 </button>
                 <div *ngIf="loading" class="loading">
-                    <app-small-loading [isLoading]="loading"></app-small-loading>
+                    <app-small-loading
+                        [isLoading]="loading"
+                    ></app-small-loading>
                 </div>
             </form>
         </div>
     </div>
 </body>
-
