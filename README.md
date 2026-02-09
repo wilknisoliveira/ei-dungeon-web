@@ -8,22 +8,22 @@ We also have a [API](https://github.com/wilknisoliveira/ei-dungeon-back) in deve
 
 Do you want to know more about the project goals? Go to the 'Next steps' section.
 
-![Angular](https://img.shields.io/badge/Angular-0F0F11?style=flat&logo=angular&logoColor=white)
-![Boostrap](https://img.shields.io/badge/Bootstrap-7952B3?style=flat&logo=bootstrap&logoColor=white)
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![Angular Material](https://img.shields.io/badge/%20-Angular%20Material-blue?style=for-the-badge&logo=angular)
 
 # Index
 
--   <a href="#✔️-project-features">Project features</a>
--   <a href="#🔨-how-to-install-this-project">Install</a>
--   <a href="#👨‍💻-next-steps">Next steps</a>
--   <a href="#author">Author steps</a>
+- <a href="#✔️-project-features">Project features</a>
+- <a href="#🔨-how-to-install-this-project">Install</a>
+- <a href="#👨‍💻-next-steps">Next steps</a>
+- <a href="#author">Author steps</a>
 
 # ✔️ Project features
 
--   [x] Auth Guard with Role Based JWT
--   [x] Login page
--   [x] Side bar game list
--   [x] Chat plays
+- [x] Auth Guard with Role Based JWT
+- [x] Login page
+- [x] Side bar game list
+- [x] Chat plays
 
 # 🔨 How to install this project?
 
@@ -31,8 +31,8 @@ Do you want to know more about the project goals? Go to the 'Next steps' section
 
 First of all, make sure that you have the following technologies in your environment:
 
--   Npm
--   Angular CLI
+- Npm
+- Angular CLI
 
 ## Git clone
 
@@ -54,18 +54,16 @@ ng serve
 
 The long-term goal would be to scale the application so RPG lovers can create quick matches.
 
--   [ ] Bug fixing
--   [ ] Logout
--   [ ] Delete game
--   [ ] Keep user logged option
--   [ ] Improve security
--   [ ] Messages response by stream
--   [ ] Focus on D&D system
--   [ ] PremiumUser Enable Flow
--   [ ] Admin page for tunning the AI responses and manage users
--   [ ] Multilanguage
--   [ ] Skip turn
--   [ ] Home page
+- [ ] Bug fixing
+- [ ] Logout
+- [ ] Delete game
+- [ ] Keep user logged option
+- [ ] Improve security
+- [ ] Messages response by stream
+- [ ] PremiumUser Enable Flow
+- [ ] Admin page for tunning the AI responses and manage users
+- [ ] Multilanguage
+- [ ] Home page
 
 # Author
 
