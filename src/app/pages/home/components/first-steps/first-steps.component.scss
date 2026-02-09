@@ -1,6 +1,12 @@
 .first-steps {
     background-color: var(--background);
-    margin: 5rem;
+    padding: 0 5rem;
+    overflow-y: auto;
+    height: 100%;
+
+    h2 {
+        margin-bottom: 2rem;
+    }
 
     form {
         display: flex;
@@ -22,7 +28,7 @@
         .form-actions {
             display: flex;
             justify-content: flex-end;
-            margin: 2rem;
+            margin: 2rem 0;
         }
     }
 }
