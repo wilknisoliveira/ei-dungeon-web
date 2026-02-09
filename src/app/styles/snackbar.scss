@@ -1,7 +1,7 @@
 .snackbar-error {
-    border-color: red;
+    border-color: var(--color-warn);
 }
 
 .snackbar-sucess {
-    border-color: green;
+    border-color: var(--color-primary);
 }
