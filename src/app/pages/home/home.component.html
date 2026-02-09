@@ -1,6 +1,6 @@
-<body>
-    <mat-drawer-container class="drawer" autosize>
-        <mat-drawer #drawer class="sidenav" mode="side" opened>
+<section class="main-container">
+    <mat-drawer-container autosize>
+        <mat-drawer #drawer mode="side" opened>
             <div class="center-btn-container">
                 <button
                     class="new-play-btn"
@@ -55,7 +55,7 @@
             </div>
         </mat-drawer>
 
-        <div class="sidenav-content">
+        <mat-drawer-content>
             <div class="header-menu">
                 <div class="nav-btn-container">
                     <button type="button" mat-button (click)="drawer.toggle()">
@@ -81,6 +81,6 @@
                     (gameCreated)="gameCreated($event)"
                 ></app-first-steps>
             </div>
-        </div>
+        </mat-drawer-content>
     </mat-drawer-container>
-</body>
+</section>
