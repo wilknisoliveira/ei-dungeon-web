@@ -1,58 +1,56 @@
-<body>
-    <main>
+<section>
+    <div class="main-container">
         <app-loading [isLoading]="loading"></app-loading>
         <div class="login">
             <div class="theme-button">
                 <app-theme-toggle></app-theme-toggle>
             </div>
-            <section>
-                <div class="title">
-                    <mat-icon
-                        aria-hidden="false"
-                        aria-label="logo"
-                        fontIcon="explore"
-                    ></mat-icon
-                    >EI-DUNGEON
+            <div class="title">
+                <mat-icon
+                    aria-hidden="false"
+                    aria-label="logo"
+                    fontIcon="explore"
+                ></mat-icon
+                >EI-DUNGEON
+            </div>
+            <div class="description">Log in to your account</div>
+
+            <form (ngSubmit)="onSubmit()" #form="ngForm">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Username</mat-label>
+                    <input
+                        matInput
+                        [(ngModel)]="userLogin.userName"
+                        name="username"
+                        required
+                    />
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Enter your password</mat-label>
+                    <input
+                        matInput
+                        [type]="hide() ? 'password' : 'text'"
+                        [(ngModel)]="userLogin.password"
+                        name="password"
+                        required
+                    />
+                </mat-form-field>
+
+                <div class="login-button">
+                    <button
+                        type="submit"
+                        mat-flat-button
+                        color="primary"
+                        [disabled]="form.form.invalid"
+                    >
+                        Login
+                    </button>
                 </div>
-                <div class="description">Log in to your account</div>
-
-                <form (ngSubmit)="onSubmit()" #form="ngForm">
-                    <mat-form-field class="example-full-width">
-                        <mat-label>Username</mat-label>
-                        <input
-                            matInput
-                            [(ngModel)]="userLogin.userName"
-                            name="username"
-                            required
-                        />
-                    </mat-form-field>
-
-                    <mat-form-field>
-                        <mat-label>Enter your password</mat-label>
-                        <input
-                            matInput
-                            [type]="hide() ? 'password' : 'text'"
-                            [(ngModel)]="userLogin.password"
-                            name="password"
-                            required
-                        />
-                    </mat-form-field>
-
-                    <div class="login-button">
-                        <button
-                            type="submit"
-                            mat-flat-button
-                            color="primary"
-                            [disabled]="form.form.invalid"
-                        >
-                            Login
-                        </button>
-                    </div>
-                </form>
-            </section>
+            </form>
         </div>
         <div class="sign-up">
             Don't have an account? <a [routerLink]="['/signup']">Sign Up Now</a>
         </div>
-    </main>
-</body>
+    </div>
+</section>
