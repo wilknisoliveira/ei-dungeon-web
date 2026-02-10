@@ -59,6 +59,7 @@ section {
                         font-size: medium;
                         height: 100%;
                         width: clamp(200px, 100%, 600px);
+                        padding: 0.5rem 0;
                     }
                 }
             }
@@ -67,7 +68,7 @@ section {
         .sign-up {
             color: var(--text-secondary);
             text-align: center;
-            margin: 1rem 0;
+            margin-top: 1rem;
 
             a {
                 color: var(--color-accent);
