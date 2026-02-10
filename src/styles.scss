@@ -2,20 +2,12 @@
 @use "@angular/material" as mat;
 @include mat.core();
 
-html,
-body {
-    margin: 0;
-    height: 100vh;
-    font-family: Roboto, "Helvetica Neue", sans-serif;
-    background-color: var(--background);
-}
-
 // Theme system
 $my-primary: mat.define-palette(mat.$indigo-palette, 500);
 $my-accent: mat.define-palette(mat.$deep-orange-palette, A200, A100, A400);
 $my-warn: mat.define-palette(mat.$red-palette);
 
-$my-theme: mat.define-light-theme(
+$my-theme-light: mat.define-light-theme(
     (
         color: (
             primary: $my-primary,
@@ -39,7 +31,7 @@ $my-theme-dark: mat.define-dark-theme(
     )
 );
 
-// Variables
+// Set tokens
 @mixin expose-theme($theme) {
     $colors: mat.get-color-config($theme);
 
@@ -67,13 +59,24 @@ $my-theme-dark: mat.define-dark-theme(
     --text-secondary: #{map-get($foreground, secondary-text)};
 }
 
-// Switch theme
-.theme-dark {
-    @include mat.all-component-themes($my-theme-dark);
-    @include expose-theme($my-theme-dark);
+// Default theme (Dark)
+@include mat.all-component-themes($my-theme-dark);
+
+// Light theme, applied when .theme-light class is present
+.theme-light {
+    @include mat.all-component-colors(
+        $my-theme-light
+    ); // Use all-component-colors prevents duplication of color styles
+    @include expose-theme($my-theme-light);
 }
 
-.theme-light {
-    @include mat.all-component-themes($my-theme);
-    @include expose-theme($my-theme);
+html,
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+
+    // Default theme variables
+    @include expose-theme($my-theme-dark);
+    background-color: var(--background);
 }

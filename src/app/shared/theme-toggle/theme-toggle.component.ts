@@ -9,9 +9,10 @@ import { DOCUMENT } from '@angular/common';
     styleUrls: ['./theme-toggle.component.scss'],
 })
 export class ThemeToggleComponent implements OnInit {
+    // Dark theme is the default
     isDarkMode = new FormControl(true);
-    darkClass = 'theme-dark';
-    lightClass = 'theme-light';
+    darkTheme = 'theme-dark';
+    lightTheme = 'theme-light';
 
     constructor(
         private overlay: OverlayContainer,
@@ -19,12 +20,12 @@ export class ThemeToggleComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const savedTheme = localStorage.getItem('app-theme') ?? this.darkClass;
-        if (savedTheme === this.lightClass) {
+        const savedTheme = localStorage.getItem('app-theme') ?? this.darkTheme;
+        if (savedTheme === this.lightTheme) {
             this.isDarkMode.setValue(false);
         }
 
-        this.setTheme(savedTheme === this.darkClass);
+        this.setTheme(savedTheme === this.darkTheme);
 
         this.isDarkMode.valueChanges.subscribe((isDarkMode) => {
             this.setTheme(isDarkMode ?? true);
@@ -38,21 +39,17 @@ export class ThemeToggleComponent implements OnInit {
     setTheme(isDarkMode: boolean): void {
         localStorage.setItem(
             'app-theme',
-            isDarkMode ? this.darkClass : this.lightClass,
+            isDarkMode ? this.darkTheme : this.lightTheme,
         );
 
         if (isDarkMode) {
-            this.document.body.classList.add(this.darkClass);
-            this.document.body.classList.remove(this.lightClass);
-            this.overlay.getContainerElement().classList.add(this.darkClass);
+            this.document.body.classList.remove(this.lightTheme);
             this.overlay
                 .getContainerElement()
-                .classList.remove(this.lightClass);
+                .classList.remove(this.lightTheme);
         } else {
-            this.document.body.classList.add(this.lightClass);
-            this.document.body.classList.remove(this.darkClass);
-            this.overlay.getContainerElement().classList.add(this.lightClass);
-            this.overlay.getContainerElement().classList.remove(this.darkClass);
+            this.document.body.classList.add(this.lightTheme);
+            this.overlay.getContainerElement().classList.add(this.lightTheme);
         }
     }
 }
