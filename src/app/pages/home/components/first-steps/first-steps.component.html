@@ -61,21 +61,38 @@
         <mat-card>
             <mat-card-content>
                 <h2>Skills</h2>
-
                 <div formGroupName="skillsGroup">
                     <div *ngFor="let skill of skills">
                         <div class="value-card-container">
                             <label [id]="skill.value + '-label'">{{
                                 skill.name
                             }}</label>
-                            <span>{{
-                                gameFormGroup.get("skillsGroup." + skill.value)
-                                    ?.value
-                            }}</span>
+                            <div class="points">
+                                <span
+                                    >{{
+                                        gameFormGroup.get(
+                                            "skillsGroup." + skill.value
+                                        )?.value
+                                    }}
+                                </span>
+                                <div
+                                    class="racial-bonus"
+                                    matTooltip="Racial Bonus"
+                                >
+                                    +{{
+                                        getRacialBonusByRaceAndSkill(
+                                            gameFormGroup.get(
+                                                "characterRaceControl"
+                                            )?.value,
+                                            skill.value
+                                        )
+                                    }}
+                                </div>
+                            </div>
                         </div>
                         <mat-slider
-                            [max]="20"
-                            [min]="12"
+                            [max]="18"
+                            [min]="minSkillPoints"
                             [step]="1"
                             [attr.aria-labelledby]="skill.value + '-label'"
                         >
@@ -85,6 +102,26 @@
                             />
                         </mat-slider>
                     </div>
+                    <div class="attribute-points">
+                        Points to distribute:
+                        <span
+                            [ngClass]="{
+                                warn:
+                                    currentSkillPointsDistributed >
+                                    maxSkillPointsToDistribute,
+                            }"
+                            >{{ currentSkillPointsDistributed }}</span
+                        >
+                        /
+                        {{ maxSkillPointsToDistribute }}
+                    </div>
+                    <mat-error
+                        *ngIf="
+                            currentSkillPointsDistributed >
+                            maxSkillPointsToDistribute
+                        "
+                        >You have exceeded the maximum skill points</mat-error
+                    >
                 </div>
             </mat-card-content>
         </mat-card>
@@ -93,7 +130,11 @@
                 mat-raised-button
                 color="primary"
                 type="submit"
-                [disabled]="gameFormGroup.invalid || loading"
+                [disabled]="
+                    gameFormGroup.invalid ||
+                    loading ||
+                    currentSkillPointsDistributed > maxSkillPointsToDistribute
+                "
             >
                 Start game
             </button>

@@ -23,6 +23,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     declarations: [
@@ -52,6 +53,7 @@ import { MatCardModule } from '@angular/material/card';
         MatSlideToggleModule,
         MatSelectModule,
         MatCardModule,
+        MatTooltipModule,
     ],
     exports: [ChatComponent, FirstStepsComponent],
 })

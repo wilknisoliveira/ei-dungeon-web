@@ -37,7 +37,33 @@ export class FirstStepsComponent {
         { name: 'Wisdom', value: 'Wisdom' },
     ];
 
+    racialBonus: { name: string; bonus: Record<string, number> }[] = [
+        {
+            name: 'Human',
+            bonus: {
+                Strength: 1,
+                Dexterity: 1,
+                Intelligence: 1,
+                Constitution: 1,
+                Charisma: 1,
+                Wisdom: 1,
+            },
+        },
+        { name: 'Elf', bonus: { Dexterity: 2 } },
+        { name: 'Dwarf', bonus: { Constitution: 2 } },
+        { name: 'HalfElf', bonus: { Intelligence: 1, Charisma: 2, Wisdom: 1 } },
+        { name: 'Halfling', bonus: { Dexterity: 2 } },
+        { name: 'Tiefling', bonus: { Intelligence: 1, Charisma: 2 } },
+        { name: 'Dragonborn', bonus: { Strength: 2, Charisma: 1 } },
+        { name: 'HalfOrc', bonus: { Strength: 2, Constitution: 1 } },
+        { name: 'Gnome', bonus: { Intelligence: 2 } },
+    ];
+
     loading: boolean = false;
+
+    minSkillPoints: number = 8;
+    maxSkillPointsToDistribute: number = 30;
+    currentSkillPointsDistributed: number = 0;
 
     constructor(
         private _formBuilder: FormBuilder,
@@ -50,14 +76,21 @@ export class FirstStepsComponent {
             characterDescriptionControl: ['', Validators.required],
             characterRaceControl: ['', Validators.required],
             skillsGroup: this._formBuilder.group({
-                Strength: [12, Validators.required],
-                Dexterity: [12, Validators.required],
-                Constitution: [12, Validators.required],
-                Intelligence: [12, Validators.required],
-                Wisdom: [12, Validators.required],
-                Charisma: [12, Validators.required],
+                Strength: [8, Validators.required],
+                Dexterity: [8, Validators.required],
+                Constitution: [8, Validators.required],
+                Intelligence: [8, Validators.required],
+                Wisdom: [8, Validators.required],
+                Charisma: [8, Validators.required],
             }),
         });
+
+        const skillsGroup = this.gameFormGroup.get('skillsGroup') as FormGroup;
+        skillsGroup.valueChanges.subscribe(() => {
+            this.sumSkillPoints();
+        });
+
+        this.sumSkillPoints();
     }
 
     onSubmit(): void {
@@ -97,5 +130,25 @@ export class FirstStepsComponent {
                 );
             },
         });
+    }
+
+    sumSkillPoints(): void {
+        const skillsGroup = this.gameFormGroup.get('skillsGroup') as FormGroup;
+        let sum = 0;
+
+        Object.keys(skillsGroup.controls).forEach((skillName) => {
+            const skill = skillsGroup.get(skillName);
+            sum += (skill?.value || 0) - this.minSkillPoints;
+        });
+
+        this.currentSkillPointsDistributed = sum;
+    }
+
+    getRacialBonusByRaceAndSkill(race: string, skill: string): number {
+        const racialBonus = this.racialBonus.find(
+            (bonus) => bonus.name === race,
+        );
+
+        return racialBonus?.bonus[skill] || 0;
     }
 }
