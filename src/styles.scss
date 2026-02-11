@@ -62,11 +62,6 @@ $my-theme-dark: mat.define-dark-theme(
 // Set all default components to the dark theme
 @include mat.all-component-themes($my-theme-dark);
 
-body.theme-dark {
-    // Set the tokens for the dark theme
-    @include expose-theme($my-theme-dark);
-}
-
 body.theme-light {
     // Set all components for the light theme
     @include mat.all-component-colors($my-theme-light);
@@ -81,6 +76,7 @@ body {
     height: 100vh;
     font-family: Roboto, "Helvetica Neue", sans-serif;
 
+    @include expose-theme($my-theme-dark);
     background-color: var(--background);
     color: var(--text-primary);
 }

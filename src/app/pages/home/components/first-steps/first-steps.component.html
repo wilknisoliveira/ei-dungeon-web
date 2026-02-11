@@ -1,5 +1,5 @@
 <app-loading [isLoading]="loading"></app-loading>
-<div class="first-steps">
+<div class="first-steps" *ngIf="!loading">
     <h1>First steps</h1>
     <h2>Create a new game!</h2>
     <form

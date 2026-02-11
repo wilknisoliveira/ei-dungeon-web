@@ -1,6 +1,6 @@
 <section>
-    <div class="main-container">
-        <app-loading [isLoading]="loading"></app-loading>
+    <app-loading [isLoading]="loading"></app-loading>
+    <div class="main-container" *ngIf="!loading">
         <div class="login">
             <div class="theme-button">
                 <app-theme-toggle></app-theme-toggle>
