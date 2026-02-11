@@ -21,13 +21,13 @@ export class AuthComponent {
     constructor(
         private authService: AuthService,
         private router: Router,
-        private snackBar: SnackbarService
+        private snackBar: SnackbarService,
     ) {}
 
     async onSubmit() {
         try {
+            this.loading = true;
             const result = await this.authService.login(this.userLogin);
-            this.loading = false;
             this.router.navigate(['home']);
         } catch (error) {
             this.loading = false;

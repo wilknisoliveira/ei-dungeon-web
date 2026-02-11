@@ -23,18 +23,21 @@ export class SignupComponent {
         email: '',
         password: '',
     };
+    loading: boolean = false;
 
     constructor(
         private authService: AuthService,
         private router: Router,
-        private snackBar: SnackbarService
+        private snackBar: SnackbarService,
     ) {}
 
     async onSubmit() {
         try {
+            this.loading = true;
             const result = await this.authService.signup(this.userSignUp);
             this.router.navigate(['login']);
         } catch (error) {
+            this.loading = false;
             this.snackBar.addError('Something went wrong :(');
             console.log(`Sign Up error: ${error}`);
         }

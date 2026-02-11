@@ -40,7 +40,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         private snackBar: SnackbarService,
         private playService: PlayService,
         private gameService: GameService,
-        private _formBuilder: FormBuilder
+        private _formBuilder: FormBuilder,
     ) {
         this.newPlayFormGroup = this._formBuilder.group({
             newPlayControl: ['', Validators.required],
@@ -80,7 +80,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
             result = await this.playService.getPlays(this.gameId, size);
         } catch (error) {
             this.snackBar.addError(
-                'Something went wrong while attempting to get the play list.'
+                'Something went wrong while attempting to get the play list.',
             );
             console.log(`Error: ${error}`);
         }
@@ -119,7 +119,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                 if (this.textAreaContainer) {
                     this.adjustTextAreaHeightElement(
                         this.textAreaContainer
-                            .nativeElement as HTMLTextAreaElement
+                            .nativeElement as HTMLTextAreaElement,
                     );
                 }
 
@@ -129,7 +129,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                 //TODO: Exibir erro e tratar
                 this.loading = false;
                 this.snackBar.addError(
-                    'Something went wrong while attempting to send your play. Verify with the admin if you have the permissions.'
+                    'Something went wrong while attempting to send your play. Verify with the admin if you have the permissions.',
                 );
             });
     }

@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SmallLoadingComponent } from './small-loading/small-loading.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
     imports: [
@@ -17,6 +18,7 @@ import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
         MatButtonModule,
         MatIconModule,
         ReactiveFormsModule,
+        MatProgressSpinnerModule,
     ],
     exports: [
         LoadingComponent,
