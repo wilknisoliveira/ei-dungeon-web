@@ -18,7 +18,12 @@
 
             <div class="plays">
                 <div *ngFor="let game of gamePagedSearch?.list">
-                    <div class="game-name">
+                    <div
+                        class="game-name"
+                        [ngClass]="{
+                            selected: gameSelected === game.id,
+                        }"
+                    >
                         <div class="game-button">
                             <button (click)="setGame(game.id)" mat-flat-button>
                                 <mat-icon
