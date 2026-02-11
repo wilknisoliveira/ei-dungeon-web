@@ -120,7 +120,7 @@ export class FirstStepsComponent {
             next: () => {
                 this.gameCreated.emit(newGame.name);
                 this.loading = false;
-                this.snackBar.addSuccess(`Game ${newGame.name} created!`);
+                this.snackBar.addSuccess(`Game '${newGame.name}' created!`);
             },
             error: (error: HttpErrorResponse) => {
                 //TODO: Exibir erro e tratar

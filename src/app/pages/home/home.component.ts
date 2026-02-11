@@ -49,7 +49,7 @@ export class HomeComponent implements OnInit {
         this.gamePagedSearch = await this.getGames(this.pageSize);
 
         if (
-            this.gamePagedSearch != null &&
+            this.gamePagedSearch &&
             this.pageSize >= this.gamePagedSearch.totalResults
         ) {
             this.enableShowMoreBtn = false;
@@ -60,11 +60,16 @@ export class HomeComponent implements OnInit {
         this.gameSelected = gameId;
     }
 
-    gameCreated(gameName: string): void {
-        this.showMore();
+    async gameCreated(gameName: string): Promise<void> {
+        await this.showMore();
 
         if (gameName) {
-            this.gameSelected = this.gamePagedSearch?.list[0].id ?? '';
+            this.gameSelected =
+                this.gamePagedSearch?.list.find(
+                    (game) => game.name === gameName,
+                )?.id ??
+                this.gamePagedSearch?.list[0].id ??
+                '';
         }
     }
 
