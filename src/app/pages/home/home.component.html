@@ -73,11 +73,11 @@
 
             <div class="main-content">
                 <app-chat
-                    *ngIf="gameSelected != ''"
+                    *ngIf="gameSelected"
                     [gameId]="gameSelected"
                 ></app-chat>
                 <app-first-steps
-                    *ngIf="gameSelected == ''"
+                    *ngIf="!gameSelected"
                     (gameCreated)="gameCreated($event)"
                 ></app-first-steps>
             </div>

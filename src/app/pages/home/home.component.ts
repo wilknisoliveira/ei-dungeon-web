@@ -38,7 +38,6 @@ export class HomeComponent implements OnInit {
             this.snackBar.addError(
                 'Something went wrong while attempting to get the game list.',
             );
-            console.log(`Error: ${error}`);
         }
 
         return result;
@@ -64,9 +63,8 @@ export class HomeComponent implements OnInit {
     gameCreated(gameName: string): void {
         this.showMore();
 
-        if (gameName != null && gameName != '') {
-            let gameId = this.gamePagedSearch?.list[0].id ?? '';
-            this.gameSelected = gameId;
+        if (gameName) {
+            this.gameSelected = this.gamePagedSearch?.list[0].id ?? '';
         }
     }
 

@@ -28,15 +28,15 @@
             <form [formGroup]="newPlayFormGroup">
                 <textarea
                     [placeholder]="
-                        game?.gameStatus === 0
+                        game?.gameStatus !== 'PlayerDied'
                             ? 'What do you do?'
-                            : 'Esse jogo foi finalizado, crie um novo para mais uma aventura!'
+                            : 'This game has been finished, create a new one to start a new adventure!'
                     "
                     (input)="adjustTextAreaHeightEvent($event)"
                     rows="1"
                     formControlName="newPlayControl"
                     name="newPlayControl"
-                    [disabled]="game?.gameStatus === 1"
+                    [disabled]="game?.gameStatus === 'PlayerDied'"
                     #textAreaContainer
                 ></textarea>
 
@@ -48,7 +48,7 @@
                     (click)="onSubmit()"
                     [disabled]="
                         newPlayFormGroup.get('newPlayControl')?.value == '' ||
-                        game?.gameStatus === 1
+                        game?.gameStatus === 'PlayerDied'
                     "
                 >
                     <mat-icon
