@@ -42,13 +42,17 @@ export class ThemeToggleComponent implements OnInit {
         );
 
         if (isDarkMode) {
+            this.document.body.classList.add(this.darkTheme);
             this.document.body.classList.remove(this.lightTheme);
+            this.overlay.getContainerElement().classList.add(this.darkTheme);
             this.overlay
                 .getContainerElement()
                 .classList.remove(this.lightTheme);
         } else {
             this.document.body.classList.add(this.lightTheme);
+            this.document.body.classList.remove(this.darkTheme);
             this.overlay.getContainerElement().classList.add(this.lightTheme);
+            this.overlay.getContainerElement().classList.remove(this.darkTheme);
         }
     }
 }
