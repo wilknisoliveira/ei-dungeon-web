@@ -1,6 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import {
     AfterViewChecked,
+    ChangeDetectorRef,
     Component,
     ElementRef,
     Input,
@@ -17,6 +18,8 @@ import { Game } from 'src/app/types/game/game';
 import { PagedSearch } from 'src/app/types/general/paged-search';
 import { NewPlay } from 'src/app/types/play/new-play';
 import { Play } from 'src/app/types/play/play';
+import { Player } from 'src/app/types/play/player';
+import { StreamPlay } from 'src/app/types/play/stream-play';
 
 @Component({
     selector: 'app-chat',
@@ -30,6 +33,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
 
     pageSize: number = 0;
     enableShowMoreAction = true;
+    currentResponse: Play | null = null;
     playsPagedSearch: PagedSearch<Play> | null = null;
     newPlayFormGroup: FormGroup;
     goToBotton: boolean = false;
@@ -41,6 +45,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         private playService: PlayService,
         private gameService: GameService,
         private _formBuilder: FormBuilder,
+        private cdr: ChangeDetectorRef,
     ) {
         this.newPlayFormGroup = this._formBuilder.group({
             newPlayControl: ['', Validators.required],
@@ -92,6 +97,9 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         this.pageSize = this.pageSize + 20;
 
         this.playsPagedSearch = await this.getPlays(this.pageSize);
+        if (this.playsPagedSearch?.list) {
+            this.playsPagedSearch.list = this.playsPagedSearch?.list?.reverse();
+        }
 
         if (
             this.playsPagedSearch != null &&
@@ -108,30 +116,72 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
             prompt: this.newPlayFormGroup.get('newPlayControl')?.value ?? '',
         };
 
-        this.playService
-            .newPlay(newPlay)
-            .then(async () => {
-                this.loading = false;
-                this.game = await this.gameService.getById(this.gameId);
-                this.playsPagedSearch = await this.getPlays(this.pageSize);
-                this.newPlayFormGroup.reset();
+        this.playService.streamNewPlay(newPlay, (chunk: StreamPlay) => {
+            switch (chunk.eventType) {
+                case 'Start':
+                    const currentPlayerName = this.playsPagedSearch?.list?.find(
+                        (play) => play.playerDtoResponse.type === 'RealPlayer',
+                    )?.playerDtoResponse?.name;
+                    const newPlay: Play = {
+                        id: '',
+                        playerDtoResponse: {
+                            id: '',
+                            name: currentPlayerName ?? 'Player',
+                            type: 'RealPlayer',
+                        },
+                        prompt:
+                            this.newPlayFormGroup.get('newPlayControl')
+                                ?.value ?? '',
+                        createdAt: new Date(),
+                    };
+                    this.currentResponse = {
+                        id: '',
+                        playerDtoResponse: {
+                            name: 'Master',
+                            type: 'Master',
+                        } as Player,
+                        prompt: '',
+                        createdAt: new Date(),
+                    } as Play;
+                    // Force to refresh the detect changes
+                    this.playsPagedSearch = {
+                        ...this.playsPagedSearch!,
+                        list: [
+                            ...this.playsPagedSearch!.list!,
+                            newPlay,
+                            this.currentResponse,
+                        ],
+                    };
+                    this.cdr.detectChanges();
+                    this.goToBotton = true;
+                    this.scrollBotton();
+                    break;
+                case 'Chunk':
+                    this.currentResponse!.prompt! += chunk.content;
+                    this.cdr.detectChanges();
 
-                if (this.textAreaContainer) {
-                    this.adjustTextAreaHeightElement(
-                        this.textAreaContainer
-                            .nativeElement as HTMLTextAreaElement,
+                    this.goToBotton = true;
+                    this.scrollBotton();
+                    break;
+                case 'End':
+                    this.loading = false;
+                    this.currentResponse = null;
+
+                    if (this.textAreaContainer) {
+                        this.adjustTextAreaHeightElement(
+                            this.textAreaContainer
+                                .nativeElement as HTMLTextAreaElement,
+                        );
+                    }
+                    break;
+                case 'Error':
+                    this.currentResponse = null;
+                    this.loading = false;
+                    this.snackBar.addError(
+                        'Something went wrong while attempting to send your play.',
                     );
-                }
-
-                this.goToBotton = true;
-            })
-            .catch((error: HttpErrorResponse) => {
-                //TODO: Exibir erro e tratar
-                this.loading = false;
-                this.snackBar.addError(
-                    'Something went wrong while attempting to send your play. Verify with the admin if you have the permissions.',
-                );
-            });
+            }
+        });
     }
 
     adjustTextAreaHeightEvent(event: Event): void {

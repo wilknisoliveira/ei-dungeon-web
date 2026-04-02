@@ -3,9 +3,7 @@
         <div class="messages-content">
             <mat-list role="list">
                 <mat-list-item
-                    *ngFor="
-                        let play of playsPagedSearch?.list?.slice()?.reverse()
-                    "
+                    *ngFor="let play of playsPagedSearch?.list"
                     role="listitem"
                     [ngClass]="{
                         user: play.playerDtoResponse.type === 'RealPlayer',
