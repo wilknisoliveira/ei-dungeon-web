@@ -109,31 +109,41 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         }
     }
 
-    async onSubmit(): Promise<void> {
+    async onSubmit(initialPlay: boolean = false): Promise<void> {
         this.loading = true;
         let newPlay: NewPlay = {
             gameId: this.gameId,
-            prompt: this.newPlayFormGroup.get('newPlayControl')?.value ?? '',
+            prompt:
+                this.newPlayFormGroup.get('newPlayControl')?.value ||
+                'Lorem Upsum',
         };
 
         this.playService.streamNewPlay(newPlay, (chunk: StreamPlay) => {
             switch (chunk.eventType) {
                 case 'Start':
-                    const currentPlayerName = this.playsPagedSearch?.list?.find(
-                        (play) => play.playerDtoResponse.type === 'RealPlayer',
-                    )?.playerDtoResponse?.name;
-                    const newPlay: Play = {
-                        id: '',
-                        playerDtoResponse: {
+                    const playsToAdd: Play[] = [];
+                    if (!initialPlay) {
+                        const currentPlayerName =
+                            this.playsPagedSearch?.list?.find(
+                                (play) =>
+                                    play.playerDtoResponse.type ===
+                                    'RealPlayer',
+                            )?.playerDtoResponse?.name;
+                        const newPlay: Play = {
                             id: '',
-                            name: currentPlayerName ?? 'Player',
-                            type: 'RealPlayer',
-                        },
-                        prompt:
-                            this.newPlayFormGroup.get('newPlayControl')
-                                ?.value ?? '',
-                        createdAt: new Date(),
-                    };
+                            playerDtoResponse: {
+                                id: '',
+                                name: currentPlayerName ?? 'Player',
+                                type: 'RealPlayer',
+                            },
+                            prompt:
+                                this.newPlayFormGroup.get('newPlayControl')
+                                    ?.value ?? '',
+                            createdAt: new Date(),
+                        };
+                        playsToAdd.push(newPlay);
+                    }
+
                     this.currentResponse = {
                         id: '',
                         playerDtoResponse: {
@@ -143,14 +153,11 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                         prompt: '',
                         createdAt: new Date(),
                     } as Play;
+                    playsToAdd.push(this.currentResponse);
                     // Force to refresh the detect changes
                     this.playsPagedSearch = {
                         ...this.playsPagedSearch!,
-                        list: [
-                            ...this.playsPagedSearch!.list!,
-                            newPlay,
-                            this.currentResponse,
-                        ],
+                        list: [...this.playsPagedSearch!.list!, ...playsToAdd],
                     };
                     this.cdr.detectChanges();
                     this.goToBotton = true;

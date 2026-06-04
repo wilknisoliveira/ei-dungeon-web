@@ -1,4 +1,14 @@
-section {
+.game-ready {
+    height: 90vh;
+    background-color: var(--background);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-playing {
     height: 100%;
     display: flex;
     flex-direction: column;

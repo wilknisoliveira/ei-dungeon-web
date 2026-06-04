@@ -1,4 +1,15 @@
-<section>
+<section *ngIf="(playsPagedSearch?.list?.length ?? 0) === 0" class="game-ready">
+    <p>Your new game is ready!</p>
+    <button
+        type="submit"
+        mat-flat-button
+        color="primary"
+        (click)="onSubmit(true)"
+    >
+        Start
+    </button>
+</section>
+<section *ngIf="(playsPagedSearch?.list?.length ?? 0) > 0" class="game-playing">
     <div class="messages" #messagesContainer>
         <div class="messages-content">
             <mat-list role="list">
