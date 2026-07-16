@@ -173,12 +173,14 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                 case 'End':
                     this.loading = false;
                     this.currentResponse = null;
+                    this.newPlayFormGroup.get('newPlayControl')?.reset();
 
                     if (this.textAreaContainer) {
                         this.adjustTextAreaHeightElement(
                             this.textAreaContainer
                                 .nativeElement as HTMLTextAreaElement,
                         );
+                        this.textAreaContainer.nativeElement.focus();
                     }
                     break;
                 case 'Error':
