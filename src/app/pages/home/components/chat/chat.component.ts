@@ -37,6 +37,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     playsPagedSearch: PagedSearch<Play> | null = null;
     newPlayFormGroup: FormGroup;
     goToBotton: boolean = false;
+    forceScroll: boolean = false;
     loading: boolean = false;
     game: Game | null = null;
 
@@ -67,6 +68,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         if (changes['gameId']) {
             this.pageSize = 0;
             await this.showMore();
+            this.forceScroll = true;
             this.goToBotton = true;
         }
     }
@@ -75,6 +77,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         this.game = await this.gameService.getById(this.gameId);
 
         await this.showMore();
+        this.forceScroll = true;
         this.scrollBotton();
     }
 
@@ -160,14 +163,13 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                         list: [...this.playsPagedSearch!.list!, ...playsToAdd],
                     };
                     this.cdr.detectChanges();
-                    this.goToBotton = true;
+                    this.forceScroll = true;
                     this.scrollBotton();
                     break;
                 case 'Chunk':
                     this.currentResponse!.prompt! += chunk.content;
                     this.cdr.detectChanges();
 
-                    this.goToBotton = true;
                     this.scrollBotton();
                     break;
                 case 'End':
@@ -207,6 +209,28 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         if (this.messagesContainer) {
             const container: HTMLDivElement =
                 this.messagesContainer.nativeElement;
+
+            if (this.forceScroll) {
+                container.scrollTop = container.scrollHeight;
+                this.forceScroll = false;
+                return;
+            }
+
+            const distanceFromBottom =
+                container.scrollHeight -
+                container.scrollTop -
+                container.clientHeight;
+            if (distanceFromBottom > 100) {
+                return;
+            }
+
+            const lastMessage = container.querySelector(
+                'mat-list-item:last-child',
+            ) as HTMLElement;
+            if (lastMessage && lastMessage.offsetHeight > container.clientHeight) {
+                return;
+            }
+
             container.scrollTop = container.scrollHeight;
         }
     }
