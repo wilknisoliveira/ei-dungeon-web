@@ -2,19 +2,279 @@
 @use "@angular/material" as mat;
 @include mat.core();
 
-// Theme system
-$my-primary: mat.define-palette(mat.$indigo-palette, 500);
-$my-accent: mat.define-palette(mat.$deep-orange-palette, A200, A100, A400);
-$my-warn: mat.define-palette(mat.$red-palette);
+// ─── Custom Dark Fantasy Palettes ───────────────────────────────────────────
+
+$red-palette: (
+    50: #fff5f5,
+    100: #ffe0e0,
+    200: #ffb3b3,
+    300: #ff8080,
+    400: #ff4d4d,
+    500: #f41111,
+    600: #cc0e0e,
+    700: #a30b0b,
+    800: #7a0808,
+    900: #520505,
+    A100: #ff8a80,
+    A200: #ff5252,
+    A400: #ff1744,
+    A700: #d50000,
+    contrast: (
+        50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: rgba(black, 0.87),
+        400: rgba(black, 0.87),
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: rgba(black, 0.87),
+        A200: white,
+        A400: white,
+        A700: white,
+    ),
+);
+
+$yellow-palette: (
+    50: #fffee5,
+    100: #fffbb3,
+    200: #fff880,
+    300: #fff54d,
+    400: #fff21a,
+    500: #f0e60b,
+    600: #ccc20a,
+    700: #a39e08,
+    800: #7a7706,
+    900: #525004,
+    A100: #ffff8d,
+    A200: #ffff00,
+    A400: #ffea00,
+    A700: #ffd600,
+    contrast: (
+        50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: rgba(black, 0.87),
+        400: rgba(black, 0.87),
+        500: rgba(black, 0.87),
+        600: rgba(black, 0.87),
+        700: rgba(black, 0.87),
+        800: rgba(black, 0.87),
+        900: rgba(black, 0.87),
+        A100: rgba(black, 0.87),
+        A200: rgba(black, 0.87),
+        A400: rgba(black, 0.87),
+        A700: rgba(black, 0.87),
+    ),
+);
+
+$green-palette: (
+    50: #e5f5e8,
+    100: #b8e3c0,
+    200: #8ad198,
+    300: #5cbf70,
+    400: #2ead48,
+    500: #056d17,
+    600: #045e13,
+    700: #034f10,
+    800: #03400c,
+    900: #023109,
+    A100: #b9f6ca,
+    A200: #69f0ae,
+    A400: #00e676,
+    A700: #00c853,
+    contrast: (
+        50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: rgba(black, 0.87),
+        400: rgba(black, 0.87),
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: rgba(black, 0.87),
+        A200: rgba(black, 0.87),
+        A400: rgba(black, 0.87),
+        A700: rgba(black, 0.87),
+    ),
+);
+
+$blue-palette: (
+    50: #e5e5fe,
+    100: #b8b8fc,
+    200: #8a8afa,
+    300: #5c5cf8,
+    400: #2e2ef6,
+    500: #1114ea,
+    600: #0e10c4,
+    700: #0b0d9e,
+    800: #080a78,
+    900: #050752,
+    A100: #8a8aff,
+    A200: #5252ff,
+    A400: #3d3dff,
+    A700: #3030ff,
+    contrast: (
+        50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: rgba(black, 0.87),
+        400: rgba(black, 0.87),
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: rgba(black, 0.87),
+        A200: white,
+        A400: white,
+        A700: white,
+    ),
+);
+
+$deep-rust-palette: (
+    50: #fbe9e7,
+    100: #ffccbc,
+    200: #ffab91,
+    300: #ff8a65,
+    400: #ff7043,
+    500: #a52a2a,
+    600: #942525,
+    700: #832020,
+    800: #721b1b,
+    900: #611616,
+    A100: #ff9e80,
+    A200: #ff6e40,
+    A400: #ff3d00,
+    A700: #dd2c00,
+    contrast: (
+        50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: rgba(black, 0.87),
+        400: rgba(black, 0.87),
+        500: white,
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: rgba(black, 0.87),
+        A200: rgba(black, 0.87),
+        A400: white,
+        A700: white,
+    ),
+);
+
+// ─── Theme Configuration ────────────────────────────────────────────────────
+
+// Dark theme
+$my-primary-dark: mat.define-palette($red-palette, 500);
+$my-accent-dark: mat.define-palette($blue-palette, 500, 300, 700);
+$my-warn: mat.define-palette($yellow-palette, 500);
+
+// Light theme uses darker shades for contrast on light backgrounds
+$my-primary-light: mat.define-palette($red-palette, 800);
+$my-accent-light: mat.define-palette($blue-palette, 800, 600, 900);
+
+$my-typography: mat.define-typography-config(
+    $font-family: 'Roboto, "Helvetica Neue", sans-serif',
+    $headline-1: mat.define-typography-level(
+            $font-family: "Averia Serif Libre, serif",
+            $font-weight: 700,
+            $font-size: 96px,
+            $line-height: 1.1,
+            $letter-spacing: 0.02em,
+        ),
+    $headline-2: mat.define-typography-level(
+            $font-family: "Averia Serif Libre, serif",
+            $font-weight: 700,
+            $font-size: 60px,
+            $line-height: 1.15,
+            $letter-spacing: 0.02em,
+        ),
+    $headline-3: mat.define-typography-level(
+            $font-family: "Averia Serif Libre, serif",
+            $font-weight: 700,
+            $font-size: 48px,
+            $line-height: 1.2,
+            $letter-spacing: 0.02em,
+        ),
+    $headline-4: mat.define-typography-level(
+            $font-family: "Averia Serif Libre, serif",
+            $font-weight: 700,
+            $font-size: 36px,
+            $line-height: 1.25,
+            $letter-spacing: 0.02em,
+        ),
+    $headline-5: mat.define-typography-level(
+            $font-family: "Averia Serif Libre, serif",
+            $font-weight: 700,
+            $font-size: 28px,
+            $line-height: 1.3,
+            $letter-spacing: 0.01em,
+        ),
+    $headline-6: mat.define-typography-level(
+            $font-family: "Averia Serif Libre, serif",
+            $font-weight: 700,
+            $font-size: 24px,
+            $line-height: 1.35,
+            $letter-spacing: 0.01em,
+        ),
+    $subtitle-1: mat.define-typography-level(
+            $font-family: "Averia Serif Libre, serif",
+            $font-weight: 400,
+            $font-size: 18px,
+            $line-height: 1.4,
+            $letter-spacing: 0.01em,
+        ),
+    $subtitle-2: mat.define-typography-level(
+            $font-family: "Averia Serif Libre, serif",
+            $font-weight: 400,
+            $font-size: 16px,
+            $line-height: 1.4,
+            $letter-spacing: 0.01em,
+        ),
+    $body-1: mat.define-typography-level(
+            $font-family: 'Roboto, "Helvetica Neue", sans-serif',
+            $font-weight: 400,
+            $font-size: 16px,
+            $line-height: 1.5,
+        ),
+    $body-2: mat.define-typography-level(
+            $font-family: 'Roboto, "Helvetica Neue", sans-serif',
+            $font-weight: 400,
+            $font-size: 14px,
+            $line-height: 1.5,
+        ),
+    $button: mat.define-typography-level(
+            $font-family: "Averia Serif Libre, serif",
+            $font-weight: 700,
+            $font-size: 16px,
+            $line-height: 1,
+            $letter-spacing: 0.05em,
+        ),
+    $caption: mat.define-typography-level(
+            $font-family: 'Roboto, "Helvetica Neue", sans-serif',
+            $font-weight: 400,
+            $font-size: 12px,
+            $line-height: 1.4,
+        ),
+);
+
+@include mat.typography-hierarchy($my-typography);
 
 $my-theme-light: mat.define-light-theme(
     (
         color: (
-            primary: $my-primary,
-            accent: $my-accent,
+            primary: $my-primary-light,
+            accent: $my-accent-light,
             warn: $my-warn,
         ),
-        typography: mat.define-typography-config(),
+        typography: $my-typography,
         density: 0,
     )
 );
@@ -22,16 +282,17 @@ $my-theme-light: mat.define-light-theme(
 $my-theme-dark: mat.define-dark-theme(
     (
         color: (
-            primary: $my-primary,
-            accent: $my-accent,
+            primary: $my-primary-dark,
+            accent: $my-accent-dark,
             warn: $my-warn,
         ),
-        typography: mat.define-typography-config(),
+        typography: $my-typography,
         density: 0,
     )
 );
 
-// Set tokens
+// ─── Token Mixin ────────────────────────────────────────────────────────────
+
 @mixin expose-theme($theme) {
     $colors: mat.get-color-config($theme);
 
@@ -57,23 +318,50 @@ $my-theme-dark: mat.define-dark-theme(
 
     --text-primary: #{map-get($foreground, text)};
     --text-secondary: #{map-get($foreground, secondary-text)};
+
+    // Extra theme tokens
+    --color-secondary: #{mat.get-color-from-palette($green-palette, 500)};
+    --color-secondary-contrast: #{mat.get-color-from-palette(
+            $green-palette,
+            default-contrast
+        )};
+    --surface-glass: #{rgba(map-get($background, card), 0.85)};
+    --border-glow: #{mat.get-color-from-palette($yellow-palette, 700)};
 }
 
-// Set all default components to the dark theme
+// ─── Theme Application ──────────────────────────────────────────────────────
+
 @include mat.all-component-themes($my-theme-dark);
 
 body.theme-dark {
-    // Set the tokens for the dark theme
     @include expose-theme($my-theme-dark);
+
+    // Pure gray background overrides
+    --background: #4a4a4a;
+    --surface: #3a3a3a;
+    --surface-elevated: #2a2a2a;
+    --surface-glass: rgba(58, 58, 58, 0.85);
 }
 
 body.theme-light {
-    // Set all components for the light theme
     @include mat.all-component-colors($my-theme-light);
-
-    // Set the tokens for the light theme
     @include expose-theme($my-theme-light);
+
+    // Light theme overrides
+    --background: #f0f0f0;
+    --surface: #e8e8e8;
+    --surface-elevated: #e0e0e0;
+    --text-primary: #1a1a1a;
+    --text-secondary: #666666;
+    --surface-glass: rgba(232, 232, 232, 0.85);
+    --color-primary: #7a0808;
+    --color-accent: #080a78;
+    --color-secondary: #03400c;
+    --color-warn: #2a2700;
+    --border-glow: #7a7706;
 }
+
+// ─── Global Styles ──────────────────────────────────────────────────────────
 
 html,
 body {
@@ -105,4 +393,26 @@ body {
 html {
     scrollbar-width: thin;
     scrollbar-color: var(--text-secondary) var(--background);
+}
+
+/* Snackbar toast styles */
+.snackbar-sucess {
+    --mdc-snackbar-container-color: var(--color-secondary);
+    --mdc-snackbar-supporting-text-color: var(--color-secondary-contrast);
+}
+
+.snackbar-error {
+    --mdc-snackbar-container-color: var(--color-warn);
+    --mdc-snackbar-supporting-text-color: white;
+}
+
+/* Accessibility: Disable animations for users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }

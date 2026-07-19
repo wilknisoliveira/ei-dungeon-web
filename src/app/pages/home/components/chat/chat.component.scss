@@ -6,14 +6,35 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+
+    border: 1px solid rgba(201, 168, 76, 0.2);
+    border-radius: 0.5rem;
+    margin: 1rem;
+
+    p {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+        color: var(--text-primary);
+    }
+
+    button {
+        border-radius: 1rem;
+        transition: box-shadow 0.15s ease, transform 0.15s ease;
+        font-family: "Averia Serif Libre", serif;
+
+        &:hover {
+            box-shadow: 0 0 12px var(--border-glow);
+            transform: translateY(-1px);
+        }
+    }
 }
 
 .game-playing {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
     background-color: var(--background);
+    border-top: 1px solid rgba(46, 139, 127, 0.3);
 
     .messages {
         flex: 1;
@@ -25,36 +46,57 @@
 
         .messages-content {
             width: 80%;
+            padding: 1rem 0;
 
             mat-list {
                 mat-list-item {
                     height: auto;
-                    span {
-                        color: var(--text-primary);
-                        white-space: pre-wrap;
-                        overflow-wrap: break-word;
-                        width: auto;
-                        max-width: 100%;
-                        overflow: visible;
+                    margin: 0.75rem 0;
+
+                    .span-container {
+                        display: flex;
+                        flex-direction: column;
+
+                        span:first-child {
+                            font-weight: 600;
+                            margin-bottom: 0.25rem;
+                            color: var(--text-secondary);
+                        }
+
+                        span:last-child {
+                            white-space: pre-wrap;
+                            overflow-wrap: break-word;
+                            padding: 0.75rem 1rem;
+                            border-radius: 1rem;
+                            color: var(--text-primary);
+                        }
                     }
                 }
 
                 .user {
+                    justify-content: flex-end;
+
                     .span-container {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: flex-end;
-                        span,
-                        textarea {
-                            text-align: right;
+                align-items: flex-end;
+
+                        span:last-child {
+                            background-color: var(--color-primary);
+                            color: var(--color-primary-contrast);
+                            border-bottom-right-radius: 0.25rem;
                         }
                     }
                 }
 
                 .other-player {
+                    justify-content: flex-start;
+
                     .span-container {
-                        span {
-                            width: 90%;
+                        align-items: flex-start;
+                        max-width: 90%;
+
+                        span:last-child {
+                            background-color: var(--surface-elevated);
+                            border-bottom-left-radius: 0.25rem;
                         }
                     }
                 }
@@ -74,6 +116,12 @@
             background-color: var(--surface);
             border-radius: 1rem;
             border: 1px solid var(--color-primary);
+            transition: box-shadow 0.2s ease, border-color 0.2s ease;
+
+            &:focus-within {
+                border-color: var(--color-accent);
+                box-shadow: 0 0 8px var(--border-glow);
+            }
 
             form {
                 display: flex;
@@ -86,14 +134,30 @@
                     flex-grow: 1;
                     background-color: transparent;
                     border: none;
-                    margin: 15px;
+                    margin: 10px 8px 10px 16px;
                     outline: none;
                     resize: none;
                     overflow: hidden;
+                    font-family: inherit;
+                    font-size: 0.95rem;
+                    line-height: 1.5;
+                }
+
+                button[mat-icon-button] {
+                    margin: 8px 4px;
+                    transition: transform 0.15s ease;
+
+                    &:hover:not([disabled]) {
+                        transform: scale(1.1);
+                    }
+
+                    &[disabled] {
+                        opacity: 0.4;
+                    }
                 }
 
                 .loading {
-                    margin-right: 20px;
+                    margin: 8px 20px;
                 }
             }
         }

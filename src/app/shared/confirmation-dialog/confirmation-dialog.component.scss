@@ -1,0 +1,14 @@
+[mat-dialog-content] {
+    color: var(--text-primary);
+}
+
+[mat-dialog-actions] {
+    button[color="primary"] {
+        background-color: var(--color-primary);
+        color: var(--color-primary-contrast);
+    }
+
+    button[color="warn"] {
+        color: var(--color-warn);
+    }
+}

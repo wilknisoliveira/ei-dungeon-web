@@ -8,3 +8,7 @@
     align-items: center;
     transition: all 0.2s;
 }
+
+::ng-deep .spinner-wrapper mat-spinner {
+    --mdc-circular-progress-active-indicator-color: var(--color-accent);
+}

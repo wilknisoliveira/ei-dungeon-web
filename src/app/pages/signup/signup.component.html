@@ -1,4 +1,5 @@
 <section>
+    <div class="atmospheric-bg"></div>
     <app-loading [isLoading]="loading"></app-loading>
     <div class="main-container" *ngIf="!loading">
         <div class="login">
@@ -6,12 +7,8 @@
                 <app-theme-toggle></app-theme-toggle>
             </div>
             <div class="title">
-                <mat-icon
-                    aria-hidden="false"
-                    aria-label="logo"
-                    fontIcon="explore"
-                ></mat-icon
-                >EI-DUNGEON
+                <app-branding-icon></app-branding-icon>
+                <span class="wordmark">EI-DUNGEON</span>
             </div>
             <div class="description">Sign Up</div>
 

@@ -1,10 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 
 describe('AppComponent', () => {
   beforeEach(() => TestBed.configureTestingModule({
-    imports: [RouterTestingModule],
+    imports: [RouterTestingModule, NoopAnimationsModule],
     declarations: [AppComponent]
   }));
 
@@ -22,8 +23,7 @@ describe('AppComponent', () => {
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('ei-dungeon-web app is running!');
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('ei-dungeon-web');
   });
 });

@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SmallLoadingComponent } from './small-loading/small-loading.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
+import { BrandingIconComponent } from './components/branding-icon/branding-icon.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @NgModule({
@@ -25,12 +26,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         SmallLoadingComponent,
         ConfirmationDialogComponent,
         ThemeToggleComponent,
+        BrandingIconComponent,
     ],
     declarations: [
         LoadingComponent,
         SmallLoadingComponent,
         ConfirmationDialogComponent,
         ThemeToggleComponent,
+        BrandingIconComponent,
     ],
 })
 export class SharedModule {}
