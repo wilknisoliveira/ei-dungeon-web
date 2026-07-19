@@ -41,5 +41,11 @@ testem.log
 .DS_Store
 Thumbs.db
 
+# Specify config (keep memory for constitution)
+/.specify/**
+!/.specify/memory/
+!/.specify/memory/**
+
 # AI
 PROMPT.md
+.opencode/
