@@ -41,6 +41,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     loading: boolean = false;
     game: Game | null = null;
     streamedMessagesStartIndex: number | null = null;
+    hasError: boolean = false;
 
     constructor(
         private snackBar: SnackbarService,
@@ -179,7 +180,11 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                     this.loading = false;
                     this.currentResponse = null;
                     this.streamedMessagesStartIndex = null;
-                    this.newPlayFormGroup.get('newPlayControl')?.reset();
+
+                    if (!this.hasError) {
+                        this.newPlayFormGroup.get('newPlayControl')?.reset();
+                    }
+                    this.hasError = false;
 
                     if (this.textAreaContainer) {
                         this.adjustTextAreaHeightElement(
@@ -203,6 +208,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                         this.streamedMessagesStartIndex = null;
                         this.cdr.detectChanges();
                     }
+                    this.hasError = true;
                     this.currentResponse = null;
                     this.loading = false;
                     this.snackBar.addError(
