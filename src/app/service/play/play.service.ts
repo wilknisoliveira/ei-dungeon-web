@@ -56,6 +56,7 @@ export class PlayService {
         const decoder = new TextDecoder('utf-8');
 
         let buffer = '';
+        let processedCount = 0;
 
         while (true) {
             const { done, value } = await reader.read();
@@ -66,17 +67,23 @@ export class PlayService {
 
             buffer += decoder.decode(value, { stream: true });
 
-            const chunks = buffer.split('\n');
+            const trimmed = buffer.trim();
+            const startIdx = trimmed.indexOf('[');
+            if (startIdx === -1) continue;
 
-            for (let chunk of chunks) {
-                if (!chunk.trim()) continue;
+            let jsonStr = trimmed.substring(startIdx);
+            if (!jsonStr.endsWith(']')) {
+                jsonStr += ']';
+            }
 
-                if (!chunk.endsWith(']')) {
-                    chunk += ']';
+            try {
+                const all: StreamPlay[] = JSON.parse(jsonStr);
+                for (let i = processedCount; i < all.length; i++) {
+                    onChunk(all[i]);
                 }
-
-                const streamPlay: StreamPlay[] = JSON.parse(chunk);
-                onChunk(streamPlay[streamPlay.length - 1]);
+                processedCount = all.length;
+            } catch {
+                // Partial data — wait for more chunks
             }
         }
     }

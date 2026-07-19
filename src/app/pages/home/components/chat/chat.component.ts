@@ -40,6 +40,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     forceScroll: boolean = false;
     loading: boolean = false;
     game: Game | null = null;
+    streamedMessagesStartIndex: number | null = null;
 
     constructor(
         private snackBar: SnackbarService,
@@ -162,6 +163,8 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                         ...this.playsPagedSearch!,
                         list: [...this.playsPagedSearch!.list!, ...playsToAdd],
                     };
+                    this.streamedMessagesStartIndex =
+                        this.playsPagedSearch!.list!.length - playsToAdd.length;
                     this.cdr.detectChanges();
                     this.forceScroll = true;
                     this.scrollBotton();
@@ -175,6 +178,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                 case 'End':
                     this.loading = false;
                     this.currentResponse = null;
+                    this.streamedMessagesStartIndex = null;
                     this.newPlayFormGroup.get('newPlayControl')?.reset();
 
                     if (this.textAreaContainer) {
@@ -186,10 +190,23 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                     }
                     break;
                 case 'Error':
+                    if (this.streamedMessagesStartIndex !== null) {
+                        const list = [...this.playsPagedSearch!.list!];
+                        list.splice(
+                            this.streamedMessagesStartIndex,
+                            list.length - this.streamedMessagesStartIndex,
+                        );
+                        this.playsPagedSearch = {
+                            ...this.playsPagedSearch!,
+                            list,
+                        };
+                        this.streamedMessagesStartIndex = null;
+                        this.cdr.detectChanges();
+                    }
                     this.currentResponse = null;
                     this.loading = false;
                     this.snackBar.addError(
-                        'Something went wrong while attempting to send your play.',
+                        'The gods have not answered your call. Speak again, brave adventurer!',
                     );
             }
         });
