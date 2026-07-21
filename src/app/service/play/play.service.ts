@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
 import { PagedSearch } from 'src/app/types/general/paged-search';
 import { NewPlay } from 'src/app/types/play/new-play';
@@ -7,6 +8,7 @@ import { Play } from 'src/app/types/play/play';
 import { StreamPlay } from 'src/app/types/play/stream-play';
 import { environment } from 'src/environments/environment';
 import { AuthService } from '../auth/auth.service';
+import { SnackbarService } from '../snackbar/snackbar.service';
 
 @Injectable({
     providedIn: 'root',
@@ -17,6 +19,8 @@ export class PlayService {
     constructor(
         private http: HttpClient,
         private authService: AuthService,
+        private snackBar: SnackbarService,
+        private router: Router,
     ) {}
 
     async getPlays(
@@ -47,6 +51,17 @@ export class PlayService {
             },
             body: JSON.stringify(newPlay),
         });
+
+        if (!response.ok) {
+            if (response.status === 401) {
+                this.authService.logout();
+                this.snackBar.addError('Session expired. Please log in again.');
+                this.router.navigate(['login']);
+            }
+            return Promise.reject(
+                new Error(`Request failed with status ${response.status}`),
+            );
+        }
 
         if (!response.body) {
             return Promise.reject(new Error('No body received'));

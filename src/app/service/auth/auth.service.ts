@@ -44,6 +44,12 @@ export class AuthService {
         this.tokenSubject.next(token);
     }
 
+    logout(): void {
+        localStorage.removeItem('tokenInfo');
+        sessionStorage.removeItem('tokenInfo');
+        this.tokenSubject.next(null);
+    }
+
     getAuthToken(): string {
         const tokenJson = window.localStorage.getItem('tokenInfo');
 
