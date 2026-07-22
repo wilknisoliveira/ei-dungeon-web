@@ -31,8 +31,9 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     @ViewChild('messagesContainer') messagesContainer!: ElementRef;
     @ViewChild('textAreaContainer') textAreaContainer!: ElementRef;
 
-    pageSize: number = 0;
-    enableShowMoreAction = true;
+    currentPage: number = 1;
+    isLoadingMore: boolean = false;
+    allPlaysLoaded: boolean = false;
     currentResponse: Play | null = null;
     playsPagedSearch: PagedSearch<Play> | null = null;
     newPlayFormGroup: FormGroup;
@@ -99,8 +100,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         this.game = await this.gameService.getById(this.gameId);
 
         if (changes['gameId']) {
-            this.pageSize = 0;
-            await this.showMore();
+            await this.loadInitialPlays();
             this.forceScroll = true;
             this.goToBotton = true;
 
@@ -114,7 +114,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     async ngOnInit(): Promise<void> {
         this.game = await this.gameService.getById(this.gameId);
 
-        await this.showMore();
+        await this.loadInitialPlays();
         this.forceScroll = true;
         this.scrollBotton();
 
@@ -124,34 +124,72 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         }
     }
 
-    async getPlays(size: number): Promise<PagedSearch<Play> | null> {
-        let result: PagedSearch<Play> | null = null;
-
+    async getPlays(page: number): Promise<PagedSearch<Play> | null> {
         try {
-            result = await this.playService.getPlays(this.gameId, 'desc', size, 1);
+            return await this.playService.getPlays(this.gameId, 'desc', 20, page);
         } catch (error) {
             this.snackBar.addError(
                 'Something went wrong while attempting to get the play list.',
             );
             console.log(`Error: ${error}`);
+            return null;
         }
-
-        return result;
     }
 
-    async showMore(): Promise<void> {
-        this.pageSize = this.pageSize + 20;
+    async loadInitialPlays(): Promise<void> {
+        this.currentPage = 1;
+        this.allPlaysLoaded = false;
+        this.isLoadingMore = false;
 
-        this.playsPagedSearch = await this.getPlays(this.pageSize);
+        this.playsPagedSearch = await this.getPlays(1);
         if (this.playsPagedSearch?.items) {
-            this.playsPagedSearch.items = this.playsPagedSearch?.items?.reverse();
+            this.playsPagedSearch.items = this.playsPagedSearch.items.reverse();
+        }
+    }
+
+    async loadMorePlays(): Promise<void> {
+        if (this.isLoadingMore || this.allPlaysLoaded) return;
+
+        this.isLoadingMore = true;
+        this.currentPage++;
+
+        const container = this.messagesContainer?.nativeElement as
+            | HTMLDivElement
+            | undefined;
+        const prevScrollHeight = container?.scrollHeight ?? 0;
+
+        const result = await this.getPlays(this.currentPage);
+
+        if (!result || !result.items || result.items.length === 0) {
+            this.allPlaysLoaded = true;
+            this.isLoadingMore = false;
+            return;
         }
 
-        if (
-            this.playsPagedSearch != null &&
-            this.pageSize >= this.playsPagedSearch.totalResults
-        ) {
-            this.enableShowMoreAction = false;
+        result.items.reverse();
+
+        this.playsPagedSearch = {
+            ...result,
+            items: [...result.items, ...(this.playsPagedSearch?.items ?? [])],
+        };
+
+        this.cdr.detectChanges();
+
+        if (container) {
+            container.scrollTop = container.scrollHeight - prevScrollHeight;
+        }
+
+        this.isLoadingMore = false;
+
+        if (result.items.length < result.pageSize) {
+            this.allPlaysLoaded = true;
+        }
+    }
+
+    onScroll(event: Event): void {
+        const container = event.target as HTMLDivElement;
+        if (container.scrollTop <= 50) {
+            this.loadMorePlays();
         }
     }
 

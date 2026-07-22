@@ -10,8 +10,11 @@
     </button>
 </section>
 <section *ngIf="(playsPagedSearch?.items?.length ?? 0) > 0" class="game-playing">
-    <div class="messages" #messagesContainer>
+    <div class="messages" #messagesContainer (scroll)="onScroll($event)">
         <div class="messages-content">
+            <div *ngIf="isLoadingMore" class="loading-more">
+                <app-small-loading [isLoading]="isLoadingMore"></app-small-loading>
+            </div>
             <mat-list role="list">
                 <mat-list-item
                     *ngFor="let play of playsPagedSearch?.items"
