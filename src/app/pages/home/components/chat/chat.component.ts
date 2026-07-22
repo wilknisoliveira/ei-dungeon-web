@@ -43,6 +43,29 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     streamedMessagesStartIndex: number | null = null;
     hasError: boolean = false;
 
+    private readonly storagePrefix = 'game-cache-';
+
+    private saveGameCache(gameId: string, data: Record<string, string>): void {
+        sessionStorage.setItem(
+            `${this.storagePrefix}${gameId}`,
+            JSON.stringify(data),
+        );
+    }
+
+    private getGameCache(gameId: string): Record<string, string> | null {
+        const raw = sessionStorage.getItem(`${this.storagePrefix}${gameId}`);
+        if (!raw) return null;
+        try {
+            return JSON.parse(raw);
+        } catch {
+            return null;
+        }
+    }
+
+    private removeGameCache(gameId: string): void {
+        sessionStorage.removeItem(`${this.storagePrefix}${gameId}`);
+    }
+
     constructor(
         private snackBar: SnackbarService,
         private playService: PlayService,
@@ -65,6 +88,14 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     }
 
     async ngOnChanges(changes: SimpleChanges): Promise<void> {
+        const previousGameId = changes['gameId']?.previousValue;
+        if (previousGameId) {
+            this.saveGameCache(previousGameId, {
+                textbox:
+                    this.newPlayFormGroup.get('newPlayControl')?.value ?? '',
+            });
+        }
+
         this.game = await this.gameService.getById(this.gameId);
 
         if (changes['gameId']) {
@@ -72,6 +103,11 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
             await this.showMore();
             this.forceScroll = true;
             this.goToBotton = true;
+
+            const cache = this.getGameCache(this.gameId);
+            this.newPlayFormGroup
+                .get('newPlayControl')
+                ?.setValue(cache?.['textbox'] ?? '');
         }
     }
 
@@ -81,6 +117,11 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         await this.showMore();
         this.forceScroll = true;
         this.scrollBotton();
+
+        const cache = this.getGameCache(this.gameId);
+        if (cache?.['textbox']) {
+            this.newPlayFormGroup.get('newPlayControl')?.setValue(cache['textbox']);
+        }
     }
 
     async getPlays(size: number): Promise<PagedSearch<Play> | null> {
@@ -182,6 +223,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
 
                         if (!this.hasError) {
                             this.newPlayFormGroup.get('newPlayControl')?.reset();
+                            this.removeGameCache(this.gameId);
                         }
                         this.hasError = false;
 
@@ -228,6 +270,14 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     adjustTextAreaHeightEvent(event: Event): void {
         const textArea = event.target as HTMLTextAreaElement;
         this.adjustTextAreaHeightElement(textArea);
+    }
+
+    onInputChange(event: Event): void {
+        this.adjustTextAreaHeightEvent(event);
+        this.saveGameCache(this.gameId, {
+            textbox:
+                this.newPlayFormGroup.get('newPlayControl')?.value ?? '',
+        });
     }
 
     adjustTextAreaHeightElement(textArea: HTMLTextAreaElement): void {
