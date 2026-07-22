@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 import { PagedSearch } from 'src/app/types/general/paged-search';
 import { Game } from 'src/app/types/game/game';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { GameService } from 'src/app/service/game/game.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
+import { AuthService } from 'src/app/service/auth/auth.service';
 
 @Component({
     selector: 'app-home',
@@ -23,6 +25,8 @@ export class HomeComponent implements OnInit {
         public dialog: MatDialog,
         private snackBar: SnackbarService,
         private gameService: GameService,
+        private router: Router,
+        private authService: AuthService,
     ) {}
 
     ngOnInit(): void {
@@ -109,5 +113,14 @@ export class HomeComponent implements OnInit {
                 this.deleteGame(gameId);
             }
         });
+    }
+
+    async logout(): Promise<void> {
+        await this.authService.serverLogout();
+        this.router.navigate(['login']);
+    }
+
+    navigateToSettings(): void {
+        this.router.navigate(['settings']);
     }
 }

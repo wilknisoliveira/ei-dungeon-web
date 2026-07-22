@@ -1,0 +1,144 @@
+<section class="main-container">
+    <div class="atmospheric-bg"></div>
+    <mat-drawer-container autosize>
+        <mat-drawer mode="side" opened>
+            <div class="sidebar-header">
+                <span class="brand">EI-DUNGEON</span>
+                <span class="subtitle">Settings</span>
+            </div>
+            <mat-nav-list>
+                <mat-list-item
+                    [class.active]="activeSection === 'account'"
+                    (click)="selectSection('account')"
+                >
+                    <mat-icon matListItemIcon fontIcon="person"></mat-icon>
+                    Account
+                </mat-list-item>
+                <mat-list-item
+                    [class.active]="activeSection === 'security'"
+                    (click)="selectSection('security')"
+                >
+                    <mat-icon matListItemIcon fontIcon="lock"></mat-icon>
+                    Security
+                </mat-list-item>
+            </mat-nav-list>
+        </mat-drawer>
+
+        <mat-drawer-content>
+            <div class="header-menu">
+                <div class="left">
+                    <button mat-icon-button routerLink="/home">
+                        <mat-icon fontIcon="arrow_back"></mat-icon>
+                    </button>
+                    <span class="title">{{
+                        activeSection === 'account' ? 'Account' : 'Security'
+                    }}</span>
+                </div>
+                <div class="right">
+                    <app-theme-toggle></app-theme-toggle>
+                </div>
+            </div>
+
+            <div class="main-content">
+                <div
+                    *ngIf="activeSection === 'account'"
+                    class="section-content"
+                >
+                    <div class="settings-card" *ngIf="userInfo">
+                        <h2>Account</h2>
+                        <div class="info-row">
+                            <span class="label">Username</span>
+                            <span class="value">{{ userInfo.username }}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="label">Roles</span>
+                            <span class="value">{{
+                                userInfo.roles.join(', ')
+                            }}</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    *ngIf="activeSection === 'security'"
+                    class="section-content"
+                >
+                    <div class="settings-card">
+                        <h2>Change Password</h2>
+                        <form
+                            [formGroup]="changePasswordForm"
+                            (ngSubmit)="onChangePassword()"
+                        >
+                            <mat-form-field>
+                                <mat-label>Current Password</mat-label>
+                                <input
+                                    matInput
+                                    type="password"
+                                    formControlName="currentPassword"
+                                />
+                                <mat-error
+                                    *ngIf="
+                                        changePasswordForm
+                                            .get('currentPassword')
+                                            ?.hasError('required')
+                                    "
+                                >
+                                    Current password is required
+                                </mat-error>
+                                <mat-error
+                                    *ngIf="
+                                        changePasswordForm
+                                            .get('currentPassword')
+                                            ?.hasError('minlength')
+                                    "
+                                >
+                                    Minimum 4 characters
+                                </mat-error>
+                            </mat-form-field>
+
+                            <mat-form-field>
+                                <mat-label>New Password</mat-label>
+                                <input
+                                    matInput
+                                    type="password"
+                                    formControlName="newPassword"
+                                />
+                                <mat-error
+                                    *ngIf="
+                                        changePasswordForm
+                                            .get('newPassword')
+                                            ?.hasError('required')
+                                    "
+                                >
+                                    New password is required
+                                </mat-error>
+                                <mat-error
+                                    *ngIf="
+                                        changePasswordForm
+                                            .get('newPassword')
+                                            ?.hasError('minlength')
+                                    "
+                                >
+                                    Minimum 4 characters
+                                </mat-error>
+                            </mat-form-field>
+
+                            <div class="submit-button">
+                                <button
+                                    type="submit"
+                                    mat-flat-button
+                                    color="primary"
+                                    [disabled]="
+                                        changePasswordForm.invalid || loading
+                                    "
+                                >
+                                    Change Password
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </mat-drawer-content>
+    </mat-drawer-container>
+</section>

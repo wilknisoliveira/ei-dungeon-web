@@ -20,8 +20,21 @@
                         [(ngModel)]="userSignUp.userName"
                         name="username"
                         required
+                        (blur)="onUsernameBlur()"
                     />
                 </mat-form-field>
+                <div
+                    class="availability-error"
+                    *ngIf="usernameAvailable === false"
+                >
+                    Username is already taken
+                </div>
+                <div
+                    class="availability-checking"
+                    *ngIf="usernameChecking"
+                >
+                    Checking availability...
+                </div>
 
                 <mat-form-field class="example-full-width">
                     <mat-label>Fullname</mat-label>
@@ -42,6 +55,7 @@
                         [formControl]="emailFormControl"
                         placeholder="Ex. pat@example.com"
                         required=""
+                        (blur)="onEmailBlur()"
                     />
                     <mat-error
                         *ngIf="
@@ -54,6 +68,19 @@
                         >Email is <strong>required</strong></mat-error
                     >
                 </mat-form-field>
+
+                <div
+                    class="availability-error"
+                    *ngIf="emailAvailable === false"
+                >
+                    Email is already registered
+                </div>
+                <div
+                    class="availability-checking"
+                    *ngIf="emailChecking"
+                >
+                    Checking availability...
+                </div>
 
                 <mat-form-field class="form-field">
                     <mat-label>Enter your password</mat-label>

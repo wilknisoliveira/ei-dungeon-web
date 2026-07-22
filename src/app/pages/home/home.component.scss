@@ -135,8 +135,22 @@
                     }
                 }
 
-                .theme-button {
-                    margin: 0 1rem;
+                .header-actions {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+
+                    .theme-button {
+                        margin: 0 1rem;
+                    }
+
+                    .profile-button {
+                        margin-right: 1rem;
+
+                        mat-icon {
+                            color: var(--color-accent);
+                        }
+                    }
                 }
             }
 

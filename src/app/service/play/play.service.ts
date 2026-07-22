@@ -38,26 +38,44 @@ export class PlayService {
         newPlay: NewPlay,
         onChunk: (chunk: StreamPlay) => void,
     ): Promise<void> {
-        const token = this.authService.getAuthToken();
+        let token = this.authService.getAuthToken();
         if (!token) {
             return Promise.reject(new Error('No token found'));
         }
 
-        const response = await fetch(`${this.baseUrl}/api/Play`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${token}`,
-            },
-            body: JSON.stringify(newPlay),
-        });
+        let response = await this.fetchStream(newPlay, token);
+
+        if (!response.ok && response.status === 401) {
+            const refreshToken = this.getStoredRefreshToken();
+            if (refreshToken) {
+                try {
+                    const tokenObject = await this.authService.refreshToken(
+                        token,
+                        refreshToken,
+                    );
+                    token = tokenObject.accessToken;
+                    response = await this.fetchStream(newPlay, token);
+                } catch {
+                    this.authService.logout();
+                    this.snackBar.addError(
+                        'Session expired. Please log in again.',
+                    );
+                    this.router.navigate(['login']);
+                    return Promise.reject(new Error('Session expired'));
+                }
+            } else {
+                this.authService.logout();
+                this.snackBar.addError(
+                    'Session expired. Please log in again.',
+                );
+                this.router.navigate(['login']);
+                return Promise.reject(
+                    new Error(`Request failed with status ${response.status}`),
+                );
+            }
+        }
 
         if (!response.ok) {
-            if (response.status === 401) {
-                this.authService.logout();
-                this.snackBar.addError('Session expired. Please log in again.');
-                this.router.navigate(['login']);
-            }
             return Promise.reject(
                 new Error(`Request failed with status ${response.status}`),
             );
@@ -101,5 +119,27 @@ export class PlayService {
                 // Partial data — wait for more chunks
             }
         }
+    }
+
+    private async fetchStream(
+        newPlay: NewPlay,
+        token: string,
+    ): Promise<Response> {
+        return fetch(`${this.baseUrl}/api/Play`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(newPlay),
+        });
+    }
+
+    private getStoredRefreshToken(): string {
+        const tokenJson = localStorage.getItem('tokenInfo');
+        if (tokenJson) {
+            return JSON.parse(tokenJson).refreshToken;
+        }
+        return '';
     }
 }

@@ -88,6 +88,20 @@ section {
                 width: clamp(200px, 100%, 600px);
             }
 
+            .availability-error {
+                color: var(--color-warn);
+                font-size: 0.75rem;
+                margin: -1rem 0 0.5rem 0;
+                padding-left: 0.5rem;
+            }
+
+            .availability-checking {
+                color: var(--text-secondary);
+                font-size: 0.75rem;
+                margin: -1rem 0 0.5rem 0;
+                padding-left: 0.5rem;
+            }
+
             .login-button {
                 margin: 1rem 0 2rem 0;
 

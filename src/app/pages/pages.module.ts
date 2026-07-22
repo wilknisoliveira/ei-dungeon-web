@@ -11,6 +11,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { HomeComponent } from './home/home.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SignupComponent } from './signup/signup.component';
+import { SettingsComponent } from './settings/settings.component';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { ChatComponent } from './home/components/chat/chat.component';
 import { MatListModule } from '@angular/material/list';
@@ -24,12 +25,14 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
     declarations: [
         AuthComponent,
         HomeComponent,
         SignupComponent,
+        SettingsComponent,
         ChatComponent,
         FirstStepsComponent,
     ],
@@ -54,6 +57,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatSelectModule,
         MatCardModule,
         MatTooltipModule,
+        MatMenuModule,
     ],
     exports: [ChatComponent, FirstStepsComponent],
 })

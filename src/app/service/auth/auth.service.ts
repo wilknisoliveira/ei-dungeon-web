@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserLogin } from 'src/app/types/auth/user-login';
 import { BehaviorSubject, lastValueFrom, tap } from 'rxjs';
@@ -6,6 +6,7 @@ import { TokenObject } from 'src/app/types/auth/token-object';
 import { environment } from 'src/environments/environment';
 import { jwtDecode } from 'jwt-decode';
 import { UserSignUp } from 'src/app/types/auth/user-signup';
+import { UserInfoCheckResponse } from 'src/app/types/auth/user-info-check-response';
 
 @Injectable({
     providedIn: 'root',
@@ -116,5 +117,72 @@ export class AuthService {
         );
 
         return lastValueFrom(result$);
+    }
+
+    async refreshToken(accessToken: string, refreshToken: string): Promise<TokenObject> {
+        const result$ = this.http
+            .post<TokenObject>(`${this.baseUrl}/api/user/auth/refresh`, {
+                accessToken,
+                refreshToken,
+            })
+            .pipe(
+                tap((tokenObject) => {
+                    this.setTokenSubject(tokenObject);
+                })
+            );
+        return lastValueFrom(result$);
+    }
+
+    async checkAvailability(username?: string, email?: string): Promise<UserInfoCheckResponse> {
+        let params = new HttpParams();
+        if (username) params = params.set('username', username);
+        if (email) params = params.set('email', email);
+        const result$ = this.http.get<UserInfoCheckResponse>(
+            `${this.baseUrl}/api/user/check-userinfo`,
+            { params }
+        );
+        return lastValueFrom(result$);
+    }
+
+    getUserInfo(): { username: string; roles: string[] } | null {
+        const token = this.getAuthToken();
+        if (!token) return null;
+        const decoded: any = jwtDecode(token);
+        return {
+            username: decoded.unique_name || decoded.sub || '',
+            roles: this.getRoles(),
+        };
+    }
+
+    setTokens(tokenObject: TokenObject): void {
+        this.setTokenSubject(tokenObject);
+    }
+
+    async changePassword(currentPassword: string, newPassword: string): Promise<any> {
+        const result$ = this.http.patch<any>(
+            `${this.baseUrl}/api/user/auth/change-password`,
+            { currentPassword, newPassword },
+        );
+        return lastValueFrom(result$);
+    }
+
+    async serverLogout(): Promise<void> {
+        const tokenJson = localStorage.getItem('tokenInfo');
+        let refreshToken = '';
+        if (tokenJson) {
+            const tokenObject: TokenObject = JSON.parse(tokenJson);
+            refreshToken = tokenObject.refreshToken;
+        }
+        try {
+            if (refreshToken) {
+                await lastValueFrom(
+                    this.http.post(`${this.baseUrl}/api/user/auth/logout`, {
+                        refreshToken,
+                    })
+                );
+            }
+        } finally {
+            this.logout();
+        }
     }
 }

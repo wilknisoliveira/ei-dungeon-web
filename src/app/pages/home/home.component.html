@@ -71,8 +71,36 @@
                         ></mat-icon>
                     </button>
                 </div>
-                <div class="theme-button">
-                    <app-theme-toggle></app-theme-toggle>
+                <div class="header-actions">
+                    <div class="theme-button">
+                        <app-theme-toggle></app-theme-toggle>
+                    </div>
+                    <div class="profile-button">
+                        <button
+                            type="button"
+                            mat-icon-button
+                            [matMenuTriggerFor]="profileMenu"
+                        >
+                            <mat-icon
+                                aria-hidden="false"
+                                aria-label="profile"
+                                fontIcon="account_circle"
+                            ></mat-icon>
+                        </button>
+                        <mat-menu #profileMenu="matMenu">
+                            <button
+                                mat-menu-item
+                                (click)="navigateToSettings()"
+                            >
+                                <mat-icon fontIcon="settings"></mat-icon>
+                                Settings
+                            </button>
+                            <button mat-menu-item (click)="logout()">
+                                <mat-icon fontIcon="logout"></mat-icon>
+                                Logout
+                            </button>
+                        </mat-menu>
+                    </div>
                 </div>
             </div>
 

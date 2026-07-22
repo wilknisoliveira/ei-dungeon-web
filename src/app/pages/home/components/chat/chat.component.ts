@@ -123,99 +123,106 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                 'Lorem Upsum',
         };
 
-        this.playService.streamNewPlay(newPlay, (chunk: StreamPlay) => {
-            switch (chunk.eventType) {
-                case 'Start':
-                    const playsToAdd: Play[] = [];
-                    if (!initialPlay) {
-                        const currentPlayerName =
-                            this.playsPagedSearch?.list?.find(
-                                (play) =>
-                                    play.playerDtoResponse.type ===
-                                    'RealPlayer',
-                            )?.playerDtoResponse?.name;
-                        const newPlay: Play = {
+        try {
+            await this.playService.streamNewPlay(newPlay, (chunk: StreamPlay) => {
+                switch (chunk.eventType) {
+                    case 'Start':
+                        const playsToAdd: Play[] = [];
+                        if (!initialPlay) {
+                            const currentPlayerName =
+                                this.playsPagedSearch?.list?.find(
+                                    (play) =>
+                                        play.playerDtoResponse.type ===
+                                        'RealPlayer',
+                                )?.playerDtoResponse?.name;
+                            const newPlay: Play = {
+                                id: '',
+                                playerDtoResponse: {
+                                    id: '',
+                                    name: currentPlayerName ?? 'Player',
+                                    type: 'RealPlayer',
+                                },
+                                prompt:
+                                    this.newPlayFormGroup.get('newPlayControl')
+                                        ?.value ?? '',
+                                createdAt: new Date(),
+                            };
+                            playsToAdd.push(newPlay);
+                        }
+
+                        this.currentResponse = {
                             id: '',
                             playerDtoResponse: {
-                                id: '',
-                                name: currentPlayerName ?? 'Player',
-                                type: 'RealPlayer',
-                            },
-                            prompt:
-                                this.newPlayFormGroup.get('newPlayControl')
-                                    ?.value ?? '',
+                                name: 'Master',
+                                type: 'Master',
+                            } as Player,
+                            prompt: '',
                             createdAt: new Date(),
-                        };
-                        playsToAdd.push(newPlay);
-                    }
-
-                    this.currentResponse = {
-                        id: '',
-                        playerDtoResponse: {
-                            name: 'Master',
-                            type: 'Master',
-                        } as Player,
-                        prompt: '',
-                        createdAt: new Date(),
-                    } as Play;
-                    playsToAdd.push(this.currentResponse);
-                    // Force to refresh the detect changes
-                    this.playsPagedSearch = {
-                        ...this.playsPagedSearch!,
-                        list: [...this.playsPagedSearch!.list!, ...playsToAdd],
-                    };
-                    this.streamedMessagesStartIndex =
-                        this.playsPagedSearch!.list!.length - playsToAdd.length;
-                    this.cdr.detectChanges();
-                    this.forceScroll = true;
-                    this.scrollBotton();
-                    break;
-                case 'Chunk':
-                    this.currentResponse!.prompt! += chunk.content;
-                    this.cdr.detectChanges();
-
-                    this.scrollBotton();
-                    break;
-                case 'End':
-                    this.loading = false;
-                    this.currentResponse = null;
-                    this.streamedMessagesStartIndex = null;
-
-                    if (!this.hasError) {
-                        this.newPlayFormGroup.get('newPlayControl')?.reset();
-                    }
-                    this.hasError = false;
-
-                    if (this.textAreaContainer) {
-                        this.adjustTextAreaHeightElement(
-                            this.textAreaContainer
-                                .nativeElement as HTMLTextAreaElement,
-                        );
-                        this.textAreaContainer.nativeElement.focus();
-                    }
-                    break;
-                case 'Error':
-                    if (this.streamedMessagesStartIndex !== null) {
-                        const list = [...this.playsPagedSearch!.list!];
-                        list.splice(
-                            this.streamedMessagesStartIndex,
-                            list.length - this.streamedMessagesStartIndex,
-                        );
+                        } as Play;
+                        playsToAdd.push(this.currentResponse);
                         this.playsPagedSearch = {
                             ...this.playsPagedSearch!,
-                            list,
+                            list: [...this.playsPagedSearch!.list!, ...playsToAdd],
                         };
-                        this.streamedMessagesStartIndex = null;
+                        this.streamedMessagesStartIndex =
+                            this.playsPagedSearch!.list!.length - playsToAdd.length;
                         this.cdr.detectChanges();
-                    }
-                    this.hasError = true;
-                    this.currentResponse = null;
-                    this.loading = false;
-                    this.snackBar.addError(
-                        'The gods have not answered your call. Speak again, brave adventurer!',
-                    );
+                        this.forceScroll = true;
+                        this.scrollBotton();
+                        break;
+                    case 'Chunk':
+                        this.currentResponse!.prompt! += chunk.content;
+                        this.cdr.detectChanges();
+                        this.scrollBotton();
+                        break;
+                    case 'End':
+                        this.loading = false;
+                        this.currentResponse = null;
+                        this.streamedMessagesStartIndex = null;
+
+                        if (!this.hasError) {
+                            this.newPlayFormGroup.get('newPlayControl')?.reset();
+                        }
+                        this.hasError = false;
+
+                        if (this.textAreaContainer) {
+                            this.adjustTextAreaHeightElement(
+                                this.textAreaContainer
+                                    .nativeElement as HTMLTextAreaElement,
+                            );
+                            this.textAreaContainer.nativeElement.focus();
+                        }
+                        break;
+                    case 'Error':
+                        if (this.streamedMessagesStartIndex !== null) {
+                            const list = [...this.playsPagedSearch!.list!];
+                            list.splice(
+                                this.streamedMessagesStartIndex,
+                                list.length - this.streamedMessagesStartIndex,
+                            );
+                            this.playsPagedSearch = {
+                                ...this.playsPagedSearch!,
+                                list,
+                            };
+                            this.streamedMessagesStartIndex = null;
+                            this.cdr.detectChanges();
+                        }
+                        this.hasError = true;
+                        this.currentResponse = null;
+                        this.loading = false;
+                        this.snackBar.addError(
+                            'The gods have not answered your call. Speak again, brave adventurer!',
+                        );
+                }
+            });
+        } catch {
+            if (!this.hasError) {
+                this.loading = false;
+                this.snackBar.addError(
+                    'Something went wrong. Please try again.',
+                );
             }
-        });
+        }
     }
 
     adjustTextAreaHeightEvent(event: Event): void {
