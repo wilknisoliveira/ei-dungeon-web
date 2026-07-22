@@ -1,4 +1,4 @@
-<section *ngIf="(playsPagedSearch?.list?.length ?? 0) === 0" class="game-ready">
+<section *ngIf="(playsPagedSearch?.items?.length ?? 0) === 0" class="game-ready">
     <p>Your new game is ready!</p>
     <button
         type="submit"
@@ -9,12 +9,12 @@
         Start
     </button>
 </section>
-<section *ngIf="(playsPagedSearch?.list?.length ?? 0) > 0" class="game-playing">
+<section *ngIf="(playsPagedSearch?.items?.length ?? 0) > 0" class="game-playing">
     <div class="messages" #messagesContainer>
         <div class="messages-content">
             <mat-list role="list">
                 <mat-list-item
-                    *ngFor="let play of playsPagedSearch?.list"
+                    *ngFor="let play of playsPagedSearch?.items"
                     role="listitem"
                     [ngClass]="{
                         user: play.playerDtoResponse.type === 'RealPlayer',

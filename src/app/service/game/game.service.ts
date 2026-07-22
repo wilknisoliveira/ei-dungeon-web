@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { lastValueFrom, Observable } from 'rxjs';
 import { Game } from 'src/app/types/game/game';
@@ -19,8 +19,14 @@ export class GameService {
         pageSize: number,
         page: number
     ): Promise<PagedSearch<Game>> {
+        const params = new HttpParams()
+            .set('sortDirection', sortDirection)
+            .set('pageSize', pageSize)
+            .set('page', page);
+
         const gamesPaged$ = this.http.get<PagedSearch<Game>>(
-            `${this.baseUrl}/api/Game/${sortDirection}/${pageSize}/${page}`
+            `${this.baseUrl}/api/Game`,
+            { params }
         );
 
         return lastValueFrom(gamesPaged$);

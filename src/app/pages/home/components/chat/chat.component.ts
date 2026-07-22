@@ -128,7 +128,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         let result: PagedSearch<Play> | null = null;
 
         try {
-            result = await this.playService.getPlays(this.gameId, size);
+            result = await this.playService.getPlays(this.gameId, 'desc', size, 1);
         } catch (error) {
             this.snackBar.addError(
                 'Something went wrong while attempting to get the play list.',
@@ -143,8 +143,8 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         this.pageSize = this.pageSize + 20;
 
         this.playsPagedSearch = await this.getPlays(this.pageSize);
-        if (this.playsPagedSearch?.list) {
-            this.playsPagedSearch.list = this.playsPagedSearch?.list?.reverse();
+        if (this.playsPagedSearch?.items) {
+            this.playsPagedSearch.items = this.playsPagedSearch?.items?.reverse();
         }
 
         if (
@@ -171,7 +171,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                         const playsToAdd: Play[] = [];
                         if (!initialPlay) {
                             const currentPlayerName =
-                                this.playsPagedSearch?.list?.find(
+                                this.playsPagedSearch?.items?.find(
                                     (play) =>
                                         play.playerDtoResponse.type ===
                                         'RealPlayer',
@@ -203,10 +203,10 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                         playsToAdd.push(this.currentResponse);
                         this.playsPagedSearch = {
                             ...this.playsPagedSearch!,
-                            list: [...this.playsPagedSearch!.list!, ...playsToAdd],
+                            items: [...this.playsPagedSearch!.items!, ...playsToAdd],
                         };
                         this.streamedMessagesStartIndex =
-                            this.playsPagedSearch!.list!.length - playsToAdd.length;
+                            this.playsPagedSearch!.items!.length - playsToAdd.length;
                         this.cdr.detectChanges();
                         this.forceScroll = true;
                         this.scrollBotton();
@@ -237,14 +237,14 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                         break;
                     case 'Error':
                         if (this.streamedMessagesStartIndex !== null) {
-                            const list = [...this.playsPagedSearch!.list!];
+                            const list = [...this.playsPagedSearch!.items!];
                             list.splice(
                                 this.streamedMessagesStartIndex,
                                 list.length - this.streamedMessagesStartIndex,
                             );
                             this.playsPagedSearch = {
                                 ...this.playsPagedSearch!,
-                                list,
+                                items: list,
                             };
                             this.streamedMessagesStartIndex = null;
                             this.cdr.detectChanges();

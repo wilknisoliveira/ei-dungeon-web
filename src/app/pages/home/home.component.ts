@@ -69,10 +69,10 @@ export class HomeComponent implements OnInit {
 
         if (gameName) {
             this.gameSelected =
-                this.gamePagedSearch?.list.find(
+                this.gamePagedSearch?.items.find(
                     (game) => game.name === gameName,
                 )?.id ??
-                this.gamePagedSearch?.list[0].id ??
+                this.gamePagedSearch?.items[0].id ??
                 '';
         }
     }
@@ -84,8 +84,8 @@ export class HomeComponent implements OnInit {
                     this.gameSelected = '';
                 }
 
-                this.gamePagedSearch?.list.splice(
-                    this.gamePagedSearch?.list.findIndex(
+                this.gamePagedSearch?.items.splice(
+                    this.gamePagedSearch?.items.findIndex(
                         (game) => game.id === gameId,
                     ),
                     1,

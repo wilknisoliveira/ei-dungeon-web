@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { lastValueFrom } from 'rxjs';
@@ -25,10 +25,19 @@ export class PlayService {
 
     async getPlays(
         gameId: string,
+        sortDirection: string,
         pageSize: number,
+        page: number,
     ): Promise<PagedSearch<Play>> {
+        const params = new HttpParams()
+            .set('gameId', gameId)
+            .set('sortDirection', sortDirection)
+            .set('pageSize', pageSize)
+            .set('page', page);
+
         const playPaged$ = this.http.get<PagedSearch<Play>>(
-            `${this.baseUrl}/api/Play/${gameId}/${pageSize}`,
+            `${this.baseUrl}/api/Play`,
+            { params },
         );
 
         return lastValueFrom(playPaged$);
