@@ -1,10 +1,8 @@
 import { Component, signal } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
-import { UserSignUp } from 'src/app/types/auth/user-signup';
-import { Validators } from '@angular/forms';
 
 @Component({
     selector: 'app-signup',
@@ -13,16 +11,7 @@ import { Validators } from '@angular/forms';
 })
 export class SignupComponent {
     hide = signal(true);
-    emailFormControl = new FormControl('', [
-        Validators.required,
-        Validators.email,
-    ]);
-    userSignUp: UserSignUp = {
-        userName: '',
-        fullName: '',
-        email: '',
-        password: '',
-    };
+    formGroup: FormGroup;
     loading: boolean = false;
 
     usernameAvailable: boolean | null = null;
@@ -33,15 +22,44 @@ export class SignupComponent {
     private emailDebounce: any = null;
 
     constructor(
+        private fb: FormBuilder,
         private authService: AuthService,
         private router: Router,
         private snackBar: SnackbarService,
-    ) {}
+    ) {
+        this.formGroup = this.fb.group({
+            userName: [
+                '',
+                [
+                    Validators.required,
+                    Validators.minLength(4),
+                    Validators.maxLength(20),
+                ],
+            ],
+            fullName: [
+                '',
+                [
+                    Validators.required,
+                    Validators.minLength(4),
+                    Validators.maxLength(50),
+                ],
+            ],
+            email: ['', [Validators.required, Validators.email]],
+            password: [
+                '',
+                [
+                    Validators.required,
+                    Validators.minLength(8),
+                    Validators.maxLength(50),
+                ],
+            ],
+        });
+    }
 
     async onSubmit() {
         try {
             this.loading = true;
-            const result = await this.authService.signup(this.userSignUp);
+            const result = await this.authService.signup(this.formGroup.value);
             this.snackBar.addSuccess(
                 'Account created successfully. Please log in.',
             );
@@ -55,7 +73,8 @@ export class SignupComponent {
 
     onUsernameBlur(): void {
         if (this.usernameDebounce) clearTimeout(this.usernameDebounce);
-        if (!this.userSignUp.userName.trim()) {
+        const userName = this.formGroup.get('userName')?.value?.trim();
+        if (!userName || this.formGroup.get('userName')?.invalid) {
             this.usernameAvailable = null;
             return;
         }
@@ -63,7 +82,7 @@ export class SignupComponent {
         this.usernameDebounce = setTimeout(async () => {
             try {
                 const result = await this.authService.checkAvailability(
-                    this.userSignUp.userName,
+                    userName,
                     undefined,
                 );
                 this.usernameAvailable = result.usernameAvailable;
@@ -83,7 +102,8 @@ export class SignupComponent {
 
     onEmailBlur(): void {
         if (this.emailDebounce) clearTimeout(this.emailDebounce);
-        if (!this.userSignUp.email.trim() || this.emailFormControl.invalid) {
+        const emailControl = this.formGroup.get('email');
+        if (!emailControl?.value?.trim() || emailControl.invalid) {
             this.emailAvailable = null;
             return;
         }
@@ -92,7 +112,7 @@ export class SignupComponent {
             try {
                 const result = await this.authService.checkAvailability(
                     undefined,
-                    this.userSignUp.email,
+                    emailControl.value,
                 );
                 this.emailAvailable = result.emailAvailable;
             } catch (error: any) {
