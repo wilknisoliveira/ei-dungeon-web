@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit {
     gameSelected: string = '';
     pageSize = 0;
     enableShowMoreBtn: boolean = true;
+    isLoadingGames: boolean = false;
 
     gamePagedSearch: PagedSearch<Game> | null = null;
 
@@ -48,6 +49,7 @@ export class HomeComponent implements OnInit {
     }
 
     async showMore() {
+        this.isLoadingGames = true;
         this.pageSize = this.pageSize + 10;
 
         this.gamePagedSearch = await this.getGames(this.pageSize);
@@ -58,6 +60,8 @@ export class HomeComponent implements OnInit {
         ) {
             this.enableShowMoreBtn = false;
         }
+
+        this.isLoadingGames = false;
     }
 
     async setGame(gameId: string) {
@@ -122,5 +126,18 @@ export class HomeComponent implements OnInit {
 
     navigateToSettings(): void {
         this.router.navigate(['settings']);
+    }
+
+    onGamePlayed(gameId: string): void {
+        if (!this.gamePagedSearch?.items) return;
+
+        const currentIndex = this.gamePagedSearch.items.findIndex(
+            (game) => game.id === gameId,
+        );
+
+        if (currentIndex > 0) {
+            const [game] = this.gamePagedSearch.items.splice(currentIndex, 1);
+            this.gamePagedSearch.items.unshift(game);
+        }
     }
 }

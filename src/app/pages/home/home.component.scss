@@ -48,6 +48,13 @@
                 width: 100%;
                 padding: 0 0.5rem;
 
+                .loading-more {
+                    display: flex;
+                    justify-content: center;
+                    padding: 1rem 0;
+                }
+
+
                 .game-name {
                     display: flex;
                     align-items: center;

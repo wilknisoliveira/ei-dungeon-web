@@ -4,9 +4,11 @@ import {
     ChangeDetectorRef,
     Component,
     ElementRef,
+    EventEmitter,
     Input,
     OnChanges,
     OnInit,
+    Output,
     SimpleChanges,
     ViewChild,
 } from '@angular/core';
@@ -28,6 +30,7 @@ import { StreamPlay } from 'src/app/types/play/stream-play';
 })
 export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     @Input() gameId: string = '';
+    @Output() gamePlayed = new EventEmitter<string>();
     @ViewChild('messagesContainer') messagesContainer!: ElementRef;
     @ViewChild('textAreaContainer') textAreaContainer!: ElementRef;
 
@@ -262,6 +265,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                         if (!this.hasError) {
                             this.newPlayFormGroup.get('newPlayControl')?.reset();
                             this.removeGameCache(this.gameId);
+                            this.gamePlayed.emit(this.gameId);
                         }
                         this.hasError = false;
 

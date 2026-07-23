@@ -3,4 +3,5 @@ export interface Game {
     name: string;
     ownerUserId: string;
     gameStatus: string;
+    lastPlayedAt: Date | null;
 }
