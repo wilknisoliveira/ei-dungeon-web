@@ -98,16 +98,14 @@ export class AuthService {
         return date;
     }
 
-    getRoles(): string[] {
+    getRole(): string {
         const token = this.getAuthToken();
 
-        if (token != '') {
+        if (token) {
             const decoded: any = jwtDecode(token);
-
-            if (decoded.roles !== undefined) {
-                return JSON.parse(decoded.roles);
-            } else return [''];
-        } else return [''];
+            return decoded.role || '';
+        }
+        return '';
     }
 
     async signup(userSignUp: UserSignUp): Promise<any> {
@@ -144,13 +142,15 @@ export class AuthService {
         return lastValueFrom(result$);
     }
 
-    getUserInfo(): { username: string; roles: string[] } | null {
+    getUserInfo(): { username: string; role: string; fullName: string; email: string } | null {
         const token = this.getAuthToken();
         if (!token) return null;
         const decoded: any = jwtDecode(token);
         return {
             username: decoded.unique_name || decoded.sub || '',
-            roles: this.getRoles(),
+            role: this.getRole(),
+            fullName: decoded.fullName || '',
+            email: decoded.email || '',
         };
     }
 

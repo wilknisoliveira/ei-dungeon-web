@@ -9,9 +9,9 @@ export const HasRoleGuard: CanActivateFn = (route, state) => {
     const snackBar: SnackbarService = inject(SnackbarService);
 
     const rolesRoute = route.data['roles'] as string[];
-    const userRoles = authService.getRoles();
+    const userRole = authService.getRole();
 
-    const isAuthorized = rolesRoute.some((role) => userRoles.includes(role));
+    const isAuthorized = rolesRoute.includes(userRole);
 
     if (!isAuthorized) {
         console.error("You don't has access to this route.");

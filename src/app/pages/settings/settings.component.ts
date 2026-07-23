@@ -9,7 +9,7 @@ import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
     styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements OnInit {
-    userInfo: { username: string; roles: string[] } | null = null;
+    userInfo: { username: string; role: string; fullName: string; email: string } | null = null;
     changePasswordForm: FormGroup;
     loading = false;
     activeSection = 'account';
