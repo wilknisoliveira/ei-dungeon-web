@@ -63,6 +63,19 @@
                             <span class="value">{{ userInfo.role }}</span>
                         </div>
                     </div>
+
+                    <div class="danger-zone" *ngIf="userInfo">
+                        <h3>Danger Zone</h3>
+                        <p>Permanently delete your account and all associated data. This action cannot be undone.</p>
+                        <button
+                            mat-flat-button
+                            color="warn"
+                            [disabled]="loading"
+                            (click)="openDeleteAccountDialog()"
+                        >
+                            Delete Account
+                        </button>
+                    </div>
                 </div>
 
                 <div

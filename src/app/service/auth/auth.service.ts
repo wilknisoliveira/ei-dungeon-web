@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UserLogin } from 'src/app/types/auth/user-login';
-import { BehaviorSubject, lastValueFrom, tap } from 'rxjs';
+import { BehaviorSubject, Observable, lastValueFrom, tap } from 'rxjs';
 import { TokenObject } from 'src/app/types/auth/token-object';
 import { environment } from 'src/environments/environment';
 import { jwtDecode } from 'jwt-decode';
@@ -142,11 +142,12 @@ export class AuthService {
         return lastValueFrom(result$);
     }
 
-    getUserInfo(): { username: string; role: string; fullName: string; email: string } | null {
+    getUserInfo(): { id: string; username: string; role: string; fullName: string; email: string } | null {
         const token = this.getAuthToken();
         if (!token) return null;
         const decoded: any = jwtDecode(token);
         return {
+            id: decoded.sub || '',
             username: decoded.unique_name || decoded.sub || '',
             role: this.getRole(),
             fullName: decoded.fullName || '',
@@ -164,6 +165,10 @@ export class AuthService {
             { currentPassword, newPassword },
         );
         return lastValueFrom(result$);
+    }
+
+    deleteUser(id: string): Observable<Object> {
+        return this.http.delete(`${this.baseUrl}/api/user/${id}`);
     }
 
     async serverLogout(): Promise<void> {
