@@ -51,10 +51,12 @@ section {
             0 0 20px rgba(139, 0, 0, 0.15),
             0 4px 8px rgba(0, 0, 0, 0.3);
 
-        .theme-button {
+        .header-actions {
             width: 100%;
             display: flex;
             justify-content: flex-end;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .title {

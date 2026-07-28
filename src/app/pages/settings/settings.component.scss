@@ -97,6 +97,12 @@ mat-drawer-content {
             color: var(--text-primary);
         }
     }
+
+    .right {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
 }
 
 .main-content {

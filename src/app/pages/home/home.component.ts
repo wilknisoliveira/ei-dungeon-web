@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import '@angular/localize/init';
 
 import { PagedSearch } from 'src/app/types/general/paged-search';
 import { Game } from 'src/app/types/game/game';
@@ -19,6 +20,8 @@ export class HomeComponent implements OnInit {
     pageSize = 0;
     enableShowMoreBtn: boolean = true;
     isLoadingGames: boolean = false;
+    renamingGameId: string | null = null;
+    renamingGameName: string = '';
 
     gamePagedSearch: PagedSearch<Game> | null = null;
 
@@ -41,7 +44,7 @@ export class HomeComponent implements OnInit {
             result = await this.gameService.getGames('desc', listSize, 1);
         } catch (error) {
             this.snackBar.addError(
-                'Something went wrong while attempting to get the game list.',
+                $localize`Something went wrong while attempting to get the game list.`,
             );
         }
 
@@ -95,11 +98,11 @@ export class HomeComponent implements OnInit {
                     1,
                 );
 
-                this.snackBar.addSuccess('Game deleted successfully.');
+                this.snackBar.addSuccess($localize`Game deleted successfully.`);
             },
             error: (error) => {
                 this.snackBar.addError(
-                    'Something went wrong while attempting to delete the game.',
+                    $localize`Something went wrong while attempting to delete the game.`,
                 );
                 console.log(`Error: ${error}`);
             },
@@ -109,7 +112,7 @@ export class HomeComponent implements OnInit {
     openDeleteDialog(gameId: string, gameName: string): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             width: '250px',
-            data: `Tem certeza que deseja apagar o jogo '${gameName}'?`,
+            data: $localize`Are you sure you want to delete the game '${gameName}'?`,
         });
 
         dialogRef.afterClosed().subscribe((result: boolean): void => {
@@ -117,6 +120,55 @@ export class HomeComponent implements OnInit {
                 this.deleteGame(gameId);
             }
         });
+    }
+
+    startRename(gameId: string, currentName: string): void {
+        this.renamingGameId = gameId;
+        this.renamingGameName = currentName;
+    }
+
+    confirmRename(): void {
+        if (!this.renamingGameId) return;
+
+        const gameId = this.renamingGameId;
+        const newName = this.renamingGameName.trim();
+
+        this.cancelRename();
+
+        if (!newName || newName.length < 2 || newName.length > 20) return;
+
+        const game = this.gamePagedSearch?.items.find((g) => g.id === gameId);
+        if (game && newName === game.name) return;
+
+        this.gameService.patchGame(gameId, { name: newName }).subscribe({
+            next: (updatedGame) => {
+                if (game) {
+                    game.name = updatedGame.name;
+                }
+                this.snackBar.addSuccess($localize`Game renamed successfully.`);
+            },
+            error: (error) => {
+                this.snackBar.addError(
+                    $localize`Something went wrong while attempting to rename the game.`,
+                );
+                console.log(`Error: ${error}`);
+            },
+        });
+    }
+
+    cancelRename(): void {
+        this.renamingGameId = null;
+        this.renamingGameName = '';
+    }
+
+    onRenameKeydown(event: KeyboardEvent, gameId: string): void {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            this.confirmRename();
+        } else if (event.key === 'Escape') {
+            event.preventDefault();
+            this.cancelRename();
+        }
     }
 
     async logout(): Promise<void> {

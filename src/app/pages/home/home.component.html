@@ -12,7 +12,7 @@
                         aria-label="logo"
                         fontIcon="add"
                     ></mat-icon
-                    >New Role
+                    ><span i18n="@@newRoleButton">New Session</span>
                 </button>
             </div>
 
@@ -27,7 +27,7 @@
                             selected: gameSelected === game.id,
                         }"
                     >
-                        <div class="game-button">
+                        <div class="game-button" *ngIf="renamingGameId !== game.id">
                             <button (click)="setGame(game.id)" mat-flat-button>
                                 <mat-icon
                                     aria-hidden="false"
@@ -37,17 +37,40 @@
                                 {{ game.name }}
                             </button>
                         </div>
-                        <div class="trash-button">
+                        <div class="rename-input" *ngIf="renamingGameId === game.id" (mousedown)="$event.stopPropagation()">
+                            <input
+                                #renameInput
+                                [value]="game.name"
+                                (input)="renamingGameName = renameInput.value"
+                                (keydown)="onRenameKeydown($event, game.id)"
+                                (blur)="confirmRename()"
+                                minlength="2"
+                                maxlength="20"
+                                autofocus
+                            />
+                        </div>
+                        <div class="menu-button">
                             <button
-                                (click)="openDeleteDialog(game.id, game.name)"
-                                mat-flat-button
+                                mat-icon-button
+                                [matMenuTriggerFor]="gameMenu"
+                                (click)="$event.stopPropagation()"
                             >
                                 <mat-icon
                                     aria-hidden="false"
-                                    aria-label="logo"
-                                    fontIcon="delete"
+                                    aria-label="game options"
+                                    fontIcon="more_vert"
                                 ></mat-icon>
                             </button>
+                            <mat-menu #gameMenu="matMenu">
+                                <button mat-menu-item (click)="startRename(game.id, game.name)">
+                                    <mat-icon fontIcon="edit"></mat-icon>
+                                    <span i18n="@@renameMenuItem">Rename</span>
+                                </button>
+                                <button mat-menu-item (click)="openDeleteDialog(game.id, game.name)">
+                                    <mat-icon fontIcon="delete"></mat-icon>
+                                    <span i18n="@@deleteMenuItem">Delete</span>
+                                </button>
+                            </mat-menu>
                         </div>
                     </div>
                 </div>
@@ -57,6 +80,7 @@
                     class="show-more-btn"
                     (click)="showMore()"
                     mat-flat-button
+                    i18n="@@showMoreButton"
                 >
                     Show more
                 </button>
@@ -75,6 +99,9 @@
                     </button>
                 </div>
                 <div class="header-actions">
+                    <div class="language-button">
+                        <app-language-selector></app-language-selector>
+                    </div>
                     <div class="theme-button">
                         <app-theme-toggle></app-theme-toggle>
                     </div>
@@ -96,11 +123,11 @@
                                 (click)="navigateToSettings()"
                             >
                                 <mat-icon fontIcon="settings"></mat-icon>
-                                Settings
+                                <span i18n="@@settingsMenuItem">Settings</span>
                             </button>
                             <button mat-menu-item (click)="logout()">
                                 <mat-icon fontIcon="logout"></mat-icon>
-                                Logout
+                                <span i18n="@@logoutMenuItem">Logout</span>
                             </button>
                         </mat-menu>
                     </div>

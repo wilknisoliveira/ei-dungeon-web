@@ -1,0 +1,447 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en" target-language="pt-BR" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="appWordmark" datatype="html">
+        <source>EI-DUNGEON</source>
+        <target>EI-DUNGEON</target>
+      </trans-unit>
+      <trans-unit id="loginDescription" datatype="html">
+        <source>Log in to your account</source>
+        <target>Entre na sua conta</target>
+      </trans-unit>
+      <trans-unit id="usernameLabel" datatype="html">
+        <source>Username</source>
+        <target>Nome de usuário</target>
+      </trans-unit>
+      <trans-unit id="passwordLabel" datatype="html">
+        <source>Enter your password</source>
+        <target>Digite sua senha</target>
+      </trans-unit>
+      <trans-unit id="loginButton" datatype="html">
+        <source> Login </source>
+        <target> Entrar </target>
+      </trans-unit>
+      <trans-unit id="noAccountPrompt" datatype="html">
+        <source>Don't have an account?</source>
+        <target>Não tem uma conta?</target>
+      </trans-unit>
+      <trans-unit id="signUpLink" datatype="html">
+        <source>Sign Up Now</source>
+        <target>Inscreva-se agora</target>
+      </trans-unit>
+      <trans-unit id="newRoleButton" datatype="html">
+        <source>New Session</source>
+        <target>Nova Sessão</target>
+      </trans-unit>
+      <trans-unit id="showMoreButton" datatype="html">
+        <source> Show more </source>
+        <target> Mostrar mais </target>
+      </trans-unit>
+      <trans-unit id="settingsMenuItem" datatype="html">
+        <source>Settings</source>
+        <target>Configurações</target>
+      </trans-unit>
+      <trans-unit id="logoutMenuItem" datatype="html">
+        <source>Logout</source>
+        <target>Sair</target>
+      </trans-unit>
+      <trans-unit id="settingsSubtitle" datatype="html">
+        <source>Settings</source>
+        <target>Configurações</target>
+      </trans-unit>
+      <trans-unit id="accountMenuItem" datatype="html">
+        <source>Account</source>
+        <target>Conta</target>
+      </trans-unit>
+      <trans-unit id="securityMenuItem" datatype="html">
+        <source>Security</source>
+        <target>Segurança</target>
+      </trans-unit>
+      <trans-unit id="settingsTitle" datatype="html">
+        <source>Settings</source>
+        <target>Configurações</target>
+      </trans-unit>
+      <trans-unit id="accountHeading" datatype="html">
+        <source>Account</source>
+        <target>Conta</target>
+      </trans-unit>
+      <trans-unit id="fullNameLabel" datatype="html">
+        <source>Full Name</source>
+        <target>Nome completo</target>
+      </trans-unit>
+      <trans-unit id="emailLabel" datatype="html">
+        <source>Email</source>
+        <target>E-mail</target>
+      </trans-unit>
+      <trans-unit id="roleLabel" datatype="html">
+        <source>Role</source>
+        <target>Função</target>
+      </trans-unit>
+      <trans-unit id="dangerZoneHeading" datatype="html">
+        <source>Danger Zone</source>
+        <target>Zona de perigo</target>
+      </trans-unit>
+      <trans-unit id="deleteAccountWarning" datatype="html">
+        <source>Permanently delete your account and all associated data. This action cannot be undone.</source>
+        <target>Excluir permanentemente sua conta e todos os dados associados. Esta ação não pode ser desfeita.</target>
+      </trans-unit>
+      <trans-unit id="deleteAccountButton" datatype="html">
+        <source> Delete Account </source>
+        <target> Excluir conta </target>
+      </trans-unit>
+      <trans-unit id="changePasswordHeading" datatype="html">
+        <source>Change Password</source>
+        <target>Alterar senha</target>
+      </trans-unit>
+      <trans-unit id="currentPasswordLabel" datatype="html">
+        <source>Current Password</source>
+        <target>Senha atual</target>
+      </trans-unit>
+      <trans-unit id="currentPasswordRequiredError" datatype="html">
+        <source> Current password is required </source>
+        <target> A senha atual é obrigatória </target>
+      </trans-unit>
+      <trans-unit id="passwordMinLengthError" datatype="html">
+        <source> Minimum 4 characters </source>
+        <target> Mínimo de 4 caracteres </target>
+      </trans-unit>
+      <trans-unit id="newPasswordLabel" datatype="html">
+        <source>New Password</source>
+        <target>Nova senha</target>
+      </trans-unit>
+      <trans-unit id="newPasswordRequiredError" datatype="html">
+        <source> New password is required </source>
+        <target> A nova senha é obrigatória </target>
+      </trans-unit>
+      <trans-unit id="changePasswordButton" datatype="html">
+        <source> Change Password </source>
+        <target> Alterar senha </target>
+      </trans-unit>
+      <trans-unit id="signupDescription" datatype="html">
+        <source>Sign Up</source>
+        <target>Inscreva-se</target>
+      </trans-unit>
+      <trans-unit id="signupUsernameLabel" datatype="html">
+        <source>Username</source>
+        <target>Nome de usuário</target>
+      </trans-unit>
+      <trans-unit id="usernameRequiredError" datatype="html">
+        <source> Username is <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>required<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
+        <target> O nome de usuário é <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>obrigatório<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="usernameMinLengthError" datatype="html">
+        <source> Minimum 4 characters </source>
+        <target> Mínimo de 4 caracteres </target>
+      </trans-unit>
+      <trans-unit id="usernameMaxLengthError" datatype="html">
+        <source> Maximum 20 characters </source>
+        <target> Máximo de 20 caracteres </target>
+      </trans-unit>
+      <trans-unit id="usernameTakenError" datatype="html">
+        <source> Username is already taken </source>
+        <target> O nome de usuário já está em uso </target>
+      </trans-unit>
+      <trans-unit id="checkingAvailability" datatype="html">
+        <source> Checking availability... </source>
+        <target> Verificando disponibilidade... </target>
+      </trans-unit>
+      <trans-unit id="fullnameLabel" datatype="html">
+        <source>Fullname</source>
+        <target>Nome completo</target>
+      </trans-unit>
+      <trans-unit id="fullnameRequiredError" datatype="html">
+        <source> Fullname is <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>required<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
+        <target> O nome completo é <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>obrigatório<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="fullnameMinLengthError" datatype="html">
+        <source> Minimum 4 characters </source>
+        <target> Mínimo de 4 caracteres </target>
+      </trans-unit>
+      <trans-unit id="fullnameMaxLengthError" datatype="html">
+        <source> Maximum 50 characters </source>
+        <target> Máximo de 50 caracteres </target>
+      </trans-unit>
+      <trans-unit id="emailInvalidError" datatype="html">
+        <source>Please enter a valid email address</source>
+        <target>Por favor, insira um endereço de e-mail válido</target>
+      </trans-unit>
+      <trans-unit id="emailRequiredError" datatype="html">
+        <source> Email is <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>required<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
+        <target> O e-mail é <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>obrigatório<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="emailTakenError" datatype="html">
+        <source> Email is already registered </source>
+        <target> O e-mail já está registrado </target>
+      </trans-unit>
+      <trans-unit id="signupPasswordLabel" datatype="html">
+        <source>Enter your password</source>
+        <target>Digite sua senha</target>
+      </trans-unit>
+      <trans-unit id="passwordRequiredError" datatype="html">
+        <source> Password is <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>required<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
+        <target> A senha é <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>obrigatória<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></target>
+      </trans-unit>
+      <trans-unit id="passwordMaxLengthError" datatype="html">
+        <source> Maximum 50 characters </source>
+        <target> Máximo de 50 caracteres </target>
+      </trans-unit>
+      <trans-unit id="signupButton" datatype="html">
+        <source> Sign Up </source>
+        <target> Inscrever-se </target>
+      </trans-unit>
+      <trans-unit id="alreadyHaveAccountPrompt" datatype="html">
+        <source>Do you already have an account?</source>
+        <target>Já tem uma conta?</target>
+      </trans-unit>
+      <trans-unit id="signInLink" datatype="html">
+        <source>Sign In Now</source>
+        <target>Entrar agora</target>
+      </trans-unit>
+      <trans-unit id="chatGameReady" datatype="html">
+        <source>Your new game is ready!</source>
+        <target>Seu novo jogo está pronto!</target>
+      </trans-unit>
+      <trans-unit id="chatStartButton" datatype="html">
+        <source> Start </source>
+        <target> Iniciar </target>
+      </trans-unit>
+      <trans-unit id="7910849620457936504" datatype="html">
+        <source>Game Master</source>
+        <target>Mestre do Jogo</target>
+      </trans-unit>
+      <trans-unit id="3084566329643999642" datatype="html">
+        <source>What do you do?</source>
+        <target>O que você faz?</target>
+      </trans-unit>
+      <trans-unit id="6900473553536680806" datatype="html">
+        <source>This game has been finished, create a new one to start a new adventure!</source>
+        <target>Este jogo foi finalizado, crie um novo para começar uma nova aventura!</target>
+      </trans-unit>
+      <trans-unit id="3338122603397139235" datatype="html">
+        <source>Something went wrong while attempting to get the play list.</source>
+        <target>Algo deu errado ao tentar obter a lista de jogadas.</target>
+      </trans-unit>
+      <trans-unit id="7683705529753923369" datatype="html">
+        <source>Player</source>
+        <target>Jogador</target>
+      </trans-unit>
+      <trans-unit id="8083897527920072255" datatype="html">
+        <source>Master</source>
+        <target>Mestre</target>
+      </trans-unit>
+      <trans-unit id="6081488370267137537" datatype="html">
+        <source>The gods have not answered your call. Speak again, brave adventurer!</source>
+        <target>Os deuses não responderam à sua chamada. Fale novamente, bravo aventureiro!</target>
+      </trans-unit>
+      <trans-unit id="883225603593837541" datatype="html">
+        <source>Something went wrong. Please try again.</source>
+        <target>Algo deu errado. Por favor, tente novamente.</target>
+      </trans-unit>
+      <trans-unit id="firstStepsHeading" datatype="html">
+        <source>First steps</source>
+        <target>Primeiros passos</target>
+      </trans-unit>
+      <trans-unit id="firstStepsSubtitle" datatype="html">
+        <source>Create a new game!</source>
+        <target>Crie um novo jogo!</target>
+      </trans-unit>
+      <trans-unit id="gameNameLabel" datatype="html">
+        <source>Game name</source>
+        <target>Nome do jogo</target>
+      </trans-unit>
+      <trans-unit id="characterNameLabel" datatype="html">
+        <source>Character name</source>
+        <target>Nome do personagem</target>
+      </trans-unit>
+      <trans-unit id="characterDescriptionLabel" datatype="html">
+        <source>Character description</source>
+        <target>Descrição do personagem</target>
+      </trans-unit>
+      <trans-unit id="raceLabel" datatype="html">
+        <source>Race</source>
+        <target>Raça</target>
+      </trans-unit>
+      <trans-unit id="skillsHeading" datatype="html">
+        <source>Skills</source>
+        <target>Habilidades</target>
+      </trans-unit>
+      <trans-unit id="racialBonusTooltip" datatype="html">
+        <source>Racial Bonus</source>
+        <target>Bônus Racial</target>
+      </trans-unit>
+      <trans-unit id="pointsToDistribute" datatype="html">
+        <source>Points to distribute:</source>
+        <target>Pontos para distribuir:</target>
+      </trans-unit>
+      <trans-unit id="exceededMaxPoints" datatype="html">
+        <source>You have exceeded the maximum skill points</source>
+        <target>Você excedeu o máximo de pontos de habilidade</target>
+      </trans-unit>
+      <trans-unit id="startGameButton" datatype="html">
+        <source> Start game </source>
+        <target> Iniciar jogo </target>
+      </trans-unit>
+      <trans-unit id="7800061171704298797" datatype="html">
+        <source>Human</source>
+        <target>Humano</target>
+      </trans-unit>
+      <trans-unit id="4895190846964146304" datatype="html">
+        <source>Elf</source>
+        <target>Elfo</target>
+      </trans-unit>
+      <trans-unit id="6487984047699114430" datatype="html">
+        <source>Dwarf</source>
+        <target>Anão</target>
+      </trans-unit>
+      <trans-unit id="1148914934735638586" datatype="html">
+        <source>Half Elf</source>
+        <target>Meio-Elfo</target>
+      </trans-unit>
+      <trans-unit id="6003309338635897937" datatype="html">
+        <source>Halfling</source>
+        <target>Halfling</target>
+      </trans-unit>
+      <trans-unit id="5931157710888126589" datatype="html">
+        <source>Tiefling</source>
+        <target>Tiefling</target>
+      </trans-unit>
+      <trans-unit id="6984581431061216462" datatype="html">
+        <source>Dragonborn</source>
+        <target>Draconato</target>
+      </trans-unit>
+      <trans-unit id="1956337344618882908" datatype="html">
+        <source>Half Orc</source>
+        <target>Meio-Orc</target>
+      </trans-unit>
+      <trans-unit id="4019184240939181903" datatype="html">
+        <source>Gnome</source>
+        <target>Gnomo</target>
+      </trans-unit>
+      <trans-unit id="6632040223751981101" datatype="html">
+        <source>Strength</source>
+        <target>Força</target>
+      </trans-unit>
+      <trans-unit id="5465529649433457628" datatype="html">
+        <source>Dexterity</source>
+        <target>Destreza</target>
+      </trans-unit>
+      <trans-unit id="8489670130200267808" datatype="html">
+        <source>Intelligence</source>
+        <target>Inteligência</target>
+      </trans-unit>
+      <trans-unit id="1632323077493059273" datatype="html">
+        <source>Constitution</source>
+        <target>Constituição</target>
+      </trans-unit>
+      <trans-unit id="6828638344650593860" datatype="html">
+        <source>Charisma</source>
+        <target>Carisma</target>
+      </trans-unit>
+      <trans-unit id="6753176961354636644" datatype="html">
+        <source>Wisdom</source>
+        <target>Sabedoria</target>
+      </trans-unit>
+      <trans-unit id="2549518094568275321" datatype="html">
+        <source>Game &apos;<x id="PH" equiv-text="newGame.name"/>&apos; created!</source>
+        <target>Jogo &apos;<x id="PH" equiv-text="newGame.name"/>&apos; criado!</target>
+      </trans-unit>
+      <trans-unit id="3688639030371133915" datatype="html">
+        <source>Something went wrong while attempting to create the game. Verify with the admin if you have the permissions.</source>
+        <target>Algo deu errado ao tentar criar o jogo. Verifique com o administrador se você tem as permissões.</target>
+      </trans-unit>
+      <trans-unit id="7752330587380687192" datatype="html">
+        <source>Something went wrong while attempting to get the game list.</source>
+        <target>Algo deu errado ao tentar obter a lista de jogos.</target>
+      </trans-unit>
+      <trans-unit id="269149994023386814" datatype="html">
+        <source>Game deleted successfully.</source>
+        <target>Jogo excluído com sucesso.</target>
+      </trans-unit>
+      <trans-unit id="5244014636631739754" datatype="html">
+        <source>Something went wrong while attempting to delete the game.</source>
+        <target>Algo deu errado ao tentar excluir o jogo.</target>
+      </trans-unit>
+      <trans-unit id="1620894741817105195" datatype="html">
+        <source>Are you sure you want to delete the game &apos;<x id="PH" equiv-text="gameName"/>&apos;?</source>
+        <target>Tem certeza que deseja excluir o jogo &apos;<x id="PH" equiv-text="gameName"/>&apos;?</target>
+      </trans-unit>
+      <trans-unit id="confirmDialogYes" datatype="html">
+        <source>Yes</source>
+        <target>Sim</target>
+      </trans-unit>
+      <trans-unit id="confirmDialogCancel" datatype="html">
+        <source>Cancel</source>
+        <target>Cancelar</target>
+      </trans-unit>
+      <trans-unit id="chatLanguageLabel" datatype="html">
+        <source>Language</source>
+        <target>Idioma</target>
+      </trans-unit>
+      <trans-unit id="gameLanguageLabel" datatype="html">
+        <source>Game language</source>
+        <target>Idioma do jogo</target>
+      </trans-unit>
+      <trans-unit id="gameLanguageTooltip" datatype="html">
+        <source>Language used by the Game Master for narration and dialogue</source>
+        <target>Idioma utilizado pelo Mestre do Jogo para narração e diálogo</target>
+      </trans-unit>
+      <trans-unit id="renameMenuItem" datatype="html">
+        <source>Rename</source>
+        <target>Renomear</target>
+      </trans-unit>
+      <trans-unit id="deleteMenuItem" datatype="html">
+        <source>Delete</source>
+        <target>Excluir</target>
+      </trans-unit>
+      <trans-unit id="renameDialogTitle" datatype="html">
+        <source>Rename game</source>
+        <target>Renomear jogo</target>
+      </trans-unit>
+      <trans-unit id="renameDialogInputLabel" datatype="html">
+        <source>New name</source>
+        <target>Novo nome</target>
+      </trans-unit>
+      <trans-unit id="renameDialogPlaceholder" datatype="html">
+        <source>Game name</source>
+        <target>Nome do jogo</target>
+      </trans-unit>
+      <trans-unit id="renameDialogCancel" datatype="html">
+        <source>Cancel</source>
+        <target>Cancelar</target>
+      </trans-unit>
+      <trans-unit id="renameDialogConfirm" datatype="html">
+        <source>Rename</source>
+        <target>Renomear</target>
+      </trans-unit>
+      <trans-unit id="153799456510623899" datatype="html">
+        <source>Portuguese</source>
+        <target>Português</target>
+      </trans-unit>
+      <trans-unit id="5866254605255506989" datatype="html">
+        <source>English</source>
+        <target>Inglês</target>
+      </trans-unit>
+      <trans-unit id="334139479101771120" datatype="html">
+        <source>Game language updated.</source>
+        <target>Idioma do jogo atualizado.</target>
+      </trans-unit>
+      <trans-unit id="394543175828208356" datatype="html">
+        <source>Something went wrong while attempting to update the game language.</source>
+        <target>Algo deu errado ao tentar atualizar o idioma do jogo.</target>
+      </trans-unit>
+      <trans-unit id="1026218475958861845" datatype="html">
+        <source>Game renamed successfully.</source>
+        <target>Jogo renomeado com sucesso.</target>
+      </trans-unit>
+      <trans-unit id="9132426788094363683" datatype="html">
+        <source>Something went wrong while attempting to rename the game.</source>
+        <target>Algo deu errado ao tentar renomear o jogo.</target>
+      </trans-unit>
+      <trans-unit id="5190825892106392539" datatype="html">
+        <source>Spanish</source>
+        <target>Espanhol</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

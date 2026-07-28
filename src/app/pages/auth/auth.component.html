@@ -3,18 +3,23 @@
     <app-loading [isLoading]="loading"></app-loading>
     <div class="main-container" *ngIf="!loading">
         <div class="login">
-            <div class="theme-button">
-                <app-theme-toggle></app-theme-toggle>
+            <div class="header-actions">
+                <div class="language-button">
+                    <app-language-selector></app-language-selector>
+                </div>
+                <div class="theme-button">
+                    <app-theme-toggle></app-theme-toggle>
+                </div>
             </div>
             <div class="title">
                 <app-branding-icon></app-branding-icon>
-                <span class="wordmark">EI-DUNGEON</span>
+                <span class="wordmark" i18n="@@appWordmark">EI-DUNGEON</span>
             </div>
-            <div class="description">Log in to your account</div>
+            <div class="description" i18n="@@loginDescription">Log in to your account</div>
 
             <form (ngSubmit)="onSubmit()" #form="ngForm">
                 <mat-form-field class="example-full-width">
-                    <mat-label>Username</mat-label>
+                    <mat-label i18n="@@usernameLabel">Username</mat-label>
                     <input
                         matInput
                         [(ngModel)]="userLogin.userName"
@@ -24,7 +29,7 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <mat-label>Enter your password</mat-label>
+                    <mat-label i18n="@@passwordLabel">Enter your password</mat-label>
                     <input
                         matInput
                         [type]="hide() ? 'password' : 'text'"
@@ -40,6 +45,7 @@
                         mat-flat-button
                         color="primary"
                         [disabled]="form.form.invalid"
+                        i18n="@@loginButton"
                     >
                         Login
                     </button>
@@ -47,7 +53,7 @@
             </form>
         </div>
         <div class="sign-up">
-            Don't have an account? <a [routerLink]="['/signup']">Sign Up Now</a>
+            <span i18n="@@noAccountPrompt">Don't have an account?</span>&nbsp;<a [routerLink]="['/signup']" i18n="@@signUpLink">Sign Up Now</a>
         </div>
     </div>
 </section>

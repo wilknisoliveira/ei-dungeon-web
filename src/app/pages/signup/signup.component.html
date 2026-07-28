@@ -3,65 +3,72 @@
     <app-loading [isLoading]="loading"></app-loading>
     <div class="main-container" *ngIf="!loading">
         <div class="login">
-            <div class="theme-button">
-                <app-theme-toggle></app-theme-toggle>
+            <div class="header-actions">
+                <div class="language-button">
+                    <app-language-selector></app-language-selector>
+                </div>
+                <div class="theme-button">
+                    <app-theme-toggle></app-theme-toggle>
+                </div>
             </div>
             <div class="title">
                 <app-branding-icon></app-branding-icon>
-                <span class="wordmark">EI-DUNGEON</span>
+                <span class="wordmark" i18n="@@appWordmark">EI-DUNGEON</span>
             </div>
-            <div class="description">Sign Up</div>
+            <div class="description" i18n="@@signupDescription">Sign Up</div>
 
             <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
                 <mat-form-field class="example-full-width">
-                    <mat-label>Username</mat-label>
+                    <mat-label i18n="@@signupUsernameLabel">Username</mat-label>
                     <input
                         matInput
                         formControlName="userName"
                         (blur)="onUsernameBlur()"
                     />
-                    <mat-error *ngIf="formGroup.get('userName')?.hasError('required')">
+                    <mat-error *ngIf="formGroup.get('userName')?.hasError('required')" i18n="@@usernameRequiredError">
                         Username is <strong>required</strong>
                     </mat-error>
-                    <mat-error *ngIf="formGroup.get('userName')?.hasError('minlength')">
+                    <mat-error *ngIf="formGroup.get('userName')?.hasError('minlength')" i18n="@@usernameMinLengthError">
                         Minimum 4 characters
                     </mat-error>
-                    <mat-error *ngIf="formGroup.get('userName')?.hasError('maxlength')">
+                    <mat-error *ngIf="formGroup.get('userName')?.hasError('maxlength')" i18n="@@usernameMaxLengthError">
                         Maximum 20 characters
                     </mat-error>
                 </mat-form-field>
                 <div
                     class="availability-error"
                     *ngIf="usernameAvailable === false"
+                    i18n="@@usernameTakenError"
                 >
                     Username is already taken
                 </div>
                 <div
                     class="availability-checking"
                     *ngIf="usernameChecking"
+                    i18n="@@checkingAvailability"
                 >
                     Checking availability...
                 </div>
 
                 <mat-form-field class="example-full-width">
-                    <mat-label>Fullname</mat-label>
+                    <mat-label i18n="@@fullnameLabel">Fullname</mat-label>
                     <input
                         matInput
                         formControlName="fullName"
                     />
-                    <mat-error *ngIf="formGroup.get('fullName')?.hasError('required')">
+                    <mat-error *ngIf="formGroup.get('fullName')?.hasError('required')" i18n="@@fullnameRequiredError">
                         Fullname is <strong>required</strong>
                     </mat-error>
-                    <mat-error *ngIf="formGroup.get('fullName')?.hasError('minlength')">
+                    <mat-error *ngIf="formGroup.get('fullName')?.hasError('minlength')" i18n="@@fullnameMinLengthError">
                         Minimum 4 characters
                     </mat-error>
-                    <mat-error *ngIf="formGroup.get('fullName')?.hasError('maxlength')">
+                    <mat-error *ngIf="formGroup.get('fullName')?.hasError('maxlength')" i18n="@@fullnameMaxLengthError">
                         Maximum 50 characters
                     </mat-error>
                 </mat-form-field>
 
                 <mat-form-field class="example-full-width">
-                    <mat-label>Email</mat-label>
+                    <mat-label i18n="@@emailLabel">Email</mat-label>
                     <input
                         type="email"
                         matInput
@@ -74,9 +81,10 @@
                             formGroup.get('email')?.hasError('email') &&
                             !formGroup.get('email')?.hasError('required')
                         "
+                        i18n="@@emailInvalidError"
                         >Please enter a valid email address</mat-error
                     >
-                    <mat-error *ngIf="formGroup.get('email')?.hasError('required')"
+                    <mat-error *ngIf="formGroup.get('email')?.hasError('required')" i18n="@@emailRequiredError"
                         >Email is <strong>required</strong></mat-error
                     >
                 </mat-form-field>
@@ -84,30 +92,32 @@
                 <div
                     class="availability-error"
                     *ngIf="emailAvailable === false"
+                    i18n="@@emailTakenError"
                 >
                     Email is already registered
                 </div>
                 <div
                     class="availability-checking"
                     *ngIf="emailChecking"
+                    i18n="@@checkingAvailability"
                 >
                     Checking availability...
                 </div>
 
                 <mat-form-field class="form-field">
-                    <mat-label>Enter your password</mat-label>
+                    <mat-label i18n="@@signupPasswordLabel">Enter your password</mat-label>
                     <input
                         matInput
                         [type]="hide() ? 'password' : 'text'"
                         formControlName="password"
                     />
-                    <mat-error *ngIf="formGroup.get('password')?.hasError('required')">
+                    <mat-error *ngIf="formGroup.get('password')?.hasError('required')" i18n="@@passwordRequiredError">
                         Password is <strong>required</strong>
                     </mat-error>
-                    <mat-error *ngIf="formGroup.get('password')?.hasError('minlength')">
+                    <mat-error *ngIf="formGroup.get('password')?.hasError('minlength')" i18n="@@passwordMinLengthError">
                         Minimum 8 characters
                     </mat-error>
-                    <mat-error *ngIf="formGroup.get('password')?.hasError('maxlength')">
+                    <mat-error *ngIf="formGroup.get('password')?.hasError('maxlength')" i18n="@@passwordMaxLengthError">
                         Maximum 50 characters
                     </mat-error>
                 </mat-form-field>
@@ -118,6 +128,7 @@
                         mat-flat-button
                         color="primary"
                         [disabled]="formGroup.invalid"
+                        i18n="@@signupButton"
                     >
                         Sign Up
                     </button>
@@ -125,8 +136,8 @@
             </form>
         </div>
         <div class="sign-up">
-            Do you already have an account?
-            <a [routerLink]="['/login']">Sign In Now</a>
+            <span i18n="@@alreadyHaveAccountPrompt">Do you already have an account?</span>&nbsp;
+<a [routerLink]="['/login']" i18n="@@signInLink">Sign In Now</a>
         </div>
     </div>
 </section>

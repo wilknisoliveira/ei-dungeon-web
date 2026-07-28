@@ -15,8 +15,9 @@ Do you want to know more about the project goals? Go to the 'Next steps' section
 
 - <a href="#✔️-project-features">Project features</a>
 - <a href="#🔨-how-to-install-this-project">Install</a>
+- <a href="#🌐-internationalization">Internationalization</a>
 - <a href="#👨‍💻-next-steps">Next steps</a>
-- <a href="#author">Author steps</a>
+- <a href="#author">Author</a>
 
 # ✔️ Project features
 
@@ -24,6 +25,7 @@ Do you want to know more about the project goals? Go to the 'Next steps' section
 - [x] Login page
 - [x] Side bar game list
 - [x] Chat plays
+- [x] Multilanguage (en, pt-BR, es)
 
 # 🔨 How to install this project?
 
@@ -50,19 +52,76 @@ npm install
 ng serve
 ```
 
+# 🌐 Internationalization
+
+The application supports three languages: English, Portuguese (Brazil), and Spanish.
+
+## Running a specific language
+
+```
+# English (default)
+ng serve
+
+# Portuguese (Brazil)
+ng serve --configuration=pt-BR
+
+# Spanish
+ng serve --configuration=es
+```
+
+## Building for production (all languages)
+
+```
+ng build --configuration=production
+```
+
+This generates separate builds in `dist/ei-dungeon-web/`:
+
+| Directory | Language |
+|-----------|----------|
+| `en/` | English |
+| `pt-BR/` | Portuguese |
+| `es/` | Spanish |
+
+## Testing all languages simultaneously
+
+The production build requires a server with SPA fallback per locale. Use the included nginx setup:
+
+```
+# 1. Build for production
+ng build --configuration=production
+
+# 2. Start nginx (requires Docker)
+cd nginx
+docker-compose up -d
+```
+
+Then visit `http://localhost`:
+- Root `/` redirects to your browser's detected language
+- `/en/home` — English
+- `/pt-BR/home` — Portuguese
+- `/es/home` — Spanish
+
+To stop nginx:
+
+```
+cd nginx
+docker-compose down
+```
+
 # 👨‍💻 Next Steps
 
 The long-term goal would be to scale the application so RPG lovers can create quick matches.
 
 - [ ] Bug fixing
-- [ ] Logout
-- [ ] Delete game
+- [x] Logout
+- [x] Delete game
 - [ ] Keep user logged option
 - [ ] Improve security
 - [ ] Messages response by stream
 - [ ] PremiumUser Enable Flow
 - [ ] Admin page for tunning the AI responses and manage users
-- [ ] Multilanguage
+- [x] Multilanguage
 - [ ] Home page
 
 # Author

@@ -1,15 +1,32 @@
 <section *ngIf="(playsPagedSearch?.items?.length ?? 0) === 0" class="game-ready">
-    <p>Your new game is ready!</p>
+    <p i18n="@@chatGameReady">Your new game is ready!</p>
     <button
         type="submit"
         mat-flat-button
         color="primary"
         (click)="onSubmit(true)"
+        i18n="@@chatStartButton"
     >
         Start
     </button>
 </section>
 <section *ngIf="(playsPagedSearch?.items?.length ?? 0) > 0" class="game-playing">
+    <div class="game-toolbar">
+        <mat-form-field appearance="outline" class="game-language-select">
+            <mat-label i18n="@@chatLanguageLabel">Language</mat-label>
+            <mat-select [formControl]="gameLanguageFormControl" (selectionChange)="onLanguageChange()">
+                <mat-option *ngFor="let lang of gameLanguages" [value]="lang.value">
+                    {{ lang.abbreviation }}
+                </mat-option>
+            </mat-select>
+            <mat-icon
+                class="info-icon"
+                matTooltip="Language used by the Game Master for narration and dialogue"
+                i18n-matTooltip="@@gameLanguageTooltip"
+                matSuffix
+            >info</mat-icon>
+        </mat-form-field>
+    </div>
     <div class="messages" #messagesContainer (scroll)="onScroll($event)">
         <div class="messages-content">
             <div *ngIf="isLoadingMore" class="loading-more">
@@ -27,7 +44,7 @@
                 >
                     <div class="span-container">
                         <span matListItemTitle>{{
-                            play.playerDtoResponse.name
+                            getDisplayName(play)
                         }}</span>
                         <span>{{ play.prompt }}</span>
                     </div>
@@ -40,16 +57,12 @@
         <div class="input-area">
             <form [formGroup]="newPlayFormGroup">
                 <textarea
-                    [placeholder]="
-                        game?.gameStatus !== 'PlayerDied'
-                            ? 'What do you do?'
-                            : 'This game has been finished, create a new one to start a new adventure!'
-                    "
+                    [placeholder]="activePlaceholder"
                     (input)="onInputChange($event)"
                     rows="1"
                     formControlName="newPlayControl"
                     name="newPlayControl"
-                    [disabled]="game?.gameStatus === 'PlayerDied'"
+                    [disabled]="isDisabled"
                     #textAreaContainer
                 ></textarea>
 

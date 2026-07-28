@@ -42,6 +42,10 @@ export class GameService {
         return this.http.post<Game>(`${this.baseUrl}/api/Game`, newGame);
     }
 
+    patchGame(id: string, updates: { name?: string; gameLanguage?: string }): Observable<Game> {
+        return this.http.patch<Game>(`${this.baseUrl}/api/Game/${id}`, updates);
+    }
+
     deleteGame(id: string): Observable<Object> {
         return this.http.delete(`${this.baseUrl}/api/Game/${id}`);
     }

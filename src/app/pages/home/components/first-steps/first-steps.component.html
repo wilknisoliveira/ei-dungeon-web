@@ -1,14 +1,14 @@
 <app-loading [isLoading]="loading"></app-loading>
 <div class="first-steps" *ngIf="!loading">
-    <h1>First steps</h1>
-    <h2>Create a new game!</h2>
+    <h1 i18n="@@firstStepsHeading">First steps</h1>
+    <h2 i18n="@@firstStepsSubtitle">Create a new game!</h2>
     <form
         [formGroup]="gameFormGroup"
         #gameNgForm="ngForm"
         (ngSubmit)="onSubmit()"
     >
         <mat-form-field>
-            <mat-label>Game name</mat-label>
+            <mat-label i18n="@@gameNameLabel">Game name</mat-label>
             <input
                 matInput
                 #nameInput
@@ -21,7 +21,7 @@
             <mat-hint align="end">{{ nameInput.value.length }} / 50</mat-hint>
         </mat-form-field>
         <mat-form-field>
-            <mat-label>Character name</mat-label>
+            <mat-label i18n="@@characterNameLabel">Character name</mat-label>
             <input
                 matInput
                 #characterNameInput
@@ -36,7 +36,7 @@
             >
         </mat-form-field>
         <mat-form-field>
-            <mat-label>Character description</mat-label>
+            <mat-label i18n="@@characterDescriptionLabel">Character description</mat-label>
             <textarea
                 matInput
                 #characterDescriptionInput
@@ -51,16 +51,30 @@
             >
         </mat-form-field>
         <mat-form-field>
-            <mat-label>Race</mat-label>
+            <mat-label i18n="@@raceLabel">Race</mat-label>
             <mat-select formControlName="characterRaceControl">
                 <mat-option *ngFor="let race of races" [value]="race.value">
                     {{ race.name }}
                 </mat-option>
             </mat-select>
         </mat-form-field>
+        <mat-form-field>
+            <mat-label i18n="@@gameLanguageLabel">Game language</mat-label>
+            <mat-select formControlName="gameLanguageControl">
+                <mat-option *ngFor="let lang of gameLanguages" [value]="lang.value">
+                    {{ lang.abbreviation }} - {{ lang.name }}
+                </mat-option>
+            </mat-select>
+            <mat-icon
+                class="info-icon"
+                matTooltip="Language used by the Game Master for narration and dialogue"
+                i18n-matTooltip="@@gameLanguageTooltip"
+                matSuffix
+            >info</mat-icon>
+        </mat-form-field>
         <mat-card>
             <mat-card-content>
-                <h2>Skills</h2>
+                <h2 i18n="@@skillsHeading">Skills</h2>
                 <div formGroupName="skillsGroup">
                     <div *ngFor="let skill of skills">
                         <div class="value-card-container">
@@ -78,6 +92,7 @@
                                 <div
                                     class="racial-bonus"
                                     matTooltip="Racial Bonus"
+                                    i18n-matTooltip="@@racialBonusTooltip"
                                 >
                                     +{{
                                         getRacialBonusByRaceAndSkill(
@@ -103,7 +118,7 @@
                         </mat-slider>
                     </div>
                     <div class="attribute-points">
-                        Points to distribute:
+                        <span i18n="@@pointsToDistribute">Points to distribute:</span>&nbsp;
                         <span
                             [ngClass]="{
                                 warn:
@@ -120,6 +135,7 @@
                             currentSkillPointsDistributed >
                             maxSkillPointsToDistribute
                         "
+                        i18n="@@exceededMaxPoints"
                         >You have exceeded the maximum skill points</mat-error
                     >
                 </div>
@@ -135,6 +151,7 @@
                     loading ||
                     currentSkillPointsDistributed > maxSkillPointsToDistribute
                 "
+                i18n="@@startGameButton"
             >
                 Start game
             </button>

@@ -3,8 +3,8 @@
     <mat-drawer-container autosize>
         <mat-drawer mode="side" opened>
             <div class="sidebar-header">
-                <span class="brand">EI-DUNGEON</span>
-                <span class="subtitle">Settings</span>
+                <span class="brand" i18n="@@appWordmark">EI-DUNGEON</span>
+                <span class="subtitle" i18n="@@settingsSubtitle">Settings</span>
             </div>
             <mat-nav-list>
                 <mat-list-item
@@ -12,14 +12,14 @@
                     (click)="selectSection('account')"
                 >
                     <mat-icon matListItemIcon fontIcon="person"></mat-icon>
-                    Account
+                    <span i18n="@@accountMenuItem">Account</span>
                 </mat-list-item>
                 <mat-list-item
                     [class.active]="activeSection === 'security'"
                     (click)="selectSection('security')"
                 >
                     <mat-icon matListItemIcon fontIcon="lock"></mat-icon>
-                    Security
+                    <span i18n="@@securityMenuItem">Security</span>
                 </mat-list-item>
             </mat-nav-list>
         </mat-drawer>
@@ -30,11 +30,12 @@
                     <button mat-icon-button routerLink="/home">
                         <mat-icon fontIcon="arrow_back"></mat-icon>
                     </button>
-                    <span class="title">{{
+                    <span class="title" i18n="@@settingsTitle">{{
                         activeSection === 'account' ? 'Account' : 'Security'
                     }}</span>
                 </div>
                 <div class="right">
+                    <app-language-selector></app-language-selector>
                     <app-theme-toggle></app-theme-toggle>
                 </div>
             </div>
@@ -45,33 +46,34 @@
                     class="section-content"
                 >
                     <div class="settings-card" *ngIf="userInfo">
-                        <h2>Account</h2>
+                        <h2 i18n="@@accountHeading">Account</h2>
                         <div class="info-row">
-                            <span class="label">Username</span>
+                            <span class="label" i18n="@@usernameLabel">Username</span>
                             <span class="value">{{ userInfo.username }}</span>
                         </div>
                         <div class="info-row">
-                            <span class="label">Full Name</span>
+                            <span class="label" i18n="@@fullNameLabel">Full Name</span>
                             <span class="value">{{ userInfo.fullName }}</span>
                         </div>
                         <div class="info-row">
-                            <span class="label">Email</span>
+                            <span class="label" i18n="@@emailLabel">Email</span>
                             <span class="value">{{ userInfo.email }}</span>
                         </div>
                         <div class="info-row">
-                            <span class="label">Role</span>
+                            <span class="label" i18n="@@roleLabel">Role</span>
                             <span class="value">{{ userInfo.role }}</span>
                         </div>
                     </div>
 
                     <div class="danger-zone" *ngIf="userInfo">
-                        <h3>Danger Zone</h3>
-                        <p>Permanently delete your account and all associated data. This action cannot be undone.</p>
+                        <h3 i18n="@@dangerZoneHeading">Danger Zone</h3>
+                        <p i18n="@@deleteAccountWarning">Permanently delete your account and all associated data. This action cannot be undone.</p>
                         <button
                             mat-flat-button
                             color="warn"
                             [disabled]="loading"
                             (click)="openDeleteAccountDialog()"
+                            i18n="@@deleteAccountButton"
                         >
                             Delete Account
                         </button>
@@ -83,13 +85,13 @@
                     class="section-content"
                 >
                     <div class="settings-card">
-                        <h2>Change Password</h2>
+                        <h2 i18n="@@changePasswordHeading">Change Password</h2>
                         <form
                             [formGroup]="changePasswordForm"
                             (ngSubmit)="onChangePassword()"
                         >
                             <mat-form-field>
-                                <mat-label>Current Password</mat-label>
+                                <mat-label i18n="@@currentPasswordLabel">Current Password</mat-label>
                                 <input
                                     matInput
                                     type="password"
@@ -101,6 +103,7 @@
                                             .get('currentPassword')
                                             ?.hasError('required')
                                     "
+                                    i18n="@@currentPasswordRequiredError"
                                 >
                                     Current password is required
                                 </mat-error>
@@ -110,13 +113,14 @@
                                             .get('currentPassword')
                                             ?.hasError('minlength')
                                     "
+                                    i18n="@@passwordMinLengthError"
                                 >
                                     Minimum 4 characters
                                 </mat-error>
                             </mat-form-field>
 
                             <mat-form-field>
-                                <mat-label>New Password</mat-label>
+                                <mat-label i18n="@@newPasswordLabel">New Password</mat-label>
                                 <input
                                     matInput
                                     type="password"
@@ -128,6 +132,7 @@
                                             .get('newPassword')
                                             ?.hasError('required')
                                     "
+                                    i18n="@@newPasswordRequiredError"
                                 >
                                     New password is required
                                 </mat-error>
@@ -137,6 +142,7 @@
                                             .get('newPassword')
                                             ?.hasError('minlength')
                                     "
+                                    i18n="@@passwordMinLengthError"
                                 >
                                     Minimum 4 characters
                                 </mat-error>
@@ -150,6 +156,7 @@
                                     [disabled]="
                                         changePasswordForm.invalid || loading
                                     "
+                                    i18n="@@changePasswordButton"
                                 >
                                     Change Password
                                 </button>

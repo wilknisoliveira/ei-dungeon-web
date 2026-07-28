@@ -3,7 +3,9 @@ import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, NgForm } from '@angular/forms';
 import { GameService } from 'src/app/service/game/game.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
+import { LocaleService } from 'src/app/core/services/locale.service';
 import { NewGame } from 'src/app/types/game/new-game';
+import '@angular/localize/init';
 
 @Component({
     selector: 'app-first-steps',
@@ -16,25 +18,32 @@ export class FirstStepsComponent {
     @ViewChild('gameNgForm') gameNgForm!: NgForm;
 
     gameFormGroup: FormGroup;
+
+    gameLanguages: { name: string; value: string; abbreviation: string }[] = [
+        { name: $localize`Portuguese`, value: 'Portuguese', abbreviation: 'PT' },
+        { name: $localize`English`, value: 'English', abbreviation: 'EN' },
+        { name: $localize`Spanish`, value: 'Spanish', abbreviation: 'ES' },
+    ];
+
     races: { name: string; value: string }[] = [
-        { name: 'Human', value: 'Human' },
-        { name: 'Elf', value: 'Elf' },
-        { name: 'Dwarf', value: 'Dwarf' },
-        { name: 'HalfElf', value: 'HalfElf' },
-        { name: 'Halfling', value: 'Halfling' },
-        { name: 'Tiefling', value: 'Tiefling' },
-        { name: 'Dragonborn', value: 'Dragonborn' },
-        { name: 'HalfOrc', value: 'HalfOrc' },
-        { name: 'Gnome', value: 'Gnome' },
+        { name: $localize`Human`, value: 'Human' },
+        { name: $localize`Elf`, value: 'Elf' },
+        { name: $localize`Dwarf`, value: 'Dwarf' },
+        { name: $localize`Half Elf`, value: 'HalfElf' },
+        { name: $localize`Halfling`, value: 'Halfling' },
+        { name: $localize`Tiefling`, value: 'Tiefling' },
+        { name: $localize`Dragonborn`, value: 'Dragonborn' },
+        { name: $localize`Half Orc`, value: 'HalfOrc' },
+        { name: $localize`Gnome`, value: 'Gnome' },
     ];
 
     skills: { name: string; value: string }[] = [
-        { name: 'Strength', value: 'Strength' },
-        { name: 'Dexterity', value: 'Dexterity' },
-        { name: 'Intelligence', value: 'Intelligence' },
-        { name: 'Constitution', value: 'Constitution' },
-        { name: 'Charisma', value: 'Charisma' },
-        { name: 'Wisdom', value: 'Wisdom' },
+        { name: $localize`Strength`, value: 'Strength' },
+        { name: $localize`Dexterity`, value: 'Dexterity' },
+        { name: $localize`Intelligence`, value: 'Intelligence' },
+        { name: $localize`Constitution`, value: 'Constitution' },
+        { name: $localize`Charisma`, value: 'Charisma' },
+        { name: $localize`Wisdom`, value: 'Wisdom' },
     ];
 
     racialBonus: { name: string; bonus: Record<string, number> }[] = [
@@ -69,12 +78,14 @@ export class FirstStepsComponent {
         private _formBuilder: FormBuilder,
         private gameService: GameService,
         private snackBar: SnackbarService,
+        private localeService: LocaleService,
     ) {
         this.gameFormGroup = this._formBuilder.group({
             gameNameControl: ['', Validators.required],
             characterNameControl: ['', Validators.required],
             characterDescriptionControl: ['', Validators.required],
             characterRaceControl: ['', Validators.required],
+            gameLanguageControl: [this.getDefaultGameLanguage(), Validators.required],
             skillsGroup: this._formBuilder.group({
                 Strength: [8, Validators.required],
                 Dexterity: [8, Validators.required],
@@ -103,6 +114,7 @@ export class FirstStepsComponent {
                 ?.value,
             name: this.gameFormGroup.get('gameNameControl')?.value,
             race: this.gameFormGroup.get('characterRaceControl')?.value,
+            gameLanguage: this.gameFormGroup.get('gameLanguageControl')?.value,
             skills: {
                 Strength: this.gameFormGroup.get('skillsGroup.Strength')?.value,
                 Dexterity: this.gameFormGroup.get('skillsGroup.Dexterity')
@@ -120,13 +132,13 @@ export class FirstStepsComponent {
             next: () => {
                 this.gameCreated.emit(newGame.name);
                 this.loading = false;
-                this.snackBar.addSuccess(`Game '${newGame.name}' created!`);
+                this.snackBar.addSuccess($localize`Game '${newGame.name}' created!`);
             },
             error: (error: HttpErrorResponse) => {
                 //TODO: Exibir erro e tratar
                 this.loading = false;
                 this.snackBar.addError(
-                    'Something went wrong while attempting to create the game. Verify with the admin if you have the permissions.',
+                    $localize`Something went wrong while attempting to create the game. Verify with the admin if you have the permissions.`,
                 );
             },
         });
@@ -150,5 +162,15 @@ export class FirstStepsComponent {
         );
 
         return racialBonus?.bonus[skill] || 0;
+    }
+
+    private getDefaultGameLanguage(): string {
+        const systemLang = this.localeService.getCurrentLanguage();
+        const langMap: Record<string, string> = {
+            'en': 'English',
+            'pt-BR': 'Portuguese',
+            'es': 'Spanish',
+        };
+        return langMap[systemLang] || 'English';
     }
 }

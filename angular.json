@@ -10,6 +10,19 @@
                     "style": "scss"
                 }
             },
+            "i18n": {
+                "sourceLocale": "en",
+                "locales": {
+                    "pt-BR": {
+                        "translation": "src/i18n/messages.pt-BR.xlf",
+                        "baseHref": "/pt-BR/"
+                    },
+                    "es": {
+                        "translation": "src/i18n/messages.es.xlf",
+                        "baseHref": "/es/"
+                    }
+                }
+            },
             "root": "",
             "sourceRoot": "src",
             "prefix": "app",
@@ -20,15 +33,17 @@
                         "outputPath": "dist/ei-dungeon-web",
                         "index": "src/index.html",
                         "main": "src/main.ts",
-                        "polyfills": ["zone.js"],
+                        "polyfills": ["zone.js", "@angular/localize/init"],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",
                         "assets": ["src/favicon.ico", "src/assets"],
                         "styles": ["src/styles.scss"],
-                        "scripts": []
+                        "scripts": [],
+                        "i18nMissingTranslation": "error"
                     },
                     "configurations": {
                         "production": {
+                            "localize": true,
                             "fileReplacements": [
                                 {
                                     "replace": "src/environments/environment.ts",
@@ -43,8 +58,8 @@
                                 },
                                 {
                                     "type": "anyComponentStyle",
-                                    "maximumWarning": "2kb",
-                                    "maximumError": "4kb"
+                                    "maximumWarning": "6kb",
+                                    "maximumError": "10kb"
                                 }
                             ],
                             "outputHashing": "all"
@@ -56,6 +71,15 @@
                             "extractLicenses": false,
                             "sourceMap": true,
                             "namedChunks": true
+                        },
+                        "en": {
+                            "localize": ["en"]
+                        },
+                        "pt-BR": {
+                            "localize": ["pt-BR"]
+                        },
+                        "es": {
+                            "localize": ["es"]
                         }
                     },
                     "defaultConfiguration": "production"
@@ -68,6 +92,12 @@
                         },
                         "development": {
                             "browserTarget": "ei-dungeon-web:build:development"
+                        },
+                        "pt-BR": {
+                            "browserTarget": "ei-dungeon-web:build:development,pt-BR"
+                        },
+                        "es": {
+                            "browserTarget": "ei-dungeon-web:build:development,es"
                         }
                     },
                     "defaultConfiguration": "development"

@@ -12,7 +12,7 @@ import {
     SimpleChanges,
     ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { GameService } from 'src/app/service/game/game.service';
 import { PlayService } from 'src/app/service/play/play.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
@@ -22,6 +22,7 @@ import { NewPlay } from 'src/app/types/play/new-play';
 import { Play } from 'src/app/types/play/play';
 import { Player } from 'src/app/types/play/player';
 import { StreamPlay } from 'src/app/types/play/stream-play';
+import '@angular/localize/init';
 
 @Component({
     selector: 'app-chat',
@@ -46,6 +47,56 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     game: Game | null = null;
     streamedMessagesStartIndex: number | null = null;
     hasError: boolean = false;
+
+    gameLanguages: { name: string; value: string; abbreviation: string }[] = [
+        { name: $localize`Portuguese`, value: 'Portuguese', abbreviation: 'PT' },
+        { name: $localize`English`, value: 'English', abbreviation: 'EN' },
+        { name: $localize`Spanish`, value: 'Spanish', abbreviation: 'ES' },
+    ];
+
+    gameLanguageControl: FormGroup;
+
+    get gameLanguageFormControl(): FormControl {
+        return this.gameLanguageControl.get('gameLanguage') as FormControl;
+    }
+
+    get activePlaceholder(): string {
+        return this.game?.gameStatus !== 'PlayerDied'
+            ? $localize`What do you do?`
+            : $localize`This game has been finished, create a new one to start a new adventure!`;
+    }
+
+    get isDisabled(): boolean {
+        return this.game?.gameStatus === 'PlayerDied';
+    }
+
+    get currentGameLanguage(): string {
+        return this.gameLanguageControl.get('gameLanguage')?.value || 'English';
+    }
+
+    onLanguageChange(): void {
+        if (!this.game) return;
+
+        const newLanguage = this.gameLanguageControl.get('gameLanguage')?.value;
+        this.gameService.patchGame(this.game.id, { gameLanguage: newLanguage }).subscribe({
+            next: (updatedGame) => {
+                this.game = updatedGame;
+                this.snackBar.addSuccess($localize`Game language updated.`);
+            },
+            error: (error: HttpErrorResponse) => {
+                this.snackBar.addError(
+                    $localize`Something went wrong while attempting to update the game language.`,
+                );
+            },
+        });
+    }
+
+    getDisplayName(play: Play): string {
+        if (play.playerDtoResponse.type === 'RealPlayer') {
+            return play.playerDtoResponse.name;
+        }
+        return $localize`Game Master`;
+    }
 
     private readonly storagePrefix = 'game-cache-';
 
@@ -80,6 +131,9 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         this.newPlayFormGroup = this._formBuilder.group({
             newPlayControl: ['', Validators.required],
         });
+        this.gameLanguageControl = this._formBuilder.group({
+            gameLanguage: ['English', Validators.required],
+        });
     }
 
     ngAfterViewChecked(): void {
@@ -102,6 +156,10 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
 
         this.game = await this.gameService.getById(this.gameId);
 
+        if (this.game) {
+            this.gameLanguageControl.get('gameLanguage')?.setValue(this.game.gameLanguage);
+        }
+
         if (changes['gameId']) {
             await this.loadInitialPlays();
             this.forceScroll = true;
@@ -116,6 +174,10 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
 
     async ngOnInit(): Promise<void> {
         this.game = await this.gameService.getById(this.gameId);
+
+        if (this.game) {
+            this.gameLanguageControl.get('gameLanguage')?.setValue(this.game.gameLanguage);
+        }
 
         await this.loadInitialPlays();
         this.forceScroll = true;
@@ -132,7 +194,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
             return await this.playService.getPlays(this.gameId, 'desc', 20, page);
         } catch (error) {
             this.snackBar.addError(
-                'Something went wrong while attempting to get the play list.',
+                $localize`Something went wrong while attempting to get the play list.`,
             );
             console.log(`Error: ${error}`);
             return null;
@@ -221,7 +283,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                                 id: '',
                                 playerDtoResponse: {
                                     id: '',
-                                    name: currentPlayerName ?? 'Player',
+                                    name: currentPlayerName ?? $localize`Player`,
                                     type: 'RealPlayer',
                                 },
                                 prompt:
@@ -235,7 +297,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                         this.currentResponse = {
                             id: '',
                             playerDtoResponse: {
-                                name: 'Master',
+                                name: $localize`Master`,
                                 type: 'Master',
                             } as Player,
                             prompt: '',
@@ -295,7 +357,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                         this.currentResponse = null;
                         this.loading = false;
                         this.snackBar.addError(
-                            'The gods have not answered your call. Speak again, brave adventurer!',
+                            $localize`The gods have not answered your call. Speak again, brave adventurer!`,
                         );
                 }
             });
@@ -303,7 +365,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
             if (!this.hasError) {
                 this.loading = false;
                 this.snackBar.addError(
-                    'Something went wrong. Please try again.',
+                    $localize`Something went wrong. Please try again.`,
                 );
             }
         }

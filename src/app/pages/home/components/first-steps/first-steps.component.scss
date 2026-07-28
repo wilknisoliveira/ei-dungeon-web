@@ -31,6 +31,16 @@
         justify-content: center;
         width: 100%;
 
+        .info-icon {
+            font-size: 18px;
+            height: 18px;
+            width: 18px;
+            color: var(--text-secondary);
+            cursor: help;
+            margin-left: 4px;
+            vertical-align: middle;
+        }
+
         .value-card-container {
             display: flex;
             justify-content: space-between;

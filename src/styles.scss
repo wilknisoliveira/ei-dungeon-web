@@ -395,6 +395,11 @@ html {
     scrollbar-color: var(--text-secondary) var(--background);
 }
 
+/* Select dropdown panel width override */
+.cdk-overlay-pane .mat-mdc-select-panel {
+    min-width: 80px !important;
+}
+
 /* Snackbar toast styles */
 .snackbar-sucess {
     --mdc-snackbar-container-color: var(--color-secondary);

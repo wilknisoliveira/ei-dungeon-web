@@ -2,6 +2,6 @@
   <p>{{ data }}</p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button color="primary" (click)="onConfirm(true)">Sim</button>
-  <button mat-button color="warn" (click)="onConfirm(false)">Cancelar</button>
+  <button mat-button color="primary" (click)="onConfirm(true)" i18n="@@confirmDialogYes">Yes</button>
+  <button mat-button color="warn" (click)="onConfirm(false)" i18n="@@confirmDialogCancel">Cancel</button>
 </div>

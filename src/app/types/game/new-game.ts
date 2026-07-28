@@ -3,6 +3,7 @@ export interface NewGame {
     characterDescription: string;
     name: string;
     race: string;
+    gameLanguage: string;
     skills: Skills;
 }
 
