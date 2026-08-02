@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@use "sass:map";
 @use "@angular/material" as mat;
 @include mat.core();
 
@@ -207,92 +208,92 @@ $gray-palette: (
 // ─── Theme Configuration ────────────────────────────────────────────────────
 
 // Dark theme
-$my-primary-dark: mat.define-palette($red-palette, 750);
-$my-accent-dark: mat.define-palette($gray-palette, 500, 400, 600);
-$my-warn: mat.define-palette($yellow-palette, 500);
+$my-primary-dark: mat.m2-define-palette($red-palette, 750);
+$my-accent-dark: mat.m2-define-palette($gray-palette, 500, 400, 600);
+$my-warn: mat.m2-define-palette($yellow-palette, 500);
 
 // Light theme uses darker shades for contrast on light backgrounds
-$my-primary-light: mat.define-palette($red-palette, 800);
-$my-accent-light: mat.define-palette($blue-palette, 800, 600, 900);
+$my-primary-light: mat.m2-define-palette($red-palette, 800);
+$my-accent-light: mat.m2-define-palette($blue-palette, 800, 600, 900);
 
-$my-typography: mat.define-typography-config(
+$my-typography: mat.m2-define-typography-config(
     $font-family: 'Roboto, "Helvetica Neue", sans-serif',
-    $headline-1: mat.define-typography-level(
+    $headline-1: mat.m2-define-typography-level(
             $font-family: "Averia Serif Libre, serif",
             $font-weight: 700,
             $font-size: 96px,
             $line-height: 1.1,
             $letter-spacing: 0.02em,
         ),
-    $headline-2: mat.define-typography-level(
+    $headline-2: mat.m2-define-typography-level(
             $font-family: "Averia Serif Libre, serif",
             $font-weight: 700,
             $font-size: 60px,
             $line-height: 1.15,
             $letter-spacing: 0.02em,
         ),
-    $headline-3: mat.define-typography-level(
+    $headline-3: mat.m2-define-typography-level(
             $font-family: "Averia Serif Libre, serif",
             $font-weight: 700,
             $font-size: 48px,
             $line-height: 1.2,
             $letter-spacing: 0.02em,
         ),
-    $headline-4: mat.define-typography-level(
+    $headline-4: mat.m2-define-typography-level(
             $font-family: "Averia Serif Libre, serif",
             $font-weight: 700,
             $font-size: 36px,
             $line-height: 1.25,
             $letter-spacing: 0.02em,
         ),
-    $headline-5: mat.define-typography-level(
+    $headline-5: mat.m2-define-typography-level(
             $font-family: "Averia Serif Libre, serif",
             $font-weight: 700,
             $font-size: 28px,
             $line-height: 1.3,
             $letter-spacing: 0.01em,
         ),
-    $headline-6: mat.define-typography-level(
+    $headline-6: mat.m2-define-typography-level(
             $font-family: "Averia Serif Libre, serif",
             $font-weight: 700,
             $font-size: 24px,
             $line-height: 1.35,
             $letter-spacing: 0.01em,
         ),
-    $subtitle-1: mat.define-typography-level(
+    $subtitle-1: mat.m2-define-typography-level(
             $font-family: "Averia Serif Libre, serif",
             $font-weight: 400,
             $font-size: 18px,
             $line-height: 1.4,
             $letter-spacing: 0.01em,
         ),
-    $subtitle-2: mat.define-typography-level(
+    $subtitle-2: mat.m2-define-typography-level(
             $font-family: "Averia Serif Libre, serif",
             $font-weight: 400,
             $font-size: 16px,
             $line-height: 1.4,
             $letter-spacing: 0.01em,
         ),
-    $body-1: mat.define-typography-level(
+    $body-1: mat.m2-define-typography-level(
             $font-family: 'Roboto, "Helvetica Neue", sans-serif',
             $font-weight: 400,
             $font-size: 16px,
             $line-height: 1.5,
         ),
-    $body-2: mat.define-typography-level(
+    $body-2: mat.m2-define-typography-level(
             $font-family: 'Roboto, "Helvetica Neue", sans-serif',
             $font-weight: 400,
             $font-size: 14px,
             $line-height: 1.5,
         ),
-    $button: mat.define-typography-level(
+    $button: mat.m2-define-typography-level(
             $font-family: "Averia Serif Libre, serif",
             $font-weight: 700,
             $font-size: 16px,
             $line-height: 1,
             $letter-spacing: 0.05em,
         ),
-    $caption: mat.define-typography-level(
+    $caption: mat.m2-define-typography-level(
             $font-family: 'Roboto, "Helvetica Neue", sans-serif',
             $font-weight: 400,
             $font-size: 12px,
@@ -302,7 +303,7 @@ $my-typography: mat.define-typography-config(
 
 @include mat.typography-hierarchy($my-typography);
 
-$my-theme-light: mat.define-light-theme(
+$my-theme-light: mat.m2-define-light-theme(
     (
         color: (
             primary: $my-primary-light,
@@ -314,7 +315,7 @@ $my-theme-light: mat.define-light-theme(
     )
 );
 
-$my-theme-dark: mat.define-dark-theme(
+$my-theme-dark: mat.m2-define-dark-theme(
     (
         color: (
             primary: $my-primary-dark,
@@ -329,39 +330,39 @@ $my-theme-dark: mat.define-dark-theme(
 // ─── Token Mixin ────────────────────────────────────────────────────────────
 
 @mixin expose-theme($theme) {
-    $colors: mat.get-color-config($theme);
+    $colors: mat.m2-get-color-config($theme);
 
-    $primary: map-get($colors, primary);
-    $accent: map-get($colors, accent);
-    $warn: map-get($colors, warn);
-    $is-dark: map-get($colors, is-dark);
-    $background: map-get($colors, background);
-    $foreground: map-get($colors, foreground);
+    $primary: map.get($colors, primary);
+    $accent: map.get($colors, accent);
+    $warn: map.get($colors, warn);
+    $is-dark: map.get($colors, is-dark);
+    $background: map.get($colors, background);
+    $foreground: map.get($colors, foreground);
 
-    --color-primary: #{mat.get-color-from-palette($primary)};
-    --color-primary-contrast: #{mat.get-color-from-palette(
+    --color-primary: #{mat.m2-get-color-from-palette($primary)};
+    --color-primary-contrast: #{mat.m2-get-color-from-palette(
             $primary,
             default-contrast
         )};
-    --color-accent: #{mat.get-color-from-palette($accent)};
-    --color-warn: #{mat.get-color-from-palette($warn)};
+    --color-accent: #{mat.m2-get-color-from-palette($accent)};
+    --color-warn: #{mat.m2-get-color-from-palette($warn)};
     --is-dark: #{$is-dark};
 
-    --background: #{map-get($background, background)};
-    --surface: #{map-get($background, card)};
-    --surface-elevated: #{map-get($background, dialog)};
+    --background: #{map.get($background, background)};
+    --surface: #{map.get($background, card)};
+    --surface-elevated: #{map.get($background, dialog)};
 
-    --text-primary: #{map-get($foreground, text)};
-    --text-secondary: #{map-get($foreground, secondary-text)};
+    --text-primary: #{map.get($foreground, text)};
+    --text-secondary: #{map.get($foreground, secondary-text)};
 
     // Extra theme tokens
-    --color-secondary: #{mat.get-color-from-palette($green-palette, 500)};
-    --color-secondary-contrast: #{mat.get-color-from-palette(
+    --color-secondary: #{mat.m2-get-color-from-palette($green-palette, 500)};
+    --color-secondary-contrast: #{mat.m2-get-color-from-palette(
             $green-palette,
             default-contrast
         )};
-    --surface-glass: #{rgba(map-get($background, card), 0.85)};
-    --border-glow: #{mat.get-color-from-palette($yellow-palette, 700)};
+    --surface-glass: #{rgba(map.get($background, card), 0.85)};
+    --border-glow: #{mat.m2-get-color-from-palette($yellow-palette, 700)};
 
     --font-family-heading: "Averia Serif Libre", serif;
 }
