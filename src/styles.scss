@@ -13,6 +13,7 @@ $red-palette: (
     500: #f41111,
     600: #cc0e0e,
     700: #a30b0b,
+    750: #9E0007,
     800: #7a0808,
     900: #520505,
     A100: #ff8a80,
@@ -28,6 +29,7 @@ $red-palette: (
         500: white,
         600: white,
         700: white,
+        750: white,
         800: white,
         900: white,
         A100: rgba(black, 0.87),
@@ -169,11 +171,44 @@ $deep-rust-palette: (
     ),
 );
 
+$gray-palette: (
+    50: #fafafa,
+    100: #f5f5f5,
+    200: #eeeeee,
+    300: #e0e0e0,
+    400: #bdbdbd,
+    500: #CCCCCC,
+    600: #9e9e9e,
+    700: #757575,
+    800: #616161,
+    900: #424242,
+    A100: #d5d5d5,
+    A200: #b0b0b0,
+    A400: #a0a0a0,
+    A700: #8a8a8a,
+    contrast: (
+        50: rgba(black, 0.87),
+        100: rgba(black, 0.87),
+        200: rgba(black, 0.87),
+        300: rgba(black, 0.87),
+        400: rgba(black, 0.87),
+        500: rgba(black, 0.87),
+        600: white,
+        700: white,
+        800: white,
+        900: white,
+        A100: rgba(black, 0.87),
+        A200: rgba(black, 0.87),
+        A400: rgba(black, 0.87),
+        A700: white,
+    ),
+);
+
 // ─── Theme Configuration ────────────────────────────────────────────────────
 
 // Dark theme
-$my-primary-dark: mat.define-palette($red-palette, 500);
-$my-accent-dark: mat.define-palette($blue-palette, 500, 300, 700);
+$my-primary-dark: mat.define-palette($red-palette, 750);
+$my-accent-dark: mat.define-palette($gray-palette, 500, 400, 600);
 $my-warn: mat.define-palette($yellow-palette, 500);
 
 // Light theme uses darker shades for contrast on light backgrounds
@@ -327,6 +362,8 @@ $my-theme-dark: mat.define-dark-theme(
         )};
     --surface-glass: #{rgba(map-get($background, card), 0.85)};
     --border-glow: #{mat.get-color-from-palette($yellow-palette, 700)};
+
+    --font-family-heading: "Averia Serif Libre", serif;
 }
 
 // ─── Theme Application ──────────────────────────────────────────────────────
@@ -337,10 +374,10 @@ body.theme-dark {
     @include expose-theme($my-theme-dark);
 
     // Pure gray background overrides
-    --background: #4a4a4a;
-    --surface: #3a3a3a;
-    --surface-elevated: #2a2a2a;
-    --surface-glass: rgba(58, 58, 58, 0.85);
+    --background: #000000;
+    --surface: #12181C;
+    --surface-elevated: #232B2F;
+    --surface-glass: rgba(18, 24, 28, 0.85);
 }
 
 body.theme-light {
@@ -361,6 +398,13 @@ body.theme-light {
     --border-glow: #7a7706;
 }
 
+// ─── Shared Tokens (theme-independent) ──────────────────────────────────────
+:root {
+    --color-black: #000000;
+    --color-teal: #2e8b7f;
+    --color-danger: #e53935;
+}
+
 // ─── Global Styles ──────────────────────────────────────────────────────────
 
 html,
@@ -371,6 +415,12 @@ body {
 
     background-color: var(--background);
     color: var(--text-primary);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
 /* Custom Scrollbar Styles */
@@ -409,6 +459,26 @@ html {
 .snackbar-error {
     --mdc-snackbar-container-color: var(--color-warn);
     --mdc-snackbar-supporting-text-color: white;
+}
+
+/* Atmospheric background gradient overlay */
+.atmospheric-bg {
+    background-image:
+        radial-gradient(
+            ellipse 80% 60% at 50% 40%,
+            color-mix(in srgb, var(--color-primary) 12%, transparent) 0%,
+            transparent 70%
+        ),
+        radial-gradient(
+            ellipse 60% 50% at 20% 80%,
+            color-mix(in srgb, var(--border-glow) 6%, transparent) 0%,
+            transparent 60%
+        ),
+        radial-gradient(
+            ellipse 50% 40% at 80% 20%,
+            color-mix(in srgb, var(--color-teal) 6%, transparent) 0%,
+            transparent 50%
+        );
 }
 
 /* Accessibility: Disable animations for users who prefer reduced motion */

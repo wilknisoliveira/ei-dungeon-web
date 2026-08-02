@@ -2,9 +2,10 @@
     mat-drawer-container {
         background-color: var(--background);
         display: flex;
-        width: 100vw;
+        width: 100%;
         height: 100vh;
-        border: 1px solid rgba(0, 0, 0, 0.5);
+        border: 1px solid
+            color-mix(in srgb, var(--color-black) 50%, transparent);
 
         mat-drawer {
             background-color: var(--surface);
@@ -12,6 +13,7 @@
             flex-direction: column;
             align-items: center;
             width: clamp(250px, 20%, 350px);
+            overflow: hidden;
 
             .center-btn-container {
                 display: flex;
@@ -23,11 +25,18 @@
                     background-color: var(--color-primary);
                     color: var(--color-primary-contrast);
                     border-radius: 1rem;
-                    transition: box-shadow 0.15s ease, transform 0.15s ease;
+                    transition:
+                        box-shadow 0.15s ease,
+                        transform 0.15s ease;
                     font-family: "Averia Serif Libre", serif;
 
                     &:hover {
-                        box-shadow: 0 0 12px rgba(139, 0, 0, 0.5);
+                        box-shadow: 0 0 12px
+                            color-mix(
+                                in srgb,
+                                var(--color-primary) 50%,
+                                transparent
+                            );
                         transform: translateY(-1px);
                     }
                 }
@@ -54,13 +63,12 @@
                     padding: 1rem 0;
                 }
 
-
                 .game-name {
                     display: flex;
                     align-items: center;
                     width: 100%;
-        margin-bottom: 2rem;
-        border-bottom: 1px solid var(--text-secondary);
+                    margin-bottom: 2rem;
+                    border-bottom: 1px solid var(--text-secondary);
                     opacity: 0.7;
                     transition: opacity 0.15s ease;
 
@@ -72,8 +80,7 @@
                         background-color: var(--background);
                         border-radius: 0.5rem;
                         opacity: 1;
-                        box-shadow: 0 0 8px var(--border-glow);
-                        border-bottom-color: var(--color-accent);
+                        box-shadow: 0 0 6px var(--border-glow);
                     }
 
                     &:last-child {

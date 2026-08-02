@@ -91,6 +91,11 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         });
     }
 
+    selectLanguage(value: string): void {
+        this.gameLanguageControl.get('gameLanguage')?.setValue(value);
+        this.onLanguageChange();
+    }
+
     getDisplayName(play: Play): string {
         if (play.playerDtoResponse.type === 'RealPlayer') {
             return play.playerDtoResponse.name;
@@ -409,7 +414,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
             }
 
             const lastMessage = container.querySelector(
-                'mat-list-item:last-child',
+                '.message:last-child',
             ) as HTMLElement;
             if (lastMessage && lastMessage.offsetHeight > container.clientHeight) {
                 return;

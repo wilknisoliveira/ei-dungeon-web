@@ -1,4 +1,7 @@
-<section *ngIf="(playsPagedSearch?.items?.length ?? 0) === 0" class="game-ready">
+<section
+    *ngIf="(playsPagedSearch?.items?.length ?? 0) === 0"
+    class="game-ready atmospheric-bg"
+>
     <p i18n="@@chatGameReady">Your new game is ready!</p>
     <button
         type="submit"
@@ -10,31 +13,58 @@
         Start
     </button>
 </section>
-<section *ngIf="(playsPagedSearch?.items?.length ?? 0) > 0" class="game-playing">
+<section
+    *ngIf="(playsPagedSearch?.items?.length ?? 0) > 0"
+    class="game-playing atmospheric-bg"
+>
     <div class="game-toolbar">
-        <mat-form-field appearance="outline" class="game-language-select">
-            <mat-label i18n="@@chatLanguageLabel">Language</mat-label>
-            <mat-select [formControl]="gameLanguageFormControl" (selectionChange)="onLanguageChange()">
-                <mat-option *ngFor="let lang of gameLanguages" [value]="lang.value">
-                    {{ lang.abbreviation }}
-                </mat-option>
-            </mat-select>
-            <mat-icon
-                class="info-icon"
+        <button
+            mat-icon-button
+            [matMenuTriggerFor]="gameOptionsMenu"
+            matTooltip="Game options"
+        >
+            <mat-icon fontIcon="more_horiz"></mat-icon>
+        </button>
+        <mat-menu #gameOptionsMenu="matMenu">
+            <button
+                mat-menu-item
+                [matMenuTriggerFor]="languageMenu"
                 matTooltip="Language used by the Game Master for narration and dialogue"
                 i18n-matTooltip="@@gameLanguageTooltip"
-                matSuffix
-            >info</mat-icon>
-        </mat-form-field>
+            >
+                <mat-icon fontIcon="language"></mat-icon>
+                <span i18n="@@chatLanguageLabel">Language</span>
+            </button>
+        </mat-menu>
+        <mat-menu #languageMenu="matMenu">
+            <button
+                *ngFor="let lang of gameLanguages"
+                mat-menu-item
+                (click)="selectLanguage(lang.value)"
+            >
+                <span>{{ lang.abbreviation }}</span>
+                <mat-icon
+                    [style.visibility]="
+                        currentGameLanguage === lang.value
+                            ? 'visible'
+                            : 'hidden'
+                    "
+                    fontIcon="check"
+                ></mat-icon>
+            </button>
+        </mat-menu>
     </div>
     <div class="messages" #messagesContainer (scroll)="onScroll($event)">
         <div class="messages-content">
             <div *ngIf="isLoadingMore" class="loading-more">
-                <app-small-loading [isLoading]="isLoadingMore"></app-small-loading>
+                <app-small-loading
+                    [isLoading]="isLoadingMore"
+                ></app-small-loading>
             </div>
-            <mat-list role="list">
-                <mat-list-item
+            <div class="messages-list" role="list">
+                <div
                     *ngFor="let play of playsPagedSearch?.items"
+                    class="message"
                     role="listitem"
                     [ngClass]="{
                         user: play.playerDtoResponse.type === 'RealPlayer',
@@ -43,13 +73,11 @@
                     }"
                 >
                     <div class="span-container">
-                        <span matListItemTitle>{{
-                            getDisplayName(play)
-                        }}</span>
+                        <span>{{ getDisplayName(play) }}</span>
                         <span>{{ play.prompt }}</span>
                     </div>
-                </mat-list-item>
-            </mat-list>
+                </div>
+            </div>
         </div>
     </div>
 
