@@ -1,4 +1,4 @@
-import { Pipe, PipeTransform, Inject, LOCALE_ID } from '@angular/core';
+import { Pipe, PipeTransform, LOCALE_ID, inject } from '@angular/core';
 import { TimezoneService } from '../../core/services/timezone.service';
 
 @Pipe({
@@ -7,10 +7,8 @@ import { TimezoneService } from '../../core/services/timezone.service';
     pure: true,
 })
 export class TimezoneAwareDatePipe implements PipeTransform {
-    constructor(
-        @Inject(LOCALE_ID) private locale: string,
-        private timezoneService: TimezoneService
-    ) {}
+    private locale = inject<string>(LOCALE_ID);
+    private timezoneService = inject(TimezoneService);
 
     transform(
         value: Date | string | number,

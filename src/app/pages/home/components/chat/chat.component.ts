@@ -22,7 +22,6 @@ import { NewPlay } from 'src/app/types/play/new-play';
 import { Play } from 'src/app/types/play/play';
 import { Player } from 'src/app/types/play/player';
 import { StreamPlay } from 'src/app/types/play/stream-play';
-import '@angular/localize/init';
 
 @Component({
     standalone: false,

@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { MatSelectChange } from '@angular/material/select';
 import { LocaleService } from '../../../core/services/locale.service';
@@ -13,11 +13,8 @@ import { LanguageConfiguration } from '../../../core/models/language.model';
 export class LanguageSelectorComponent implements OnInit {
     currentLang = '';
     languages: LanguageConfiguration[] = [];
-
-    constructor(
-        @Inject(DOCUMENT) private document: Document,
-        private localeService: LocaleService
-    ) {}
+    private document = inject(DOCUMENT);
+    private localeService = inject(LocaleService);
 
     ngOnInit(): void {
         this.languages = this.localeService.getSupportedLanguages();

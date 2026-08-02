@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { DOCUMENT } from '@angular/common';
@@ -14,10 +14,8 @@ export class ThemeToggleComponent implements OnInit {
     darkTheme = 'theme-dark';
     lightTheme = 'theme-light';
 
-    constructor(
-        private overlay: OverlayContainer,
-        @Inject(DOCUMENT) private document: Document,
-    ) {}
+    private overlay = inject(OverlayContainer);
+    private document = inject(DOCUMENT);
 
     ngOnInit(): void {
         const savedTheme = localStorage.getItem('app-theme') ?? this.darkTheme;

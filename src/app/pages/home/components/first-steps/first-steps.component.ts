@@ -5,7 +5,6 @@ import { GameService } from 'src/app/service/game/game.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { NewGame } from 'src/app/types/game/new-game';
-import '@angular/localize/init';
 
 @Component({
     standalone: false,

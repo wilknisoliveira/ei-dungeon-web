@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import {
     SUPPORTED_LANGUAGES,
@@ -11,7 +11,7 @@ import { LanguageConfiguration } from '../models/language.model';
     providedIn: 'root',
 })
 export class LocaleService {
-    constructor(@Inject(DOCUMENT) private document: Document) {}
+    private document = inject(DOCUMENT);
 
     getSupportedLanguages(): LanguageConfiguration[] {
         return SUPPORTED_LANGUAGES;
