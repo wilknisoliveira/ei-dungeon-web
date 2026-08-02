@@ -8,6 +8,7 @@ import { NewGame } from 'src/app/types/game/new-game';
 import '@angular/localize/init';
 
 @Component({
+    standalone: false,
     selector: 'app-first-steps',
     templateUrl: './first-steps.component.html',
     styleUrls: ['./first-steps.component.scss'],

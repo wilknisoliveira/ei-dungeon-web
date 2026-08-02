@@ -9,6 +9,7 @@ import {
 } from '@angular/animations';
 
 @Component({
+    standalone: false,
     selector: 'app-root',
     templateUrl: 'app.component.html',
     animations: [

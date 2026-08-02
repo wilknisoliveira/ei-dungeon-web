@@ -5,6 +5,7 @@ import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { UserLogin } from 'src/app/types/auth/user-login';
 
 @Component({
+    standalone: false,
     selector: 'app-auth',
     templateUrl: './auth.component.html',
     styleUrls: ['./auth.component.scss'],

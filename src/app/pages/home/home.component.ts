@@ -11,6 +11,7 @@ import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/
 import { AuthService } from 'src/app/service/auth/auth.service';
 
 @Component({
+    standalone: false,
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],

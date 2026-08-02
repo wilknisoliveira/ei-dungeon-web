@@ -25,6 +25,7 @@ import { StreamPlay } from 'src/app/types/play/stream-play';
 import '@angular/localize/init';
 
 @Component({
+    standalone: false,
     selector: 'app-chat',
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.scss'],

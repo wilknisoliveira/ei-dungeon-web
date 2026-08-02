@@ -7,6 +7,7 @@ import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 
 @Component({
+    standalone: false,
     selector: 'app-settings',
     templateUrl: './settings.component.html',
     styleUrls: ['./settings.component.scss'],

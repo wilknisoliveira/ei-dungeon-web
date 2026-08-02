@@ -5,6 +5,7 @@ import { LocaleService } from '../../../core/services/locale.service';
 import { LanguageConfiguration } from '../../../core/models/language.model';
 
 @Component({
+    standalone: false,
     selector: 'app-language-selector',
     templateUrl: './language-selector.component.html',
     styleUrls: ['./language-selector.component.scss'],
