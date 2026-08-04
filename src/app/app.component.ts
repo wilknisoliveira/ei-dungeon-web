@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
 import {
     trigger,
     transition,
@@ -9,7 +10,8 @@ import {
 } from '@angular/animations';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [RouterModule],
     selector: 'app-root',
     templateUrl: 'app.component.html',
     animations: [

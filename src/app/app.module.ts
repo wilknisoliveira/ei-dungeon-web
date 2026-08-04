@@ -9,13 +9,13 @@ import { httpInterceptorProviders } from './http-interceptors';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
-    declarations: [AppComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
         HttpClientModule,
         MatSnackBarModule,
+        AppComponent,
     ],
     providers: [httpInterceptorProviders],
     bootstrap: [AppComponent],

@@ -1,11 +1,31 @@
 import { Component, signal } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { Router, RouterModule } from '@angular/router';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
+import { LoadingComponent } from 'src/app/shared/loading/loading.component';
+import { LanguageSelectorComponent } from 'src/app/shared/components/language-selector/language-selector.component';
+import { ThemeToggleComponent } from 'src/app/shared/theme-toggle/theme-toggle.component';
+import { BrandingIconComponent } from 'src/app/shared/components/branding-icon/branding-icon.component';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [
+        CommonModule,
+        ReactiveFormsModule,
+        RouterModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        LoadingComponent,
+        LanguageSelectorComponent,
+        ThemeToggleComponent,
+        BrandingIconComponent,
+    ],
     selector: 'app-signup',
     templateUrl: './signup.component.html',
     styleUrls: ['./signup.component.scss'],

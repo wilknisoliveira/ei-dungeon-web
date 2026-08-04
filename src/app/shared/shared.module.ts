@@ -27,8 +27,6 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         MatProgressSpinnerModule,
         MatSelectModule,
         MatInputModule,
-    ],
-    exports: [
         LoadingComponent,
         SmallLoadingComponent,
         ConfirmationDialogComponent,
@@ -37,7 +35,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         LanguageSelectorComponent,
         TimezoneAwareDatePipe,
     ],
-    declarations: [
+    exports: [
         LoadingComponent,
         SmallLoadingComponent,
         ConfirmationDialogComponent,

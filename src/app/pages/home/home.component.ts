@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { Router, RouterModule } from '@angular/router';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { PagedSearch } from 'src/app/types/general/paged-search';
 import { Game } from 'src/app/types/game/game';
@@ -8,9 +13,28 @@ import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { GameService } from 'src/app/service/game/game.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
 import { AuthService } from 'src/app/service/auth/auth.service';
+import { SmallLoadingComponent } from 'src/app/shared/small-loading/small-loading.component';
+import { LanguageSelectorComponent } from 'src/app/shared/components/language-selector/language-selector.component';
+import { ThemeToggleComponent } from 'src/app/shared/theme-toggle/theme-toggle.component';
+import { ChatComponent } from './components/chat/chat.component';
+import { FirstStepsComponent } from './components/first-steps/first-steps.component';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [
+        CommonModule,
+        RouterModule,
+        MatDialogModule,
+        MatSidenavModule,
+        MatButtonModule,
+        MatIconModule,
+        MatMenuModule,
+        SmallLoadingComponent,
+        LanguageSelectorComponent,
+        ThemeToggleComponent,
+        ChatComponent,
+        FirstStepsComponent,
+    ],
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss'],

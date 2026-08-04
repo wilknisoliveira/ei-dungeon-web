@@ -1,11 +1,12 @@
 import { Component, OnInit, inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
-import { MatSelectChange } from '@angular/material/select';
+import { CommonModule, DOCUMENT } from '@angular/common';
+import { MatSelectModule, MatSelectChange } from '@angular/material/select';
 import { LocaleService } from '../../../core/services/locale.service';
 import { LanguageConfiguration } from '../../../core/models/language.model';
 
 @Component({
-    standalone: false,
+    standalone: true,
+    imports: [CommonModule, MatSelectModule],
     selector: 'app-language-selector',
     templateUrl: './language-selector.component.html',
     styleUrls: ['./language-selector.component.scss'],

@@ -5,7 +5,7 @@ import { AuthComponent } from './auth/auth.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
-import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { HomeComponent } from './home/home.component';
@@ -18,8 +18,6 @@ import { MatListModule } from '@angular/material/list';
 import { FirstStepsComponent } from './home/components/first-steps/first-steps.component';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSliderModule } from '@angular/material/slider';
-import { LoadingComponent } from '../shared/loading/loading.component';
-import { SharedModule } from '../shared/shared.module';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
@@ -28,14 +26,6 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
-    declarations: [
-        AuthComponent,
-        HomeComponent,
-        SignupComponent,
-        SettingsComponent,
-        ChatComponent,
-        FirstStepsComponent,
-    ],
     imports: [
         CommonModule,
         RoutingModule,
@@ -51,14 +41,18 @@ import { MatMenuModule } from '@angular/material/menu';
         MatListModule,
         MatStepperModule,
         MatSliderModule,
-        SharedModule,
         MatDialogModule,
         MatSlideToggleModule,
         MatSelectModule,
         MatCardModule,
         MatTooltipModule,
         MatMenuModule,
+        AuthComponent,
+        HomeComponent,
+        SignupComponent,
+        SettingsComponent,
+        ChatComponent,
+        FirstStepsComponent,
     ],
-    exports: [ChatComponent, FirstStepsComponent],
 })
 export class PagesModule {}

@@ -2,7 +2,7 @@ import { Pipe, PipeTransform, LOCALE_ID, inject } from '@angular/core';
 import { TimezoneService } from '../../core/services/timezone.service';
 
 @Pipe({
-    standalone: false,
+    standalone: true,
     name: 'tzDate',
     pure: true,
 })
