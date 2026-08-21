@@ -1,209 +1,138 @@
 /* You can add global styles to this file, and also import other style files */
-@use "sass:map";
 @use "@angular/material" as mat;
+@use "./app/styles/snackbar";
 
 // ─── M3 Theme Definition ────────────────────────────────────────────────────
-// Using Angular Material's built-in M3 palettes (red, violet) as base,
-// with custom dark fantasy colors as CSS variables.
+// Using Angular Material's built-in M3 palettes (red, violet) as base.
+// Standard --mat-sys-* tokens are emitted automatically by the theme.
 
-$dark-theme: mat.define-theme((
-  color: (
-    theme-type: dark,
-    primary: mat.$red-palette,
-    tertiary: mat.$violet-palette,
-  ),
-  typography: (
-    brand-family: ("Averia Serif Libre", serif),
-    plain-family: (Roboto, "Helvetica Neue", sans-serif),
-  ),
-  density: (
-    scale: 0,
-  ),
-));
-
-$light-theme: mat.define-theme((
-  color: (
-    theme-type: light,
-    primary: mat.$red-palette,
-    tertiary: mat.$violet-palette,
-  ),
-  typography: (
-    brand-family: ("Averia Serif Libre", serif),
-    plain-family: (Roboto, "Helvetica Neue", sans-serif),
-  ),
-  density: (
-    scale: 0,
-  ),
-));
-
-// ─── Custom Dark Fantasy Palette Tokens (M3 format) ─────────────────────────
-// These palettes are used for custom CSS variables only, not Material components
-
-$custom-red: (
-  50: #fff5f5, 100: #ffe0e0, 200: #ffb3b3, 300: #ff8080,
-  400: #ff4d4d, 500: #f41111, 600: #cc0e0e, 700: #a30b0b,
-  750: #9E0007, 800: #7a0808, 900: #520505,
+$dark-theme: mat.define-theme(
+    (
+        color: (
+            theme-type: dark,
+            primary: mat.$red-palette,
+            tertiary: mat.$violet-palette,
+            use-system-variables: true,
+        ),
+        typography: (
+            brand-family: (
+                "Averia Serif Libre",
+                serif,
+            ),
+            plain-family: (
+                Roboto,
+                "Helvetica Neue",
+                sans-serif,
+            ),
+            use-system-variables: true,
+        ),
+        density: (
+            scale: 0,
+        ),
+    )
 );
 
-$custom-yellow: (
-  50: #fffee5, 100: #fffbb3, 200: #fff880, 300: #fff54d,
-  400: #fff21a, 500: #f0e60b, 600: #ccc20a, 700: #a39e08,
-  800: #7a7706, 900: #525004,
-);
-
-$custom-green: (
-  50: #e5f5e8, 100: #b8e3c0, 200: #8ad198, 300: #5cbf70,
-  400: #2ead48, 500: #056d17, 600: #045e13, 700: #034f10,
-  800: #03400c, 900: #023109,
-);
-
-$custom-blue: (
-  50: #e5e5fe, 100: #b8b8fc, 200: #8a8afa, 300: #5c5cf8,
-  400: #2e2ef6, 500: #1114ea, 600: #0e10c4, 700: #0b0d9e,
-  800: #080a78, 900: #050752,
-);
-
-$custom-gray: (
-  50: #fafafa, 100: #f5f5f5, 200: #eeeeee, 300: #e0e0e0,
-  400: #bdbdbd, 500: #CCCCCC, 600: #9e9e9e, 700: #757575,
-  800: #616161, 900: #424242,
+$light-theme: mat.define-theme(
+    (
+        color: (
+            theme-type: light,
+            primary: mat.$red-palette,
+            tertiary: mat.$violet-palette,
+            use-system-variables: true,
+        ),
+        typography: (
+            brand-family: (
+                "Averia Serif Libre",
+                serif,
+            ),
+            plain-family: (
+                Roboto,
+                "Helvetica Neue",
+                sans-serif,
+            ),
+            use-system-variables: true,
+        ),
+        density: (
+            scale: 0,
+        ),
+    )
 );
 
 // ─── Theme Application ──────────────────────────────────────────────────────
 
 // Apply dark theme globally via class (default)
 body.theme-dark {
-  @include mat.all-component-themes($dark-theme);
-
-  // Dark theme overrides
-  --background: #000000;
-  --surface: #12181C;
-  --surface-elevated: #232B2F;
-  --text-primary: #ffffff;
-  --text-secondary: #b0b0b0;
-  --surface-glass: rgba(18, 24, 28, 0.85);
-  --border-glow: map.get($custom-yellow, 700);
-
-  // Custom dark fantasy colors
-  --color-primary: map.get($custom-red, 750);
-  --color-primary-contrast: #ffffff;
-  --color-secondary: map.get($custom-green, 500);
-  --color-secondary-contrast: #ffffff;
-  --color-warn: map.get($custom-yellow, 500);
-  --font-family-heading: "Averia Serif Libre", serif;
+    @include mat.all-component-themes($dark-theme);
+    @include mat.system-level-colors($dark-theme);
+    @include mat.system-level-typography($dark-theme);
 }
 
 body.theme-light {
-  @include mat.all-component-themes($light-theme);
-
-  // Light theme overrides
-  --background: #f0f0f0;
-  --surface: #e8e8e8;
-  --surface-elevated: #e0e0e0;
-  --text-primary: #1a1a1a;
-  --text-secondary: #666666;
-  --surface-glass: rgba(232, 232, 232, 0.85);
-  --border-glow: map.get($custom-yellow, 700);
-
-  // Custom light theme colors
-  --color-primary: map.get($custom-red, 800);
-  --color-primary-contrast: #ffffff;
-  --color-secondary: map.get($custom-blue, 800);
-  --color-secondary-contrast: #ffffff;
-  --color-warn: map.get($custom-yellow, 800);
-  --font-family-heading: "Averia Serif Libre", serif;
-}
-
-// ─── Shared Tokens (theme-independent) ──────────────────────────────────────
-:root {
-  --color-black: #000000;
-  --color-teal: #2e8b7f;
-  --color-danger: #e53935;
+    @include mat.all-component-themes($light-theme);
+    @include mat.system-level-colors($light-theme);
+    @include mat.system-level-typography($light-theme);
 }
 
 // ─── Global Styles ──────────────────────────────────────────────────────────
 
-html,
 body {
-  margin: 0;
-  height: 100vh;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+    margin: 0;
+    height: 100vh;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
 
-  background-color: var(--background);
-  color: var(--text-primary);
+    background-color: var(--mat-sys-background);
+    color: var(--mat-sys-on-surface);
 }
 
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
+    box-sizing: border-box;
 }
 
 /* Custom Scrollbar Styles */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+    width: 8px;
+    height: 8px;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--background);
+body.theme-dark ::-webkit-scrollbar-track {
+    background: var(--mat-sys-background);
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: var(--text-secondary);
-  border-radius: 4px;
-  border: 2px solid var(--background);
+body.theme-dark ::-webkit-scrollbar-thumb {
+    background-color: var(--mat-sys-on-surface-variant);
+    border-radius: 4px;
+    border: 2px solid var(--mat-sys-background);
+}
+
+body.theme-light ::-webkit-scrollbar-track {
+    background: var(--mat-sys-background);
+}
+
+body.theme-light ::-webkit-scrollbar-thumb {
+    background-color: var(--mat-sys-on-surface-variant);
+    border-radius: 4px;
+    border: 2px solid var(--mat-sys-background);
 }
 
 /* For Firefox */
 html {
-  scrollbar-width: thin;
-  scrollbar-color: var(--text-secondary) var(--background);
+    scrollbar-width: thin;
 }
 
 /* Select dropdown panel width override */
 .cdk-overlay-pane .mat-mdc-select-panel {
-  min-width: 80px !important;
-}
-
-/* Snackbar toast styles */
-.snackbar-sucess {
-  --mdc-snackbar-container-color: var(--color-secondary);
-  --mdc-snackbar-supporting-text-color: var(--color-secondary-contrast);
-}
-
-.snackbar-error {
-  --mdc-snackbar-container-color: var(--color-warn);
-  --mdc-snackbar-supporting-text-color: white;
-}
-
-/* Atmospheric background gradient overlay */
-.atmospheric-bg {
-  background-image:
-    radial-gradient(
-      ellipse 80% 60% at 50% 40%,
-      color-mix(in srgb, var(--color-primary) 12%, transparent) 0%,
-      transparent 70%
-    ),
-    radial-gradient(
-      ellipse 60% 50% at 20% 80%,
-      color-mix(in srgb, var(--border-glow) 6%, transparent) 0%,
-      transparent 60%
-    ),
-    radial-gradient(
-      ellipse 50% 40% at 80% 20%,
-      color-mix(in srgb, var(--color-teal) 6%, transparent) 0%,
-      transparent 50%
-    );
+    min-width: 80px !important;
 }
 
 /* Accessibility: Disable animations for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }

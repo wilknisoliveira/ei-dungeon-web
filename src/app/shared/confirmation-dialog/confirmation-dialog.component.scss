@@ -1,14 +1,14 @@
 [mat-dialog-content] {
-    color: var(--text-primary);
+    color: var(--mat-sys-on-surface);
 }
 
 [mat-dialog-actions] {
-    button[color="primary"] {
-        background-color: var(--color-primary);
-        color: var(--color-primary-contrast);
+    .yes-btn {
+        background-color: var(--mat-sys-error);
+        color: var(--mat-sys-on-error);
     }
 
-    button[color="warn"] {
-        color: var(--color-warn);
+    .cancel-btn {
+        color: var(--mat-sys-secondary);
     }
 }

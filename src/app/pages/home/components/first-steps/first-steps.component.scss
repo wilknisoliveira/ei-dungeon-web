@@ -1,5 +1,5 @@
 .first-steps {
-    background-color: var(--background);
+    background-color: var(--mat-sys-background);
     padding: 0 5rem;
     overflow-y: auto;
     height: 100%;
@@ -35,7 +35,7 @@
             font-size: 18px;
             height: 18px;
             width: 18px;
-            color: var(--text-secondary);
+            color: var(--mat-sys-on-surface-variant);
             cursor: help;
             margin-left: 4px;
             vertical-align: middle;
@@ -49,11 +49,11 @@
 
             .points {
                 display: flex;
-                color: var(--text-secondary);
+                color: var(--mat-sys-on-surface-variant);
 
                 .racial-bonus {
                     margin-left: 0.5rem;
-                    color: var(--text-primary);
+                    color: var(--mat-sys-on-surface);
                 }
             }
         }
@@ -63,7 +63,7 @@
         }
 
         .attribute-points {
-            color: var(--text-secondary);
+            color: var(--mat-sys-on-surface-variant);
             margin-top: 1rem;
 
             span {
@@ -71,7 +71,7 @@
             }
 
             span.warn {
-                color: var(--color-warn);
+                color: var(--mat-sys-error);
             }
         }
 

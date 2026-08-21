@@ -1,34 +1,12 @@
 section {
     min-height: 100vh;
-    background-color: var(--background);
+    background-color: var(--mat-sys-background);
     overflow-y: auto;
     position: relative;
 
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.atmospheric-bg {
-    position: absolute;
-    inset: 0;
-    background:
-        radial-gradient(
-            ellipse 80% 60% at 50% 40%,
-            color-mix(in srgb, var(--color-primary) 12%, transparent) 0%,
-            transparent 70%
-        ),
-        radial-gradient(
-            ellipse 60% 50% at 20% 80%,
-            color-mix(in srgb, var(--border-glow) 6%, transparent) 0%,
-            transparent 60%
-        ),
-        radial-gradient(
-            ellipse 50% 40% at 80% 20%,
-            color-mix(in srgb, var(--color-teal) 6%, transparent) 0%,
-            transparent 50%
-        );
-    pointer-events: none;
 }
 
 .main-container {
@@ -42,14 +20,15 @@ section {
     .login {
         display: flex;
         flex-direction: column;
-        background-color: var(--surface-glass);
+        background-color: var(--mat-sys-surface-container);
         padding: 2rem 5rem 2rem 5rem;
-        border: solid 1px color-mix(in srgb, var(--border-glow) 30%, transparent);
+        border: solid 1px
+            color-mix(in srgb, var(--mat-sys-outline) 30%, transparent);
         border-radius: 1rem;
         backdrop-filter: blur(8px);
         box-shadow:
-            0 0 20px color-mix(in srgb, var(--color-primary) 15%, transparent),
-            0 4px 8px color-mix(in srgb, var(--color-black) 30%, transparent);
+            0 0 20px color-mix(in srgb, var(--mat-sys-primary) 15%, transparent),
+            0 4px 8px color-mix(in srgb, var(--mat-sys-shadow) 30%, transparent);
 
         .header-actions {
             width: 100%;
@@ -62,7 +41,7 @@ section {
         .title {
             display: flex;
             align-items: center;
-            color: var(--text-primary);
+            color: var(--mat-sys-on-surface);
             margin-bottom: 1.5rem;
             gap: 0.75rem;
 
@@ -73,12 +52,12 @@ section {
             app-branding-icon {
                 display: flex;
                 align-items: center;
-                color: var(--color-accent);
+                color: var(--mat-sys-primary);
             }
         }
 
         .description {
-            color: var(--text-secondary);
+            color: var(--mat-sys-on-surface-variant);
             margin-bottom: 1rem;
         }
 
@@ -104,12 +83,12 @@ section {
     }
 
     .sign-up {
-        color: var(--text-secondary);
+        color: var(--mat-sys-on-surface-variant);
         text-align: center;
         margin-top: 1rem;
 
         a {
-            color: var(--color-accent);
+            color: var(--mat-sys-tertiary);
             font-weight: bold;
             text-decoration: none;
         }

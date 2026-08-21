@@ -1,20 +1,20 @@
 .game-ready {
     height: 90vh;
-    background-color: var(--background);
+    background-color: var(--mat-sys-background);
 
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    border: 1px solid color-mix(in srgb, var(--border-glow) 20%, transparent);
+    border: 1px solid color-mix(in srgb, var(--mat-sys-outline) 20%, transparent);
     border-radius: 0.5rem;
     margin: 1rem;
 
     p {
         font-size: 1.5rem;
         margin-bottom: 2rem;
-        color: var(--text-primary);
+        color: var(--mat-sys-on-surface);
     }
 
     button {
@@ -25,7 +25,7 @@
         font-family: "Averia Serif Libre", serif;
 
         &:hover {
-            box-shadow: 0 0 12px var(--border-glow);
+            box-shadow: 0 0 12px var(--mat-sys-primary);
             transform: translateY(-1px);
         }
     }
@@ -36,7 +36,7 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color: var(--background);
+    background-color: var(--mat-sys-background);
 
     .game-toolbar {
         position: absolute;
@@ -48,7 +48,7 @@
 
         button[mat-icon-button] {
             mat-icon {
-                color: var(--color-accent);
+                color: var(--mat-sys-tertiary);
             }
         }
     }
@@ -87,10 +87,10 @@
                         flex-direction: column;
 
                         span:first-child {
-                            font-family: var(--font-family-heading);
+                            font-family: "Averia Serif Libre", serif;
                             font-weight: 600;
                             margin-bottom: 0.25rem;
-                            color: var(--text-secondary);
+                            color: var(--mat-sys-on-surface-variant);
                         }
 
                         span:last-child {
@@ -98,7 +98,7 @@
                             overflow-wrap: break-word;
                             padding: 0.75rem 1rem;
                             border-radius: 1rem;
-                            color: var(--text-primary);
+                            color: var(--mat-sys-on-surface);
                         }
                     }
                 }
@@ -112,9 +112,9 @@
                         max-width: 90%;
 
                         span:last-child {
-                            background-color: var(--surface-elevated);
-                            color: var(--text-primary);
-                            border: 1px solid var(--color-primary);
+                            background-color: var(--mat-sys-surface-container-high);
+                            color: var(--mat-sys-on-surface);
+                            border: 1px solid var(--mat-sys-tertiary);
                             border-bottom-right-radius: 0.25rem;
                         }
                     }
@@ -129,7 +129,7 @@
                         max-width: 90%;
 
                         span:last-child {
-                            background-color: var(--surface-elevated);
+                            background-color: var(--mat-sys-surface-container-high);
                             border-bottom-left-radius: 0.25rem;
                         }
                     }
@@ -147,16 +147,16 @@
         .input-area {
             width: 80%;
 
-            background-color: var(--surface);
+            background-color: var(--mat-sys-surface-container-low);
             border-radius: 1rem;
-            border: 1px solid var(--color-primary);
+            border: 1px solid var(--mat-sys-primary);
             transition:
                 box-shadow 0.2s ease,
                 border-color 0.2s ease;
 
             &:focus-within {
-                border-color: var(--color-accent);
-                box-shadow: 0 0 8px var(--border-glow);
+                border-color: var(--mat-sys-primary);
+                box-shadow: 0 0 8px var(--mat-sys-primary);
             }
 
             form {
@@ -166,7 +166,7 @@
                 width: 100%;
 
                 textarea {
-                    color: var(--text-primary);
+                    color: var(--mat-sys-on-surface);
                     flex-grow: 1;
                     background-color: transparent;
                     border: none;

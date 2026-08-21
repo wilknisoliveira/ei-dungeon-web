@@ -1,5 +1,7 @@
+@use "@angular/material" as mat;
+
 .spinner-wrapper {
-    background-color: var(--background);
+    background-color: var(--mat-sys-background);
     width: 100%;
     height: 100%;
 
@@ -10,5 +12,7 @@
 }
 
 ::ng-deep .spinner-wrapper mat-spinner {
-    --mdc-circular-progress-active-indicator-color: var(--color-accent);
+    @include mat.progress-spinner-overrides((
+        active-indicator-color: var(--mat-sys-tertiary),
+    ));
 }

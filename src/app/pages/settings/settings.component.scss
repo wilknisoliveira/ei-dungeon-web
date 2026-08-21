@@ -8,35 +8,35 @@ mat-drawer-container {
     background: transparent;
     width: 100vw;
     height: 100vh;
-    border: 1px solid color-mix(in srgb, var(--color-black) 50%, transparent);
+    border: 1px solid color-mix(in srgb, var(--mat-sys-outline) 50%, transparent);
 }
 
 mat-drawer {
-    background: var(--surface);
+    background: var(--mat-sys-surface-container-low);
     display: flex;
     flex-direction: column;
     width: 250px;
     border-right: 1px solid
-        color-mix(in srgb, var(--color-accent) 20%, transparent);
+        color-mix(in srgb, var(--mat-sys-outline) 20%, transparent);
 }
 
 .sidebar-header {
     display: flex;
     flex-direction: column;
     padding: 2rem 1rem 1.5rem;
-    border-bottom: 1px solid var(--text-secondary);
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
     opacity: 0.8;
 }
 
 .brand {
     font-size: small;
-    color: var(--color-accent);
+    color: var(--mat-sys-tertiary);
     letter-spacing: 0.1em;
 }
 
 .subtitle {
     font-size: x-large;
-    color: var(--text-primary);
+    color: var(--mat-sys-on-surface);
     margin-top: 0.25rem;
 }
 
@@ -45,19 +45,19 @@ mat-nav-list {
 }
 
 mat-list-item {
-    color: var(--text-secondary);
+    color: var(--mat-sys-on-surface-variant);
     cursor: pointer;
     transition: background-color 0.15s;
 
     &:hover {
-        background: color-mix(in srgb, var(--color-accent) 8%, transparent);
-        color: var(--text-primary);
+        background: color-mix(in srgb, var(--mat-sys-secondary) 8%, transparent);
+        color: var(--mat-sys-on-surface);
     }
 
     &.active {
-        background: color-mix(in srgb, var(--color-accent) 15%, transparent);
-        color: var(--color-accent);
-        border-right: 3px solid var(--color-accent);
+        background: color-mix(in srgb, var(--mat-sys-secondary) 15%, transparent);
+        color: var(--mat-sys-secondary);
+        border-right: 3px solid var(--mat-sys-secondary);
     }
 
     mat-icon {
@@ -78,9 +78,6 @@ mat-drawer-content {
     height: 8vh;
     min-height: 5vh;
     padding: 0 1.5rem;
-    background: var(--surface);
-    border-bottom: 1px solid
-        color-mix(in srgb, var(--color-accent) 15%, transparent);
 
     .left {
         display: flex;
@@ -88,12 +85,12 @@ mat-drawer-content {
         gap: 0.75rem;
 
         button {
-            color: var(--color-accent);
+            color: var(--mat-sys-secondary);
         }
 
         .title {
             font-size: large;
-            color: var(--text-primary);
+            color: var(--mat-sys-on-surface);
         }
     }
 
@@ -118,18 +115,18 @@ mat-drawer-content {
 }
 
 .settings-card {
-    background: var(--surface-glass);
+    background: var(--mat-sys-surface-container);
     padding: 2rem;
-    border: solid 1px color-mix(in srgb, var(--border-glow) 30%, transparent);
+    border: solid 1px color-mix(in srgb, var(--mat-sys-outline) 30%, transparent);
     border-radius: 1rem;
     backdrop-filter: blur(8px);
     box-shadow:
-        0 0 20px color-mix(in srgb, var(--color-primary) 15%, transparent),
-        0 4px 8px color-mix(in srgb, var(--color-black) 30%, transparent);
+        0 0 20px color-mix(in srgb, var(--mat-sys-primary) 15%, transparent),
+        0 4px 8px color-mix(in srgb, var(--mat-sys-shadow) 30%, transparent);
 }
 
 .settings-card h2 {
-    color: var(--color-accent);
+    color: var(--mat-sys-secondary);
     font-size: large;
     margin-bottom: 1.5rem;
 }
@@ -138,15 +135,15 @@ mat-drawer-content {
     display: flex;
     justify-content: space-between;
     padding: 0.75rem 0;
-    border-bottom: 1px solid var(--text-secondary);
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
     opacity: 0.8;
 
     .label {
-        color: var(--text-secondary);
+        color: var(--mat-sys-on-surface-variant);
         font-weight: 500;
     }
     .value {
-        color: var(--text-primary);
+        color: var(--mat-sys-on-surface);
     }
     &:last-child {
         border-bottom: none;
@@ -173,21 +170,26 @@ mat-form-field {
 
 .danger-zone {
     margin-top: 1.5rem;
-    background: var(--surface-glass);
+    background: var(--mat-sys-surface-container);
     padding: 2rem;
-    border: solid 1px color-mix(in srgb, var(--color-danger) 40%, transparent);
+    border: solid 1px color-mix(in srgb, var(--mat-sys-error) 40%, transparent);
     border-radius: 1rem;
     backdrop-filter: blur(8px);
 
     h3 {
-        color: var(--color-danger);
+        color: var(--mat-sys-error);
         font-size: large;
         margin-bottom: 0.5rem;
     }
 
     p {
-        color: var(--text-secondary);
+        color: var(--mat-sys-on-surface-variant);
         margin-bottom: 1rem;
         font-size: small;
+    }
+
+    button {
+        background-color: var(--mat-sys-error);
+        color: var(--mat-sys-on-error);
     }
 }
