@@ -1,3 +1,14 @@
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 .game-ready {
     height: 90vh;
     background-color: var(--mat-sys-background);
@@ -81,6 +92,7 @@
                 .message {
                     height: auto;
                     margin: 0.75rem 0;
+                    animation: fade-in-up 0.3s ease-out backwards;
 
                     .span-container {
                         display: flex;
@@ -99,6 +111,17 @@
                             padding: 0.75rem 1rem;
                             border-radius: 1rem;
                             color: var(--mat-sys-on-surface);
+                            box-shadow: 0 2px 8px
+                                color-mix(in srgb, var(--mat-sys-primary) 15%, transparent);
+                            transition:
+                                transform 0.2s ease,
+                                box-shadow 0.2s ease;
+
+                            &:hover {
+                                transform: scale(1.01);
+                                box-shadow: 0 4px 14px
+                                    color-mix(in srgb, var(--mat-sys-primary) 25%, transparent);
+                            }
                         }
                     }
                 }
@@ -112,9 +135,8 @@
                         max-width: 90%;
 
                         span:last-child {
-                            background-color: var(--mat-sys-surface-container-high);
-                            color: var(--mat-sys-on-surface);
-                            border: 1px solid var(--mat-sys-tertiary);
+                            background-color: var(--mat-sys-primary);
+                            color: var(--mat-sys-on-primary);
                             border-bottom-right-radius: 0.25rem;
                         }
                     }
@@ -129,7 +151,7 @@
                         max-width: 90%;
 
                         span:last-child {
-                            background-color: var(--mat-sys-surface-container-high);
+                            background-color: var(--mat-sys-surface-container);
                             border-bottom-left-radius: 0.25rem;
                         }
                     }
@@ -150,13 +172,22 @@
             background-color: var(--mat-sys-surface-container-low);
             border-radius: 1rem;
             border: 1px solid var(--mat-sys-primary);
+            box-shadow: 0 2px 8px color-mix(in srgb, var(--mat-sys-primary) 10%, transparent);
             transition:
                 box-shadow 0.2s ease,
-                border-color 0.2s ease;
+                border-color 0.2s ease,
+                transform 0.15s ease;
+
+            &:hover {
+                transform: translateY(-1px);
+                box-shadow: 0 4px 14px
+                    color-mix(in srgb, var(--mat-sys-primary) 20%, transparent);
+            }
 
             &:focus-within {
                 border-color: var(--mat-sys-primary);
                 box-shadow: 0 0 8px var(--mat-sys-primary);
+                transform: none;
             }
 
             form {

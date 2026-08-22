@@ -1,3 +1,25 @@
+@keyframes fade-in-up {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-in-left {
+    from {
+        opacity: 0;
+        transform: translateX(-16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 .main-container {
     mat-drawer-container {
         background-color: var(--mat-sys-background);
@@ -14,6 +36,8 @@
             align-items: center;
             width: clamp(250px, 20%, 350px);
             overflow: hidden;
+            border-right: 1px solid var(--mat-sys-outline-variant);
+            animation: slide-in-left 0.4s ease-out;
 
             .center-btn-container {
                 display: flex;
@@ -71,16 +95,26 @@
                     border-bottom: 1px solid var(--mat-sys-on-surface-variant);
                     opacity: 0.7;
                     transition: opacity 0.15s ease;
+                    animation: fade-in-up 0.3s ease-out backwards;
 
                     &:hover {
                         opacity: 1;
                     }
 
                     &.selected {
-                        background-color: var(--mat-sys-background);
+                        background-color: var(--mat-sys-primary-container);
+                        border: 1px solid var(--mat-sys-primary);
                         border-radius: 0.5rem;
                         opacity: 1;
                         box-shadow: 0 0 6px var(--mat-sys-primary);
+
+                        .game-button button {
+                            color: var(--mat-sys-on-primary-container);
+                        }
+
+                        button mat-icon {
+                            -webkit-text-stroke: 1px var(--mat-sys-on-primary-container);
+                        }
                     }
 
                     &:last-child {

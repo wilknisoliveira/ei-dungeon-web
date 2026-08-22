@@ -51,3 +51,7 @@ PROMPT.md
 .opencode/
 specs/
 .agents/
+.aipartner
+.claude
+
+palette-compare/
