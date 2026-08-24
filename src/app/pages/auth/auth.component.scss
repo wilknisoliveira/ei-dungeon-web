@@ -46,7 +46,7 @@ section {
             gap: 0.75rem;
 
             .wordmark {
-                font-size: x-large;
+                font: var(--mat-sys-title-large);
             }
 
             app-branding-icon {

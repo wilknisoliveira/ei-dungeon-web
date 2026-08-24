@@ -8,7 +8,8 @@ mat-drawer-container {
     background: transparent;
     width: 100vw;
     height: 100vh;
-    border: 1px solid color-mix(in srgb, var(--mat-sys-outline) 50%, transparent);
+    border: 1px solid
+        color-mix(in srgb, var(--mat-sys-outline) 50%, transparent);
 }
 
 mat-drawer {
@@ -29,13 +30,13 @@ mat-drawer {
 }
 
 .brand {
-    font-size: small;
+    font: var(--mat-sys-label-small);
     color: var(--mat-sys-tertiary);
     letter-spacing: 0.1em;
 }
 
 .subtitle {
-    font-size: x-large;
+    font: var(--mat-sys-title-large);
     color: var(--mat-sys-on-surface);
     margin-top: 0.25rem;
 }
@@ -50,14 +51,17 @@ mat-list-item {
     transition: background-color 0.15s;
 
     &:hover {
-        background: color-mix(in srgb, var(--mat-sys-secondary) 8%, transparent);
+        background: color-mix(in srgb, var(--mat-sys-tertiary) 8%, transparent);
         color: var(--mat-sys-on-surface);
     }
 
     &.active {
-        background: color-mix(in srgb, var(--mat-sys-secondary) 15%, transparent);
+        background: color-mix(
+            in srgb,
+            var(--mat-sys-secondary) 15%,
+            transparent
+        );
         color: var(--mat-sys-secondary);
-        border-right: 3px solid var(--mat-sys-secondary);
     }
 
     mat-icon {
@@ -117,7 +121,8 @@ mat-drawer-content {
 .settings-card {
     background: var(--mat-sys-surface-container);
     padding: 2rem;
-    border: solid 1px color-mix(in srgb, var(--mat-sys-outline) 30%, transparent);
+    border: solid 1px
+        color-mix(in srgb, var(--mat-sys-outline) 30%, transparent);
     border-radius: 1rem;
     backdrop-filter: blur(8px);
     box-shadow:
@@ -165,6 +170,8 @@ mat-form-field {
     button {
         width: 100%;
         padding: 0.5rem 0;
+        background-color: var(--mat-sys-primary);
+        color: var(--mat-sys-on-primary);
     }
 }
 
