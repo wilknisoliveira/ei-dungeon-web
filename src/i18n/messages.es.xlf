@@ -50,6 +50,10 @@
         <source>Settings</source>
         <target>Configuración</target>
       </trans-unit>
+      <trans-unit id="homeSubtitle" datatype="html">
+        <source>Campaigns</source>
+        <target>Campañas</target>
+      </trans-unit>
       <trans-unit id="accountMenuItem" datatype="html">
         <source>Account</source>
         <target>Cuenta</target>

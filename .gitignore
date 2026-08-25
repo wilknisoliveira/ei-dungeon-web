@@ -52,6 +52,5 @@ PROMPT.md
 specs/
 .agents/
 .aipartner
-.claude
-
+.claude*
 palette-compare/

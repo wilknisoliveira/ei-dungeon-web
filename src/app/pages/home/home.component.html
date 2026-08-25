@@ -1,6 +1,11 @@
 <section class="main-container">
     <mat-drawer-container autosize>
         <mat-drawer #drawer mode="side" opened>
+            <div class="sidebar-header">
+                <span class="brand" i18n="@@appWordmark">EI-DUNGEON</span>
+                <span class="subtitle" i18n="@@homeSubtitle">Campaigns</span>
+            </div>
+
             <div class="center-btn-container">
                 <button
                     class="new-play-btn"
@@ -18,7 +23,9 @@
 
             <div class="plays">
                 <div *ngIf="isLoadingGames" class="loading-more">
-                    <app-small-loading [isLoading]="isLoadingGames"></app-small-loading>
+                    <app-small-loading
+                        [isLoading]="isLoadingGames"
+                    ></app-small-loading>
                 </div>
                 <div *ngFor="let game of gamePagedSearch?.items">
                     <div
@@ -27,17 +34,24 @@
                             selected: gameSelected === game.id,
                         }"
                     >
-                        <div class="game-button" *ngIf="renamingGameId !== game.id">
+                        <div
+                            class="game-button"
+                            *ngIf="renamingGameId !== game.id"
+                        >
                             <button (click)="setGame(game.id)" mat-flat-button>
                                 <mat-icon
                                     aria-hidden="false"
                                     aria-label="logo"
-                                    fontIcon="bolt"
+                                    fontIcon="local_fire_department"
                                 ></mat-icon>
                                 {{ game.name }}
                             </button>
                         </div>
-                        <div class="rename-input" *ngIf="renamingGameId === game.id" (mousedown)="$event.stopPropagation()">
+                        <div
+                            class="rename-input"
+                            *ngIf="renamingGameId === game.id"
+                            (mousedown)="$event.stopPropagation()"
+                        >
                             <input
                                 #renameInput
                                 [value]="game.name"
@@ -62,11 +76,19 @@
                                 ></mat-icon>
                             </button>
                             <mat-menu #gameMenu="matMenu">
-                                <button mat-menu-item (click)="startRename(game.id, game.name)">
+                                <button
+                                    mat-menu-item
+                                    (click)="startRename(game.id, game.name)"
+                                >
                                     <mat-icon fontIcon="edit"></mat-icon>
                                     <span i18n="@@renameMenuItem">Rename</span>
                                 </button>
-                                <button mat-menu-item (click)="openDeleteDialog(game.id, game.name)">
+                                <button
+                                    mat-menu-item
+                                    (click)="
+                                        openDeleteDialog(game.id, game.name)
+                                    "
+                                >
                                     <mat-icon fontIcon="delete"></mat-icon>
                                     <span i18n="@@deleteMenuItem">Delete</span>
                                 </button>

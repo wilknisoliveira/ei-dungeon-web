@@ -39,11 +39,31 @@
             border-right: 1px solid var(--mat-sys-outline-variant);
             animation: slide-in-left 0.4s ease-out;
 
+            .sidebar-header {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                padding: 2rem 1rem 1.5rem;
+                opacity: 0.8;
+
+                .brand {
+                    font: var(--mat-sys-label-small);
+                    color: var(--mat-sys-tertiary);
+                    letter-spacing: 0.1em;
+                }
+
+                .subtitle {
+                    font: var(--mat-sys-title-large);
+                    color: var(--mat-sys-on-surface);
+                    margin-top: 0.25rem;
+                }
+            }
+
             .center-btn-container {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                margin: 3rem 0 2rem 0;
+                margin: 1rem 0 2rem 0;
 
                 .new-play-btn {
                     background-color: var(--mat-sys-primary);
