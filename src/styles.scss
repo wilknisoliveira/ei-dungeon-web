@@ -126,6 +126,22 @@ html {
     min-width: 80px !important;
 }
 
+/* Atmospheric background: two soft tertiary points fading fully to background */
+.atmospheric-bg {
+    background:
+        radial-gradient(
+            circle clamp(120px, 35vmax, 360px) at 0% 50%,
+            color-mix(in srgb, var(--mat-sys-tertiary) 6%, transparent) 0%,
+            transparent 100%
+        ),
+        radial-gradient(
+            circle clamp(120px, 35vmax, 360px) at 100% 100%,
+            color-mix(in srgb, var(--mat-sys-tertiary) 6%, transparent) 0%,
+            transparent 100%
+        ),
+        var(--mat-sys-background);
+}
+
 /* Accessibility: Disable animations for users who prefer reduced motion */
 @media (prefers-reduced-motion: reduce) {
     *,

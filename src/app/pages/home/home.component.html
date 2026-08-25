@@ -1,6 +1,6 @@
 <section class="main-container">
     <mat-drawer-container autosize>
-        <mat-drawer #drawer mode="side" opened class="atmospheric-bg">
+        <mat-drawer #drawer mode="side" opened>
             <div class="center-btn-container">
                 <button
                     class="new-play-btn"
@@ -87,7 +87,7 @@
             </div>
         </mat-drawer>
 
-        <mat-drawer-content>
+        <mat-drawer-content class="atmospheric-bg">
             <div class="header-menu">
                 <div class="nav-btn-container">
                     <button type="button" mat-button (click)="drawer.toggle()">

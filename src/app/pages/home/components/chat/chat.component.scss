@@ -11,7 +11,6 @@
 
 .game-ready {
     height: 90vh;
-    background-color: var(--mat-sys-background);
 
     display: flex;
     flex-direction: column;
@@ -48,7 +47,6 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color: var(--mat-sys-background);
 
     .game-toolbar {
         position: absolute;
