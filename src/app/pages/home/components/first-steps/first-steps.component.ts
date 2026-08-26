@@ -1,13 +1,21 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, NgForm, ReactiveFormsModule } from '@angular/forms';
+import {
+    FormBuilder,
+    FormGroup,
+    Validators,
+    NgForm,
+    ReactiveFormsModule,
+} from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { GameService } from 'src/app/service/game/game.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
@@ -25,6 +33,8 @@ import { LoadingComponent } from 'src/app/shared/loading/loading.component';
         MatSelectModule,
         MatSliderModule,
         MatCardModule,
+        MatIconModule,
+        MatTooltipModule,
         LoadingComponent,
     ],
     selector: 'app-first-steps',
@@ -39,7 +49,11 @@ export class FirstStepsComponent {
     gameFormGroup: FormGroup;
 
     gameLanguages: { name: string; value: string; abbreviation: string }[] = [
-        { name: $localize`Portuguese`, value: 'Portuguese', abbreviation: 'PT' },
+        {
+            name: $localize`Portuguese`,
+            value: 'Portuguese',
+            abbreviation: 'PT',
+        },
         { name: $localize`English`, value: 'English', abbreviation: 'EN' },
         { name: $localize`Spanish`, value: 'Spanish', abbreviation: 'ES' },
     ];
@@ -104,7 +118,10 @@ export class FirstStepsComponent {
             characterNameControl: ['', Validators.required],
             characterDescriptionControl: ['', Validators.required],
             characterRaceControl: ['', Validators.required],
-            gameLanguageControl: [this.getDefaultGameLanguage(), Validators.required],
+            gameLanguageControl: [
+                this.getDefaultGameLanguage(),
+                Validators.required,
+            ],
             skillsGroup: this._formBuilder.group({
                 Strength: [8, Validators.required],
                 Dexterity: [8, Validators.required],
@@ -151,7 +168,9 @@ export class FirstStepsComponent {
             next: () => {
                 this.gameCreated.emit(newGame.name);
                 this.loading = false;
-                this.snackBar.addSuccess($localize`Game '${newGame.name}' created!`);
+                this.snackBar.addSuccess(
+                    $localize`Game '${newGame.name}' created!`,
+                );
             },
             error: (error: HttpErrorResponse) => {
                 //TODO: Exibir erro e tratar
@@ -186,9 +205,9 @@ export class FirstStepsComponent {
     private getDefaultGameLanguage(): string {
         const systemLang = this.localeService.getCurrentLanguage();
         const langMap: Record<string, string> = {
-            'en': 'English',
+            en: 'English',
             'pt-BR': 'Portuguese',
-            'es': 'Spanish',
+            es: 'Spanish',
         };
         return langMap[systemLang] || 'English';
     }

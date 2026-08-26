@@ -446,6 +446,14 @@
         <source>Spanish</source>
         <target>Espanhol</target>
       </trans-unit>
+      <trans-unit id="deleteAccountDialogMessage" datatype="html">
+        <source>Are you sure you want to delete your account? This action is irreversible and all your data will be permanently lost.</source>
+        <target>Tem certeza que deseja apagar sua conta? Esta ação é irreversível e todos os seus dados serão permanentemente perdidos.</target>
+      </trans-unit>
+      <trans-unit id="gameOptionsTooltip" datatype="html">
+        <source>Game options</source>
+        <target>Opções do jogo</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

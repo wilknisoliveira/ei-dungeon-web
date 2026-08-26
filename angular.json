@@ -76,6 +76,13 @@
                         ],
                         "scripts": []
                     }
+                },
+                "extract-i18n": {
+                    "builder": "@angular/build:extract-i18n",
+                    "options": {
+                        "outputPath": "src/i18n",
+                        "format": "xlf"
+                    }
                 }
             }
         }

@@ -81,22 +81,29 @@
           <context context-type="linenumber">13,15</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="gameOptionsTooltip" datatype="html">
+        <source>Game options</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="gameLanguageTooltip" datatype="html">
         <source>Language used by the Game Master for narration and dialogue</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.html</context>
-          <context context-type="linenumber">32,33</context>
+          <context context-type="linenumber">33,34</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.html</context>
-          <context context-type="linenumber">35,36</context>
+          <context context-type="linenumber">42,43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="chatLanguageLabel" datatype="html">
         <source>Language</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.html</context>
-          <context context-type="linenumber">36,38</context>
+          <context context-type="linenumber">37,39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="153799456510623899" datatype="html">
@@ -107,7 +114,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">42</context>
+          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5866254605255506989" datatype="html">
@@ -118,7 +125,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">43</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5190825892106392539" datatype="html">
@@ -129,7 +136,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">44</context>
+          <context context-type="linenumber">58</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3084566329643999642" datatype="html">
@@ -227,182 +234,182 @@
         <source>Game language</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.html</context>
-          <context context-type="linenumber">27,28</context>
+          <context context-type="linenumber">30,31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="characterNameLabel" datatype="html">
         <source>Character name</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.html</context>
-          <context context-type="linenumber">45,46</context>
+          <context context-type="linenumber">56,57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="raceLabel" datatype="html">
         <source>Race</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.html</context>
-          <context context-type="linenumber">60,61</context>
+          <context context-type="linenumber">73,74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="characterDescriptionLabel" datatype="html">
         <source>Character description</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.html</context>
-          <context context-type="linenumber">70,71</context>
+          <context context-type="linenumber">87,89</context>
         </context-group>
       </trans-unit>
       <trans-unit id="skillsHeading" datatype="html">
         <source>Skills</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.html</context>
-          <context context-type="linenumber">86,87</context>
+          <context context-type="linenumber">105,106</context>
         </context-group>
       </trans-unit>
       <trans-unit id="racialBonusTooltip" datatype="html">
         <source>Racial Bonus</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.html</context>
-          <context context-type="linenumber">103,104</context>
+          <context context-type="linenumber">122,123</context>
         </context-group>
       </trans-unit>
       <trans-unit id="pointsToDistribute" datatype="html">
         <source>Points to distribute:</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.html</context>
-          <context context-type="linenumber">130,131</context>
+          <context context-type="linenumber">150,151</context>
         </context-group>
       </trans-unit>
       <trans-unit id="exceededMaxPoints" datatype="html">
         <source>You have exceeded the maximum skill points</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.html</context>
-          <context context-type="linenumber">148,149</context>
+          <context context-type="linenumber">169,170</context>
         </context-group>
       </trans-unit>
       <trans-unit id="startGameButton" datatype="html">
         <source> Start game </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.html</context>
-          <context context-type="linenumber">165,166</context>
+          <context context-type="linenumber">188,189</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7800061171704298797" datatype="html">
         <source>Human</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">48</context>
+          <context context-type="linenumber">62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4895190846964146304" datatype="html">
         <source>Elf</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">49</context>
+          <context context-type="linenumber">63</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6487984047699114430" datatype="html">
         <source>Dwarf</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">50</context>
+          <context context-type="linenumber">64</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1148914934735638586" datatype="html">
         <source>Half Elf</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">51</context>
+          <context context-type="linenumber">65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6003309338635897937" datatype="html">
         <source>Halfling</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">52</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5931157710888126589" datatype="html">
         <source>Tiefling</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">53</context>
+          <context context-type="linenumber">67</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6984581431061216462" datatype="html">
         <source>Dragonborn</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">68</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1956337344618882908" datatype="html">
         <source>Half Orc</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">69</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4019184240939181903" datatype="html">
         <source>Gnome</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">56</context>
+          <context context-type="linenumber">70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6632040223751981101" datatype="html">
         <source>Strength</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">60</context>
+          <context context-type="linenumber">74</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5465529649433457628" datatype="html">
         <source>Dexterity</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">61</context>
+          <context context-type="linenumber">75</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8489670130200267808" datatype="html">
         <source>Intelligence</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">62</context>
+          <context context-type="linenumber">76</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1632323077493059273" datatype="html">
         <source>Constitution</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">63</context>
+          <context context-type="linenumber">77</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6828638344650593860" datatype="html">
         <source>Charisma</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">64</context>
+          <context context-type="linenumber">78</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6753176961354636644" datatype="html">
         <source>Wisdom</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">65</context>
+          <context context-type="linenumber">79</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2549518094568275321" datatype="html">
         <source>Game &apos;<x id="PH" equiv-text="newGame.name"/>&apos; created!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">154</context>
+          <context context-type="linenumber">172</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3688639030371133915" datatype="html">
         <source>Something went wrong while attempting to create the game. Verify with the admin if you have the permissions.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">160</context>
+          <context context-type="linenumber">179</context>
         </context-group>
       </trans-unit>
       <trans-unit id="homeSubtitle" datatype="html">
@@ -636,6 +643,13 @@
           <context context-type="linenumber">158</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="6472107528361453618" datatype="html">
+        <source>Are you sure you want to delete your account? This action is irreversible and all your data will be permanently lost.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/settings/settings.component.ts</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="signupDescription" datatype="html">
         <source>Sign Up</source>
         <context-group purpose="location">
@@ -792,6 +806,13 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/shared/confirmation-dialog/confirmation-dialog.component.html</context>
           <context context-type="linenumber">6,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="deleteAccountDialogMessage" datatype="html">
+        <source>Are you sure you want to delete your account? This action is irreversible and all your data will be permanently lost.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/settings/settings.component.ts</context>
+          <context context-type="linenumber">102,102</context>
         </context-group>
       </trans-unit>
     </body>

@@ -99,7 +99,7 @@ export class SettingsComponent implements OnInit {
     openDeleteAccountDialog(): void {
         const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
             width: '400px',
-            data: 'Tem certeza que deseja apagar sua conta? Esta ação é irreversível e todos os seus dados serão permanentemente perdidos.',
+            data: $localize`Are you sure you want to delete your account? This action is irreversible and all your data will be permanently lost.`,
         });
 
         dialogRef.afterClosed().subscribe((result: boolean) => {
