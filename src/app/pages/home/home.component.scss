@@ -107,38 +107,36 @@
                 }
 
                 .game-name {
+                    position: relative;
                     display: flex;
                     align-items: center;
                     width: 100%;
-                    margin-bottom: 2rem;
-                    border-bottom: 1px solid var(--mat-sys-on-surface-variant);
-                    opacity: 0.7;
-                    transition: opacity 0.15s ease;
+                    margin-bottom: 0.25rem;
+                    padding-left: 0.5rem;
+                    border-radius: 0.5rem;
+                    transition: background-color 0.15s ease;
                     animation: fade-in-up 0.3s ease-out backwards;
 
-                    &:hover {
-                        opacity: 1;
-                    }
-
                     &.selected {
-                        background-color: var(--mat-sys-primary-container);
-                        border: 1px solid var(--mat-sys-primary);
-                        border-radius: 0.5rem;
-                        opacity: 1;
-                        box-shadow: 0 0 6px var(--mat-sys-primary);
+                        background-color: var(--mat-sys-secondary-container);
 
-                        .game-button button {
-                            color: var(--mat-sys-on-primary-container);
+                        // Rail indicator: absolutely positioned so the corner
+                        // radius never clips it and selecting shifts nothing.
+                        &::before {
+                            content: "";
+                            position: absolute;
+                            left: 0;
+                            top: 0.35rem;
+                            bottom: 0.35rem;
+                            width: 3px;
+                            border-radius: 999px;
+                            background-color: var(--mat-sys-tertiary);
                         }
 
-                        button mat-icon {
-                            -webkit-text-stroke: 1px
-                                var(--mat-sys-on-primary-container);
+                        .game-button button,
+                        .menu-button button {
+                            color: var(--mat-sys-on-secondary-container);
                         }
-                    }
-
-                    &:last-child {
-                        border-bottom: none;
                     }
 
                     .game-button {
@@ -148,7 +146,7 @@
                         overflow: hidden;
 
                         button {
-                            color: var(--mat-sys-on-surface);
+                            color: var(--mat-sys-on-surface-variant);
                             transition: color 0.15s ease;
                             white-space: nowrap;
                             overflow: hidden;
@@ -191,7 +189,7 @@
 
                         button {
                             background-color: transparent;
-                            color: var(--mat-sys-on-surface);
+                            color: var(--mat-sys-on-surface-variant);
                             transition: color 0.15s ease;
 
                             &:hover {

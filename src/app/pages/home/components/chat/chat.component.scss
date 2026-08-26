@@ -109,12 +109,6 @@
                             padding: 0.75rem 1rem;
                             border-radius: 1rem;
                             color: var(--mat-sys-on-surface);
-                            box-shadow: 0 2px 8px
-                                color-mix(
-                                    in srgb,
-                                    var(--mat-sys-primary) 15%,
-                                    transparent
-                                );
                             transition:
                                 transform 0.2s ease,
                                 box-shadow 0.2s ease;
@@ -141,8 +135,9 @@
                         max-width: 90%;
 
                         span:last-child {
-                            background-color: var(--mat-sys-primary);
-                            color: var(--mat-sys-on-primary);
+                            background-color: var(
+                                --mat-sys-secondary-container
+                            );
                             border-bottom-right-radius: 0.25rem;
                         }
                     }
