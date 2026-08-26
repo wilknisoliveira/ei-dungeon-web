@@ -1,5 +1,11 @@
 <section
-    *ngIf="(playsPagedSearch?.items?.length ?? 0) === 0"
+    *ngIf="initialLoading"
+    class="game-ready atmospheric-bg"
+>
+    <app-small-loading [isLoading]="initialLoading"></app-small-loading>
+</section>
+<section
+    *ngIf="!initialLoading && (playsPagedSearch?.items?.length ?? 0) === 0"
     class="game-ready atmospheric-bg"
 >
     <p i18n="@@chatGameReady">Your new game is ready!</p>
@@ -103,7 +109,8 @@
                     (click)="onSubmit()"
                     [disabled]="
                         newPlayFormGroup.get('newPlayControl')?.value == '' ||
-                        game?.gameStatus === 'PlayerDied'
+                        game?.gameStatus === 'PlayerDied' ||
+                        initialLoading
                     "
                 >
                     <mat-icon

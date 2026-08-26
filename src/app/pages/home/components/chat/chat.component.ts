@@ -61,6 +61,7 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     goToBotton: boolean = false;
     forceScroll: boolean = false;
     loading: boolean = false;
+    initialLoading: boolean = false;
     game: Game | null = null;
     streamedMessagesStartIndex: number | null = null;
     hasError: boolean = false;
@@ -168,6 +169,11 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
     }
 
     async ngOnChanges(changes: SimpleChanges): Promise<void> {
+        if (!this.loading) {
+            this.initialLoading = true;
+        }
+        this.cdr.detectChanges();
+
         const previousGameId = changes['gameId']?.previousValue;
         if (previousGameId) {
             this.saveGameCache(previousGameId, {
@@ -192,9 +198,15 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
                 .get('newPlayControl')
                 ?.setValue(cache?.['textbox'] ?? '');
         }
+
+        this.initialLoading = false;
+        this.cdr.detectChanges();
     }
 
     async ngOnInit(): Promise<void> {
+        this.initialLoading = true;
+        this.cdr.detectChanges();
+
         this.game = await this.gameService.getById(this.gameId);
 
         if (this.game) {
@@ -209,6 +221,9 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked {
         if (cache?.['textbox']) {
             this.newPlayFormGroup.get('newPlayControl')?.setValue(cache['textbox']);
         }
+
+        this.initialLoading = false;
+        this.cdr.detectChanges();
     }
 
     async getPlays(page: number): Promise<PagedSearch<Play> | null> {

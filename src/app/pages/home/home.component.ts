@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Router, RouterModule } from '@angular/router';
@@ -55,6 +55,7 @@ export class HomeComponent implements OnInit {
         private gameService: GameService,
         private router: Router,
         private authService: AuthService,
+        private cdr: ChangeDetectorRef,
     ) {}
 
     ngOnInit(): void {
@@ -89,6 +90,7 @@ export class HomeComponent implements OnInit {
         }
 
         this.isLoadingGames = false;
+        this.cdr.detectChanges();
     }
 
     async setGame(gameId: string) {
