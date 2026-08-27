@@ -1,11 +1,11 @@
 <section
-    *ngIf="initialLoading"
+    *ngIf="initialLoading()"
     class="game-ready atmospheric-bg"
 >
-    <app-small-loading [isLoading]="initialLoading"></app-small-loading>
+    <app-small-loading [isLoading]="initialLoading()"></app-small-loading>
 </section>
 <section
-    *ngIf="!initialLoading && (playsPagedSearch?.items?.length ?? 0) === 0"
+    *ngIf="!initialLoading() && (playsPagedSearch()?.items?.length ?? 0) === 0"
     class="game-ready atmospheric-bg"
 >
     <p i18n="@@chatGameReady">Your new game is ready!</p>
@@ -20,7 +20,7 @@
     </button>
 </section>
 <section
-    *ngIf="(playsPagedSearch?.items?.length ?? 0) > 0"
+    *ngIf="(playsPagedSearch()?.items?.length ?? 0) > 0"
     class="game-playing atmospheric-bg"
 >
     <div class="game-toolbar">
@@ -63,14 +63,14 @@
     </div>
     <div class="messages" #messagesContainer (scroll)="onScroll($event)">
         <div class="messages-content">
-            <div *ngIf="isLoadingMore" class="loading-more">
+            <div *ngIf="isLoadingMore()" class="loading-more">
                 <app-small-loading
-                    [isLoading]="isLoadingMore"
+                    [isLoading]="isLoadingMore()"
                 ></app-small-loading>
             </div>
             <div class="messages-list" role="list">
                 <div
-                    *ngFor="let play of playsPagedSearch?.items"
+                    *ngFor="let play of playsPagedSearch()?.items"
                     class="message"
                     role="listitem"
                     [ngClass]="{
@@ -102,15 +102,15 @@
                 ></textarea>
 
                 <button
-                    *ngIf="!loading"
+                    *ngIf="!loading()"
                     type="submit"
                     mat-icon-button
                     color="primary"
                     (click)="onSubmit()"
                     [disabled]="
                         newPlayFormGroup.get('newPlayControl')?.value == '' ||
-                        game?.gameStatus === 'PlayerDied' ||
-                        initialLoading
+                        game()?.gameStatus === 'PlayerDied' ||
+                        initialLoading()
                     "
                 >
                     <mat-icon
@@ -119,9 +119,9 @@
                         fontIcon="send"
                     ></mat-icon>
                 </button>
-                <div *ngIf="loading" class="loading">
+                <div *ngIf="loading()" class="loading">
                     <app-small-loading
-                        [isLoading]="loading"
+                        [isLoading]="loading()"
                     ></app-small-loading>
                 </div>
             </form>

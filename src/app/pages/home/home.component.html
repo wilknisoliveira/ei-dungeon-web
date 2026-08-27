@@ -9,7 +9,7 @@
             <div class="center-btn-container">
                 <button
                     class="new-play-btn"
-                    (click)="gameSelected = ''"
+                    (click)="clearGameSelection()"
                     mat-raised-button
                 >
                     <mat-icon
@@ -22,21 +22,21 @@
             </div>
 
             <div class="plays">
-                <div *ngIf="isLoadingGames" class="loading-more">
+                <div *ngIf="isLoadingGames()" class="loading-more">
                     <app-small-loading
-                        [isLoading]="isLoadingGames"
+                        [isLoading]="isLoadingGames()"
                     ></app-small-loading>
                 </div>
-                <div *ngFor="let game of gamePagedSearch?.items">
+                <div *ngFor="let game of gamePagedSearch()?.items">
                     <div
                         class="game-name"
                         [ngClass]="{
-                            selected: gameSelected === game.id,
+                            selected: gameSelected() === game.id,
                         }"
                     >
                         <div
                             class="game-button"
-                            *ngIf="renamingGameId !== game.id"
+                            *ngIf="renamingGameId() !== game.id"
                         >
                             <button (click)="setGame(game.id)" mat-flat-button>
                                 <mat-icon
@@ -49,13 +49,13 @@
                         </div>
                         <div
                             class="rename-input"
-                            *ngIf="renamingGameId === game.id"
+                            *ngIf="renamingGameId() === game.id"
                             (mousedown)="$event.stopPropagation()"
                         >
                             <input
                                 #renameInput
                                 [value]="game.name"
-                                (input)="renamingGameName = renameInput.value"
+                                (input)="updateRenameName(renameInput.value)"
                                 (keydown)="onRenameKeydown($event, game.id)"
                                 (blur)="confirmRename()"
                                 minlength="2"
@@ -97,7 +97,7 @@
                     </div>
                 </div>
             </div>
-            <div class="center-btn-container" *ngIf="enableShowMoreBtn">
+            <div class="center-btn-container" *ngIf="enableShowMoreBtn()">
                 <button
                     class="show-more-btn"
                     (click)="showMore()"
@@ -158,12 +158,12 @@
 
             <div class="main-content">
                 <app-chat
-                    *ngIf="gameSelected"
-                    [gameId]="gameSelected"
+                    *ngIf="gameSelected()"
+                    [gameId]="gameSelected()"
                     (gamePlayed)="onGamePlayed($event)"
                 ></app-chat>
                 <app-first-steps
-                    *ngIf="!gameSelected"
+                    *ngIf="!gameSelected()"
                     (gameCreated)="gameCreated($event)"
                 ></app-first-steps>
             </div>

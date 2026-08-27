@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Router, RouterModule } from '@angular/router';
@@ -40,14 +40,14 @@ import { FirstStepsComponent } from './components/first-steps/first-steps.compon
     styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
-    gameSelected: string = '';
+    gameSelected = signal<string>('');
     pageSize = 0;
-    enableShowMoreBtn: boolean = true;
-    isLoadingGames: boolean = false;
-    renamingGameId: string | null = null;
-    renamingGameName: string = '';
+    enableShowMoreBtn = signal<boolean>(true);
+    isLoadingGames = signal<boolean>(false);
+    renamingGameId = signal<string | null>(null);
+    renamingGameName = signal<string>('');
 
-    gamePagedSearch: PagedSearch<Game> | null = null;
+    gamePagedSearch = signal<PagedSearch<Game> | null>(null);
 
     constructor(
         public dialog: MatDialog,
@@ -55,7 +55,6 @@ export class HomeComponent implements OnInit {
         private gameService: GameService,
         private router: Router,
         private authService: AuthService,
-        private cdr: ChangeDetectorRef,
     ) {}
 
     ngOnInit(): void {
@@ -77,52 +76,57 @@ export class HomeComponent implements OnInit {
     }
 
     async showMore() {
-        this.isLoadingGames = true;
+        this.isLoadingGames.set(true);
         this.pageSize = this.pageSize + 10;
 
-        this.gamePagedSearch = await this.getGames(this.pageSize);
+        this.gamePagedSearch.set(await this.getGames(this.pageSize));
 
         if (
-            this.gamePagedSearch &&
-            this.pageSize >= this.gamePagedSearch.totalResults
+            this.gamePagedSearch() &&
+            this.pageSize >= this.gamePagedSearch()!.totalResults
         ) {
-            this.enableShowMoreBtn = false;
+            this.enableShowMoreBtn.set(false);
         }
 
-        this.isLoadingGames = false;
-        this.cdr.detectChanges();
+        this.isLoadingGames.set(false);
     }
 
     async setGame(gameId: string) {
-        this.gameSelected = gameId;
+        this.gameSelected.set(gameId);
+    }
+
+    clearGameSelection(): void {
+        this.gameSelected.set('');
     }
 
     async gameCreated(gameName: string): Promise<void> {
         await this.showMore();
 
         if (gameName) {
-            this.gameSelected =
-                this.gamePagedSearch?.items.find(
+            this.gameSelected.set(
+                this.gamePagedSearch()?.items.find(
                     (game) => game.name === gameName,
                 )?.id ??
-                this.gamePagedSearch?.items[0].id ??
-                '';
+                this.gamePagedSearch()?.items[0].id ??
+                '',
+            );
         }
     }
 
     async deleteGame(gameId: string): Promise<void> {
         this.gameService.deleteGame(gameId).subscribe({
             next: () => {
-                if (this.gameSelected === gameId) {
-                    this.gameSelected = '';
+                if (this.gameSelected() === gameId) {
+                    this.gameSelected.set('');
                 }
 
-                this.gamePagedSearch?.items.splice(
-                    this.gamePagedSearch?.items.findIndex(
-                        (game) => game.id === gameId,
-                    ),
-                    1,
-                );
+                const items = this.gamePagedSearch()?.items;
+                if (items) {
+                    const index = items.findIndex((game) => game.id === gameId);
+                    if (index > -1) {
+                        items.splice(index, 1);
+                    }
+                }
 
                 this.snackBar.addSuccess($localize`Game deleted successfully.`);
             },
@@ -149,21 +153,25 @@ export class HomeComponent implements OnInit {
     }
 
     startRename(gameId: string, currentName: string): void {
-        this.renamingGameId = gameId;
-        this.renamingGameName = currentName;
+        this.renamingGameId.set(gameId);
+        this.renamingGameName.set(currentName);
+    }
+
+    updateRenameName(value: string): void {
+        this.renamingGameName.set(value);
     }
 
     confirmRename(): void {
-        if (!this.renamingGameId) return;
+        if (!this.renamingGameId()) return;
 
-        const gameId = this.renamingGameId;
-        const newName = this.renamingGameName.trim();
+        const gameId = this.renamingGameId()!;
+        const newName = this.renamingGameName().trim();
 
         this.cancelRename();
 
         if (!newName || newName.length < 2 || newName.length > 20) return;
 
-        const game = this.gamePagedSearch?.items.find((g) => g.id === gameId);
+        const game = this.gamePagedSearch()?.items.find((g) => g.id === gameId);
         if (game && newName === game.name) return;
 
         this.gameService.patchGame(gameId, { name: newName }).subscribe({
@@ -183,8 +191,8 @@ export class HomeComponent implements OnInit {
     }
 
     cancelRename(): void {
-        this.renamingGameId = null;
-        this.renamingGameName = '';
+        this.renamingGameId.set(null);
+        this.renamingGameName.set('');
     }
 
     onRenameKeydown(event: KeyboardEvent, gameId: string): void {
@@ -207,15 +215,16 @@ export class HomeComponent implements OnInit {
     }
 
     onGamePlayed(gameId: string): void {
-        if (!this.gamePagedSearch?.items) return;
+        const items = this.gamePagedSearch()?.items;
+        if (!items) return;
 
-        const currentIndex = this.gamePagedSearch.items.findIndex(
+        const currentIndex = items.findIndex(
             (game) => game.id === gameId,
         );
 
         if (currentIndex > 0) {
-            const [game] = this.gamePagedSearch.items.splice(currentIndex, 1);
-            this.gamePagedSearch.items.unshift(game);
+            const [game] = items.splice(currentIndex, 1);
+            items.unshift(game);
         }
     }
 }
