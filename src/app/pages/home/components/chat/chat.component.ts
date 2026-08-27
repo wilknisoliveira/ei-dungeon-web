@@ -1,22 +1,20 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {
-    AfterViewChecked,
     Component,
     ElementRef,
     Injector,
     NgZone,
     OnChanges,
-    OnDestroy,
-    OnInit,
     SimpleChanges,
-    ViewChild,
     afterNextRender,
+    afterRenderEffect,
+    effect,
     input,
     output,
     signal,
+    viewChild,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { lastValueFrom } from 'rxjs';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -33,16 +31,24 @@ import { Play } from 'src/app/types/play/play';
 import { Player } from 'src/app/types/play/player';
 import { StreamPlay } from 'src/app/types/play/stream-play';
 
+/** Plays requested per page. */
+const PLAYS_PAGE_SIZE = 20;
+
 /**
- * Number of extra animation frames the message list is kept pinned to the
- * bottom after a session is opened, so late layout cannot shift it away.
+ * Filler for the opening play. The player starts a session with an empty box,
+ * but the API enforces a minimum prompt length. Not user-facing, so not localized.
  */
-const BOTTOM_PIN_FRAMES = 10;
+const INITIAL_PLAY_PROMPT = 'Lorem Ipsum';
+
+/** How close to the top the list must be before older plays are fetched. */
+const LOAD_MORE_SCROLL_THRESHOLD_PX = 50;
+
+/** How far from the bottom still counts as "the user is following the chat". */
+const STICK_TO_BOTTOM_THRESHOLD_PX = 100;
 
 @Component({
     standalone: true,
     imports: [
-        CommonModule,
         ReactiveFormsModule,
         MatButtonModule,
         MatIconModule,
@@ -55,26 +61,48 @@ const BOTTOM_PIN_FRAMES = 10;
     templateUrl: './chat.component.html',
     styleUrls: ['./chat.component.scss'],
 })
-export class ChatComponent implements OnInit, OnChanges, AfterViewChecked, OnDestroy {
+export class ChatComponent implements OnChanges {
     gameId = input<string>('');
     gamePlayed = output<string>();
-    @ViewChild('messagesContainer') messagesContainer!: ElementRef;
-    @ViewChild('textAreaContainer') textAreaContainer!: ElementRef;
 
-    currentPage: number = 1;
+    messagesContainer = viewChild<ElementRef<HTMLDivElement>>('messagesContainer');
+    messagesList = viewChild<ElementRef<HTMLDivElement>>('messagesList');
+    textAreaContainer =
+        viewChild<ElementRef<HTMLTextAreaElement>>('textAreaContainer');
+
+    /** The rendered conversation. Everything else about the page is derived. */
+    plays = signal<Play[]>([]);
     isLoadingMore = signal<boolean>(false);
-    allPlaysLoaded = signal<boolean>(false);
-    currentResponse = signal<Play | null>(null);
-    playsPagedSearch = signal<PagedSearch<Play> | null>(null);
     newPlayFormGroup: FormGroup;
-    forceScroll = signal<boolean>(false);
     loading = signal<boolean>(false);
     initialLoading = signal<boolean>(false);
-    game = signal<Game | null>(null);
-    streamedMessagesStartIndex = signal<number | null>(null);
-    hasError = signal<boolean>(false);
 
-    private bottomPinFrame: number | null = null;
+    /**
+     * A failed request is not an empty session. Without this the template would
+     * offer the "your new game is ready" Start state for a session that simply
+     * failed to load.
+     */
+    loadFailed = signal<boolean>(false);
+    game = signal<Game | null>(null);
+
+    // Internal bookkeeping. None of it is read by the template, so plain fields
+    // are enough -- as signals they would notify change detection for nothing.
+    private currentPage = 1;
+    private allPlaysLoaded = false;
+    private streamedPlaysStartIndex: number | null = null;
+    private streamFailed = false;
+    private pendingPlaySequence = 0;
+
+    /** Session currently being opened; guards against out-of-order responses. */
+    private openingGameId: string | null = null;
+
+    /** Whether the list should follow new content. Derived from real scroll position. */
+    private stickToBottom = true;
+
+    /** Set while older plays are prepended, so the reading position is preserved. */
+    private pendingPrepend: { previousScrollHeight: number } | null = null;
+
+    private readonly scrollListener = (): void => this.onScroll();
 
     gameLanguages: { name: string; value: string; abbreviation: string }[] = [
         { name: $localize`Portuguese`, value: 'Portuguese', abbreviation: 'PT' },
@@ -83,10 +111,6 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked, OnDes
     ];
 
     gameLanguageControl: FormGroup;
-
-    get gameLanguageFormControl(): FormControl {
-        return this.gameLanguageControl.get('gameLanguage') as FormControl;
-    }
 
     get activePlaceholder(): string {
         return this.game()?.gameStatus !== 'PlayerDied'
@@ -102,26 +126,43 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked, OnDes
         return this.gameLanguageControl.get('gameLanguage')?.value || 'English';
     }
 
-    onLanguageChange(): void {
-        if (!this.game()) return;
+    selectLanguage(value: string): void {
+        const previousLanguage = this.currentGameLanguage;
+        if (previousLanguage === value) return;
 
-        const newLanguage = this.gameLanguageControl.get('gameLanguage')?.value;
-        this.gameService.patchGame(this.game()!.id, { gameLanguage: newLanguage }).subscribe({
-            next: (updatedGame) => {
-                this.game.set(updatedGame);
-                this.snackBar.addSuccess($localize`Game language updated.`);
-            },
-            error: (error: HttpErrorResponse) => {
-                this.snackBar.addError(
-                    $localize`Something went wrong while attempting to update the game language.`,
-                );
-            },
-        });
+        this.gameLanguageControl
+            .get('gameLanguage')
+            ?.setValue(value, { emitEvent: false });
+
+        void this.updateGameLanguage(previousLanguage);
     }
 
-    selectLanguage(value: string): void {
-        this.gameLanguageControl.get('gameLanguage')?.setValue(value);
-        this.onLanguageChange();
+    private async updateGameLanguage(previousLanguage: string): Promise<void> {
+        const game = this.game();
+        if (!game) return;
+
+        const newLanguage = this.gameLanguageControl.get('gameLanguage')?.value;
+
+        try {
+            const updatedGame = await lastValueFrom(
+                this.gameService.patchGame(game.id, {
+                    gameLanguage: newLanguage,
+                }),
+            );
+            this.game.set(updatedGame);
+            this.snackBar.addSuccess($localize`Game language updated.`);
+        } catch (error) {
+            // The menu ticks the current language, so leaving the failed value
+            // in place would keep showing the wrong one.
+            this.gameLanguageControl
+                .get('gameLanguage')
+                ?.setValue(previousLanguage, { emitEvent: false });
+
+            console.error('Failed to update game language', error);
+            this.snackBar.addError(
+                $localize`Something went wrong while attempting to update the game language.`,
+            );
+        }
     }
 
     getDisplayName(play: Play): string {
@@ -154,272 +195,389 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked, OnDes
         sessionStorage.removeItem(`${this.storagePrefix}${gameId}`);
     }
 
+    private saveDraft(gameId: string): void {
+        this.saveGameCache(gameId, {
+            textbox: this.newPlayFormGroup.get('newPlayControl')?.value ?? '',
+        });
+    }
+
+    private restoreDraft(gameId: string): void {
+        const cache = this.getGameCache(gameId);
+        this.newPlayFormGroup
+            .get('newPlayControl')
+            ?.setValue(cache?.['textbox'] ?? '');
+
+        // setValue does not fire the (input) handler, so the textarea would stay
+        // one row tall even when the restored draft spans several lines.
+        afterNextRender(() => this.resizeInputTextArea(), {
+            injector: this.injector,
+        });
+    }
+
+    private resizeInputTextArea(): void {
+        const textArea = this.textAreaContainer()?.nativeElement;
+        if (textArea) {
+            this.adjustTextAreaHeightElement(textArea);
+        }
+    }
+
     constructor(
         private snackBar: SnackbarService,
         private playService: PlayService,
         private gameService: GameService,
-        private _formBuilder: FormBuilder,
+        private formBuilder: FormBuilder,
         private injector: Injector,
         private ngZone: NgZone,
     ) {
-        this.newPlayFormGroup = this._formBuilder.group({
+        this.newPlayFormGroup = this.formBuilder.group({
             newPlayControl: ['', Validators.required],
         });
-        this.gameLanguageControl = this._formBuilder.group({
+        this.gameLanguageControl = this.formBuilder.group({
             gameLanguage: ['English', Validators.required],
         });
-    }
 
-    ngAfterViewChecked(): void {
-        this.adjustAllReadyOnlyTextArea();
-    }
+        // Primary trigger. The play list is the only thing that makes the view
+        // need re-scrolling, and afterRenderEffect runs once Angular has
+        // rendered it -- which is what makes reading scrollHeight meaningful.
+        // A signal write on its own is synchronous and lands before layout,
+        // and reading scrollHeight there was the root cause of the scroll bugs.
+        afterRenderEffect(() => {
+            this.plays();
+            this.applyScrollPosition();
+        });
 
-    ngOnDestroy(): void {
-        this.cancelBottomPin();
+        // Keeps the scroll listener attached to whichever container is on
+        // screen. It only reads the position; the list is moved from
+        // applyScrollPosition.
+        effect((onCleanup) => {
+            const container = this.messagesContainer()?.nativeElement;
+            if (!container) return;
+
+            this.ngZone.runOutsideAngular(() => {
+                container.addEventListener('scroll', this.scrollListener, {
+                    passive: true,
+                });
+            });
+
+            onCleanup(() =>
+                container.removeEventListener('scroll', this.scrollListener),
+            );
+        });
+
+        // The textarea uses formControlName, so the disabled state has to come
+        // from the control itself: a [disabled] binding on the element is
+        // ignored by Angular and logs a warning.
+        effect(() => {
+            const control = this.newPlayFormGroup.get('newPlayControl');
+            if (!control) return;
+
+            if (this.isDisabled) {
+                control.disable({ emitEvent: false });
+            } else {
+                control.enable({ emitEvent: false });
+            }
+        });
     }
 
     async ngOnChanges(changes: SimpleChanges): Promise<void> {
+        const gameIdChange = changes['gameId'];
+        if (!gameIdChange) return;
+
+        const previousGameId = gameIdChange.previousValue as string | undefined;
+        if (previousGameId) {
+            this.saveDraft(previousGameId);
+        }
+
+        await this.openSession(this.gameId());
+    }
+
+    /**
+     * Loads everything a session needs. ngOnChanges also covers the first
+     * change, so there is no ngOnInit doing the same work a second time.
+     *
+     * Every step re-checks `openingGameId`: switching sessions quickly leaves
+     * more than one load in flight, and the slower one must not overwrite the
+     * session the user is actually looking at.
+     */
+    private async openSession(gameId: string): Promise<void> {
+        this.openingGameId = gameId;
+        this.stickToBottom = true;
+        this.pendingPrepend = null;
+
         if (!this.loading()) {
             this.initialLoading.set(true);
         }
 
-        const previousGameId = changes['gameId']?.previousValue;
-        if (previousGameId) {
-            this.saveGameCache(previousGameId, {
-                textbox:
-                    this.newPlayFormGroup.get('newPlayControl')?.value ?? '',
-            });
-        }
+        await this.loadGame(gameId);
+        if (this.openingGameId !== gameId) return;
 
-        this.game.set(await this.gameService.getById(this.gameId()));
+        await this.loadInitialPlays(gameId);
+        if (this.openingGameId !== gameId) return;
 
-        if (this.game()) {
-            this.gameLanguageControl.get('gameLanguage')?.setValue(this.game()!.gameLanguage);
-        }
-
-        if (changes['gameId']) {
-            await this.loadInitialPlays();
-            this.scrollToBottomAfterRender();
-
-            const cache = this.getGameCache(this.gameId());
-            this.newPlayFormGroup
-                .get('newPlayControl')
-                ?.setValue(cache?.['textbox'] ?? '');
-        }
-
+        this.restoreDraft(gameId);
         this.initialLoading.set(false);
     }
 
-    async ngOnInit(): Promise<void> {
-        this.initialLoading.set(true);
-
-        this.game.set(await this.gameService.getById(this.gameId()));
-
-        if (this.game()) {
-            this.gameLanguageControl.get('gameLanguage')?.setValue(this.game()!.gameLanguage);
-        }
-
-        await this.loadInitialPlays();
-        this.scrollToBottomAfterRender();
-
-        const cache = this.getGameCache(this.gameId());
-        if (cache?.['textbox']) {
-            this.newPlayFormGroup.get('newPlayControl')?.setValue(cache['textbox']);
-        }
-
-        this.initialLoading.set(false);
-    }
-
-    async getPlays(page: number): Promise<PagedSearch<Play> | null> {
+    private async loadGame(gameId: string): Promise<void> {
         try {
-            return await this.playService.getPlays(this.gameId(), 'desc', 20, page);
+            const game = await this.gameService.getById(gameId);
+            if (this.openingGameId !== gameId) return;
+
+            this.game.set(game);
+            this.gameLanguageControl
+                .get('gameLanguage')
+                ?.setValue(game.gameLanguage, { emitEvent: false });
         } catch (error) {
-            this.snackBar.addError(
-                $localize`Something went wrong while attempting to get the play list.`,
-            );
-            console.log(`Error: ${error}`);
-            return null;
+            console.error('Failed to load game', error);
         }
     }
 
-    async loadInitialPlays(): Promise<void> {
-        this.currentPage = 1;
-        this.allPlaysLoaded.set(false);
-        this.isLoadingMore.set(false);
+    private fetchPlays(page: number): Promise<PagedSearch<Play>> {
+        return this.playService.getPlays(
+            this.gameId(),
+            'desc',
+            PLAYS_PAGE_SIZE,
+            page,
+        );
+    }
 
-        const result = await this.getPlays(1);
-        if (result?.items) {
-            result.items = result.items.reverse();
+    private reportPlaysError(error: unknown): void {
+        this.snackBar.addError(
+            $localize`Something went wrong while attempting to get the play list.`,
+        );
+        console.error('Failed to load plays', error);
+    }
+
+    private async loadInitialPlays(gameId: string): Promise<void> {
+        this.currentPage = 1;
+        this.allPlaysLoaded = false;
+        this.isLoadingMore.set(false);
+        this.loadFailed.set(false);
+
+        try {
+            const result = await this.fetchPlays(1);
+            if (this.openingGameId !== gameId) return;
+
+            this.plays.set([...(result.items ?? [])].reverse());
+        } catch (error) {
+            if (this.openingGameId !== gameId) return;
+
+            this.reportPlaysError(error);
+            this.loadFailed.set(true);
+            this.plays.set([]);
         }
-        this.playsPagedSearch.set(result);
     }
 
     async loadMorePlays(): Promise<void> {
-        if (this.isLoadingMore() || this.allPlaysLoaded()) return;
+        if (this.isLoadingMore() || this.allPlaysLoaded || this.pendingPrepend) {
+            return;
+        }
 
         this.isLoadingMore.set(true);
-        this.currentPage++;
+        const nextPage = this.currentPage + 1;
 
-        const container = this.messagesContainer?.nativeElement as
-            | HTMLDivElement
-            | undefined;
-        const prevScrollHeight = container?.scrollHeight ?? 0;
-
-        const result = await this.getPlays(this.currentPage);
-
-        if (!result || !result.items || result.items.length === 0) {
-            this.allPlaysLoaded.set(true);
+        let result: PagedSearch<Play>;
+        try {
+            result = await this.fetchPlays(nextPage);
+        } catch (error) {
+            // A transient network failure must not disable pagination forever,
+            // so currentPage stays put and allPlaysLoaded is left alone.
+            this.reportPlaysError(error);
             this.isLoadingMore.set(false);
             return;
         }
 
-        result.items.reverse();
+        this.currentPage = nextPage;
 
-        this.playsPagedSearch.set({
-            ...result,
-            items: [...result.items, ...(this.playsPagedSearch()?.items ?? [])],
-        });
+        const olderPlays = [...(result.items ?? [])].reverse();
 
-        // A pagination that resolves while a session is being opened must not
-        // steal the scroll position from the bottom pin.
-        if (container && this.bottomPinFrame === null) {
-            container.scrollTop = container.scrollHeight - prevScrollHeight;
+        if (olderPlays.length === 0) {
+            this.allPlaysLoaded = true;
+            this.isLoadingMore.set(false);
+            return;
         }
 
+        const container = this.messagesContainer()?.nativeElement;
+
+        // Measured before the older plays land, and compensated by the render
+        // effect once they are on screen. Reading the new height here instead
+        // would give the pre-render value and drop the reader near the top.
+        this.pendingPrepend = container
+            ? { previousScrollHeight: container.scrollHeight }
+            : null;
+
+        this.plays.update((current) => [...olderPlays, ...current]);
         this.isLoadingMore.set(false);
 
-        if (result.items.length < result.pageSize) {
-            this.allPlaysLoaded.set(true);
+        if (olderPlays.length < PLAYS_PAGE_SIZE) {
+            this.allPlaysLoaded = true;
         }
     }
 
-    onScroll(event: Event): void {
-        // Ignore the scroll events fired by the bottom pin that runs while a
-        // session is being opened, otherwise it would paginate immediately and
-        // overwrite the scroll position it just set.
-        if (this.bottomPinFrame !== null) return;
+    /** Runs outside the Angular zone: keep it cheap. */
+    onScroll(): void {
+        const container = this.messagesContainer()?.nativeElement;
+        if (!container) return;
 
-        const container = event.target as HTMLDivElement;
-        if (container.scrollTop <= 50) {
-            this.loadMorePlays();
+        const distanceFromBottom =
+            container.scrollHeight - container.scrollTop - container.clientHeight;
+        this.stickToBottom = distanceFromBottom <= STICK_TO_BOTTOM_THRESHOLD_PX;
+
+        if (
+            this.pendingPrepend ||
+            this.isLoadingMore() ||
+            this.allPlaysLoaded ||
+            container.scrollTop > LOAD_MORE_SCROLL_THRESHOLD_PX
+        ) {
+            return;
         }
+
+        this.ngZone.run(() => this.loadMorePlays());
     }
 
     async onSubmit(initialPlay: boolean = false): Promise<void> {
+        const prompt: string = (
+            this.newPlayFormGroup.get('newPlayControl')?.value ?? ''
+        ).trim();
+
+        if (!initialPlay && !prompt) return;
+
         this.loading.set(true);
-        let newPlay: NewPlay = {
+        const newPlay: NewPlay = {
             gameId: this.gameId(),
-            prompt:
-                this.newPlayFormGroup.get('newPlayControl')?.value ||
-                'Lorem Upsum',
+            prompt: prompt || INITIAL_PLAY_PROMPT,
         };
 
         try {
-            await this.playService.streamNewPlay(newPlay, (chunk: StreamPlay) => {
-                switch (chunk.eventType) {
-                    case 'Start':
-                        const playsToAdd: Play[] = [];
-                        if (!initialPlay) {
-                            const currentPlayerName =
-                                this.playsPagedSearch()?.items?.find(
-                                    (play) =>
-                                        play.playerDtoResponse.type ===
-                                        'RealPlayer',
-                                )?.playerDtoResponse?.name;
-                            const newPlay: Play = {
-                                id: '',
-                                playerDtoResponse: {
-                                    id: '',
-                                    name: currentPlayerName ?? $localize`Player`,
-                                    type: 'RealPlayer',
-                                },
-                                prompt:
-                                    this.newPlayFormGroup.get('newPlayControl')
-                                        ?.value ?? '',
-                                createdAt: new Date(),
-                            };
-                            playsToAdd.push(newPlay);
-                        }
-
-                        const response: Play = {
-                            id: '',
-                            playerDtoResponse: {
-                                name: $localize`Master`,
-                                type: 'Master',
-                            } as Player,
-                            prompt: '',
-                            createdAt: new Date(),
-                        } as Play;
-                        playsToAdd.push(response);
-                        this.currentResponse.set(response);
-                        this.playsPagedSearch.set({
-                            ...this.playsPagedSearch()!,
-                            items: [...this.playsPagedSearch()!.items!, ...playsToAdd],
-                        });
-                        this.streamedMessagesStartIndex.set(
-                            this.playsPagedSearch()!.items!.length - playsToAdd.length,
-                        );
-                        this.forceScroll.set(true);
-                        this.scrollBotton();
-                        break;
-                    case 'Chunk':
-                        this.currentResponse.update((prev) => {
-                            if (prev) {
-                                prev.prompt! += chunk.content;
-                            }
-                            return prev;
-                        });
-                        this.scrollBotton();
-                        break;
-                    case 'End':
-                        this.loading.set(false);
-                        this.currentResponse.set(null);
-                        this.streamedMessagesStartIndex.set(null);
-
-                        if (!this.hasError()) {
-                            this.newPlayFormGroup.get('newPlayControl')?.reset();
-                            this.removeGameCache(this.gameId());
-                            this.gamePlayed.emit(this.gameId());
-                        }
-                        this.hasError.set(false);
-
-                        if (this.textAreaContainer) {
-                            this.adjustTextAreaHeightElement(
-                                this.textAreaContainer
-                                    .nativeElement as HTMLTextAreaElement,
-                            );
-                            this.textAreaContainer.nativeElement.focus();
-                        }
-                        break;
-                    case 'Error':
-                        if (this.streamedMessagesStartIndex() !== null) {
-                            const list = [...this.playsPagedSearch()!.items!];
-                            list.splice(
-                                this.streamedMessagesStartIndex()!,
-                                list.length - this.streamedMessagesStartIndex()!,
-                            );
-                            this.playsPagedSearch.set({
-                                ...this.playsPagedSearch()!,
-                                items: list,
-                            });
-                            this.streamedMessagesStartIndex.set(null);
-                        }
-                        this.hasError.set(true);
-                        this.currentResponse.set(null);
-                        this.loading.set(false);
-                        this.snackBar.addError(
-                            $localize`The gods have not answered your call. Speak again, brave adventurer!`,
-                        );
-                }
-            });
-        } catch {
-            if (!this.hasError()) {
+            await this.playService.streamNewPlay(newPlay, (chunk: StreamPlay) =>
+                this.handleStreamEvent(chunk, prompt, initialPlay),
+            );
+        } catch (error) {
+            // The stream reports its own failures through the 'Error' event and
+            // has already told the user about them. Only a rejection that never
+            // produced one is reported here.
+            if (!this.streamFailed) {
+                console.error('Failed to stream a new play', error);
                 this.loading.set(false);
                 this.snackBar.addError(
                     $localize`Something went wrong. Please try again.`,
                 );
             }
         }
+    }
+
+    private handleStreamEvent(
+        chunk: StreamPlay,
+        prompt: string,
+        initialPlay: boolean,
+    ): void {
+        switch (chunk.eventType) {
+            case 'Start':
+                this.handleStreamStart(prompt, initialPlay);
+                break;
+            case 'Chunk':
+                this.handleStreamChunk(chunk.content);
+                break;
+            case 'End':
+                this.handleStreamEnd();
+                break;
+            case 'Error':
+                this.handleStreamError();
+                break;
+        }
+    }
+
+    /**
+     * Shows the player's own message and an empty Game Master bubble right away,
+     * before the server has confirmed either. Both are dropped again if the
+     * stream fails.
+     */
+    private handleStreamStart(prompt: string, initialPlay: boolean): void {
+        const playsToAdd: Play[] = [];
+
+        if (!initialPlay) {
+            playsToAdd.push(this.createPendingPlay(this.currentPlayer(), prompt));
+        }
+        playsToAdd.push(this.createPendingPlay(this.gameMasterPlayer(), ''));
+
+        this.streamedPlaysStartIndex = this.plays().length;
+        this.plays.update((current) => [...current, ...playsToAdd]);
+        this.stickToBottom = true;
+    }
+
+    private handleStreamChunk(content: string): void {
+        // Replacing the last play is what actually notifies the signal. The old
+        // version mutated it and returned the same reference, so nothing was
+        // emitted -- the text only reached the screen because zone.js happened
+        // to run change detection right after the callback.
+        this.plays.update((current) => {
+            if (current.length === 0) return current;
+
+            const lastIndex = current.length - 1;
+            const updated = [...current];
+            updated[lastIndex] = {
+                ...updated[lastIndex],
+                prompt: updated[lastIndex].prompt + content,
+            };
+            return updated;
+        });
+    }
+
+    private handleStreamEnd(): void {
+        this.loading.set(false);
+        this.streamedPlaysStartIndex = null;
+
+        if (!this.streamFailed) {
+            this.newPlayFormGroup.get('newPlayControl')?.reset();
+            this.removeGameCache(this.gameId());
+            this.gamePlayed.emit(this.gameId());
+        }
+        this.streamFailed = false;
+
+        const textArea = this.textAreaContainer()?.nativeElement;
+        if (textArea) {
+            this.adjustTextAreaHeightElement(textArea);
+            textArea.focus();
+        }
+    }
+
+    private handleStreamError(): void {
+        if (this.streamedPlaysStartIndex !== null) {
+            const startIndex = this.streamedPlaysStartIndex;
+            this.plays.update((current) => current.slice(0, startIndex));
+            this.streamedPlaysStartIndex = null;
+        }
+
+        this.streamFailed = true;
+        this.loading.set(false);
+        this.snackBar.addError(
+            $localize`The gods have not answered your call. Speak again, brave adventurer!`,
+        );
+    }
+
+    /** A play that only exists in the browser until the server sends the real one. */
+    private createPendingPlay(player: Player, prompt: string): Play {
+        return {
+            // Local id, distinct from any server id. The list is tracked by id,
+            // and streaming replaces the last play on every chunk -- without a
+            // stable key Angular would rebuild its node on each one.
+            id: `pending-${++this.pendingPlaySequence}`,
+            playerDtoResponse: player,
+            prompt,
+            createdAt: new Date(),
+        };
+    }
+
+    private gameMasterPlayer(): Player {
+        return { id: '', name: $localize`Game Master`, type: 'Master' };
+    }
+
+    private currentPlayer(): Player {
+        const known = this.plays().find(
+            (play) => play.playerDtoResponse.type === 'RealPlayer',
+        )?.playerDtoResponse;
+
+        return known ?? { id: '', name: $localize`Player`, type: 'RealPlayer' };
     }
 
     adjustTextAreaHeightEvent(event: Event): void {
@@ -429,10 +587,12 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked, OnDes
 
     onInputChange(event: Event): void {
         this.adjustTextAreaHeightEvent(event);
-        this.saveGameCache(this.gameId(), {
-            textbox:
-                this.newPlayFormGroup.get('newPlayControl')?.value ?? '',
-        });
+        this.saveDraft(this.gameId());
+
+        // A growing textarea shrinks the message viewport. Nothing about the
+        // play list changed, so the render effect will not fire on its own and
+        // the newest message would slip behind the input.
+        this.applyScrollPosition();
     }
 
     adjustTextAreaHeightElement(textArea: HTMLTextAreaElement): void {
@@ -441,81 +601,46 @@ export class ChatComponent implements OnInit, OnChanges, AfterViewChecked, OnDes
     }
 
     /**
-     * Scrolls to the bottom once the freshly loaded plays are rendered.
-     *
-     * `afterNextRender` guarantees the message list is already in the DOM, and
-     * the pin keeps the list glued to the bottom for the following frames so
-     * late layout (message fade-in, font metrics, the loader being removed)
-     * cannot leave the view at the top or in the middle of the list.
+     * The single place that moves the message list. Idempotent, so both
+     * triggers can call it freely.
      */
-    private scrollToBottomAfterRender(): void {
-        afterNextRender(
-            () => this.ngZone.runOutsideAngular(() => this.pinToBottom()),
-            { injector: this.injector },
-        );
-    }
-
-    private pinToBottom(framesLeft: number = BOTTOM_PIN_FRAMES): void {
-        this.cancelBottomPin();
-
-        const container = this.messagesContainer?.nativeElement as
-            | HTMLDivElement
-            | undefined;
+    private applyScrollPosition(): void {
+        const container = this.messagesContainer()?.nativeElement;
         if (!container) return;
 
+        if (this.pendingPrepend) {
+            container.scrollTop +=
+                container.scrollHeight - this.pendingPrepend.previousScrollHeight;
+            this.pendingPrepend = null;
+            return;
+        }
+
+        if (!this.stickToBottom) return;
+
+        if (this.isStreamedPlayTallerThanViewport(container)) {
+            // Latch it. Deriving this on every call would un-freeze the list the
+            // moment the stream ends, because the condition depends on loading()
+            // -- and the end of a stream resizes the input area, which triggers
+            // another pass. Following only resumes when the player scrolls back
+            // down to the bottom themselves.
+            this.stickToBottom = false;
+            return;
+        }
+
         container.scrollTop = container.scrollHeight;
-
-        if (framesLeft > 0) {
-            this.bottomPinFrame = requestAnimationFrame(() => {
-                this.bottomPinFrame = null;
-                this.pinToBottom(framesLeft - 1);
-            });
-        }
     }
 
-    private cancelBottomPin(): void {
-        if (this.bottomPinFrame !== null) {
-            cancelAnimationFrame(this.bottomPinFrame);
-            this.bottomPinFrame = null;
-        }
-    }
+    /**
+     * While the Game Master is writing, a reply taller than the viewport stops
+     * being followed so the player can read it from the beginning. Only asked
+     * while streaming: a session whose last play is tall still opens at the end.
+     */
+    private isStreamedPlayTallerThanViewport(container: HTMLDivElement): boolean {
+        if (!this.loading()) return false;
 
-    scrollBotton(): void {
-        if (this.messagesContainer) {
-            const container: HTMLDivElement =
-                this.messagesContainer.nativeElement;
+        const lastPlay = this.messagesList()?.nativeElement
+            .lastElementChild as HTMLElement | null;
 
-            if (this.forceScroll()) {
-                container.scrollTop = container.scrollHeight;
-                this.forceScroll.set(false);
-                return;
-            }
-
-            const distanceFromBottom =
-                container.scrollHeight -
-                container.scrollTop -
-                container.clientHeight;
-            if (distanceFromBottom > 100) {
-                return;
-            }
-
-            const lastMessage = container.querySelector(
-                '.message:last-child',
-            ) as HTMLElement;
-            if (lastMessage && lastMessage.offsetHeight > container.clientHeight) {
-                return;
-            }
-
-            container.scrollTop = container.scrollHeight;
-        }
-    }
-
-    adjustAllReadyOnlyTextArea(): void {
-        const readyOnlyTextAreas: NodeListOf<Element> =
-            document.querySelectorAll('textarea[readonly]');
-
-        readyOnlyTextAreas.forEach((textarea) => {
-            this.adjustTextAreaHeightElement(textarea as HTMLTextAreaElement);
-        });
+        return !!lastPlay && lastPlay.offsetHeight > container.clientHeight;
     }
 }
