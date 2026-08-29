@@ -121,6 +121,21 @@ html {
     scrollbar-width: thin;
 }
 
+/* Browser autofill styling override */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 1000px var(--mat-sys-surface-container) inset !important;
+    -webkit-text-fill-color: var(--mat-sys-on-surface) !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+input:-webkit-autofill::selection {
+    background-color: var(--mat-sys-primary);
+    -webkit-text-fill-color: var(--mat-sys-on-primary);
+}
+
 /* Select dropdown panel width override */
 .cdk-overlay-pane .mat-mdc-select-panel {
     min-width: 80px !important;
