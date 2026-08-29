@@ -10,7 +10,7 @@
 }
 
 .game-ready {
-    height: 90vh;
+    height: 90dvh;
 
     display: flex;
     flex-direction: column;
@@ -210,6 +210,7 @@
                     font-family: inherit;
                     font-size: 0.95rem;
                     line-height: 1.5;
+                    max-height: 40vh;
                 }
 
                 button[mat-icon-button] {

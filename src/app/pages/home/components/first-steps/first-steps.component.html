@@ -37,15 +37,10 @@
                                 {{ lang.abbreviation }} - {{ lang.name }}
                             </mat-option>
                         </mat-select>
-                        <mat-icon
-                            class="info-icon"
-                            matTooltip="Language used by the Game Master for narration and dialogue"
-                            i18n-matTooltip="@@gameLanguageTooltip"
-                            aria-hidden="false"
-                            aria-label="Info"
-                            matSuffix
-                            fontIcon="info"
-                        ></mat-icon>
+                        <mat-hint i18n="@@gameLanguageHint"
+                            >Language used by the Game Master for narration and
+                            dialogue</mat-hint
+                        >
                     </mat-form-field>
                 </mat-card-content>
             </mat-card>

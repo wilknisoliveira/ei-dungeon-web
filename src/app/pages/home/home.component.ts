@@ -1,4 +1,4 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { Router, RouterModule } from '@angular/router';
@@ -7,6 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 
+import { IsHandsetService } from 'src/app/shared/responsive/is-handset.service';
 import { PagedSearch } from 'src/app/types/general/paged-search';
 import { Game } from 'src/app/types/game/game';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
@@ -47,6 +48,12 @@ export class HomeComponent implements OnInit {
     renamingGameId = signal<string | null>(null);
     renamingGameName = signal<string>('');
 
+    /** True below 768px: the drawer becomes an overlay, closed by default. */
+    isHandset = inject(IsHandsetService).isHandset;
+
+    /** Drives the drawer opening. Open on desktop, toggled on handsets. */
+    drawerOpened = signal(true);
+
     gamePagedSearch = signal<PagedSearch<Game> | null>(null);
 
     constructor(
@@ -55,7 +62,22 @@ export class HomeComponent implements OnInit {
         private gameService: GameService,
         private router: Router,
         private authService: AuthService,
-    ) {}
+    ) {
+        effect(() => {
+            if (this.isHandset()) {
+                this.drawerOpened.set(false);
+            } else {
+                this.drawerOpened.set(true);
+            }
+        });
+    }
+
+    /** Closes the overlay drawer when a campaign is picked on a handset. */
+    private closeDrawerIfHandset(): void {
+        if (this.isHandset()) {
+            this.drawerOpened.set(false);
+        }
+    }
 
     ngOnInit(): void {
         this.showMore();
@@ -93,10 +115,12 @@ export class HomeComponent implements OnInit {
 
     async setGame(gameId: string) {
         this.gameSelected.set(gameId);
+        this.closeDrawerIfHandset();
     }
 
     clearGameSelection(): void {
         this.gameSelected.set('');
+        this.closeDrawerIfHandset();
     }
 
     async gameCreated(gameName: string): Promise<void> {

@@ -390,6 +390,10 @@
         <source>Language used by the Game Master for narration and dialogue</source>
         <target>Idioma utilizado por el Director de Juego para narración y diálogo</target>
       </trans-unit>
+      <trans-unit id="gameLanguageHint" datatype="html">
+        <source>Language used by the Game Master for narration and dialogue</source>
+        <target>Idioma utilizado por el Director de Juego para narración y diálogo</target>
+      </trans-unit>
       <trans-unit id="renameMenuItem" datatype="html">
         <source>Rename</source>
         <target>Renombrar</target>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, effect, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { ConfirmationDialogComponent } from 'src/app/shared/confirmation-dialog/confirmation-dialog.component';
+import { IsHandsetService } from 'src/app/shared/responsive/is-handset.service';
 import { LanguageSelectorComponent } from 'src/app/shared/components/language-selector/language-selector.component';
 import { ThemeToggleComponent } from 'src/app/shared/theme-toggle/theme-toggle.component';
 
@@ -41,6 +42,12 @@ export class SettingsComponent implements OnInit {
     loading = false;
     activeSection = 'account';
 
+    /** True below 768px: the drawer becomes an overlay, closed by default. */
+    isHandset = inject(IsHandsetService).isHandset;
+
+    /** Drives the drawer opening. Open on desktop, toggled on handsets. */
+    drawerOpened = signal(true);
+
     constructor(
         private authService: AuthService,
         private snackBar: SnackbarService,
@@ -48,6 +55,14 @@ export class SettingsComponent implements OnInit {
         private dialog: MatDialog,
         private router: Router,
     ) {
+        effect(() => {
+            if (this.isHandset()) {
+                this.drawerOpened.set(false);
+            } else {
+                this.drawerOpened.set(true);
+            }
+        });
+
         this.changePasswordForm = this.fb.group({
             currentPassword: [
                 '',
@@ -74,6 +89,9 @@ export class SettingsComponent implements OnInit {
 
     selectSection(section: string): void {
         this.activeSection = section;
+        if (this.isHandset()) {
+            this.drawerOpened.set(false);
+        }
     }
 
     async onChangePassword(): Promise<void> {

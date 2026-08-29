@@ -7,7 +7,7 @@
 mat-drawer-container {
     background: transparent;
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     border: 1px solid
         color-mix(in srgb, var(--mat-sys-outline) 50%, transparent);
 }
@@ -19,6 +19,11 @@ mat-drawer {
     width: 250px;
     border-right: 1px solid
         color-mix(in srgb, var(--mat-sys-outline) 20%, transparent);
+
+    @media (max-width: 767.98px) {
+        width: 100vw;
+        min-width: 100vw;
+    }
 }
 
 .sidebar-header {
@@ -26,6 +31,14 @@ mat-drawer {
     flex-direction: column;
     padding: 2rem 1rem 1.5rem;
     opacity: 0.8;
+    position: relative;
+
+    .drawer-close {
+        position: absolute;
+        top: 1rem;
+        right: 0.5rem;
+        color: var(--mat-sys-on-surface-variant);
+    }
 }
 
 .brand {
@@ -71,16 +84,14 @@ mat-list-item {
 mat-drawer-content {
     display: flex;
     flex-direction: column;
-    max-height: 100vh;
+    max-height: 100dvh;
 }
 
 .header-menu {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    height: 8vh;
-    min-height: 5vh;
-    padding: 0 1.5rem;
+    height: 8dvh;
+    min-height: 5dvh;
 
     .left {
         display: flex;
@@ -105,7 +116,7 @@ mat-drawer-content {
 }
 
 .main-content {
-    height: 91vh;
+    height: 91dvh;
     overflow-y: auto;
     padding: 2rem;
     display: flex;

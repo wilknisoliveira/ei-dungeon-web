@@ -1,9 +1,20 @@
 <section class="main-container atmospheric-bg">
     <mat-drawer-container autosize>
-        <mat-drawer mode="side" opened>
+        <mat-drawer
+            [mode]="isHandset() ? 'over' : 'side'"
+            [opened]="drawerOpened()"
+        >
             <div class="sidebar-header">
                 <span class="brand" i18n="@@appWordmark">EI-DUNGEON</span>
                 <span class="subtitle" i18n="@@settingsSubtitle">Settings</span>
+                <button
+                    mat-icon-button
+                    class="drawer-close"
+                    (click)="drawerOpened.set(false)"
+                    *ngIf="isHandset()"
+                >
+                    <mat-icon fontIcon="close"></mat-icon>
+                </button>
             </div>
             <mat-nav-list>
                 <mat-list-item
@@ -26,7 +37,13 @@
         <mat-drawer-content>
             <div class="header-menu">
                 <div class="left">
-                    <button mat-icon-button routerLink="/home">
+                    <button
+                        mat-button
+                        (click)="drawerOpened.set(!drawerOpened())"
+                    >
+                        <mat-icon fontIcon="menu"></mat-icon>
+                    </button>
+                    <button mat-button routerLink="/home">
                         <mat-icon fontIcon="arrow_back"></mat-icon>
                     </button>
                     <span class="title" i18n="@@settingsTitle">{{

@@ -29,6 +29,10 @@ section {
             0 0 20px color-mix(in srgb, var(--mat-sys-primary) 15%, transparent),
             0 4px 8px color-mix(in srgb, var(--mat-sys-shadow) 30%, transparent);
 
+        @media (max-width: 480px) {
+            padding: 2rem 1.5rem 2rem 1.5rem;
+        }
+
         .header-actions {
             width: 100%;
             display: flex;
