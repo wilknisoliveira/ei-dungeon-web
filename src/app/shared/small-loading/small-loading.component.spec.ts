@@ -8,7 +8,7 @@ describe('SmallLoadingComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [SmallLoadingComponent]
+      imports: [SmallLoadingComponent]
     });
     fixture = TestBed.createComponent(SmallLoadingComponent);
     component = fixture.componentInstance;

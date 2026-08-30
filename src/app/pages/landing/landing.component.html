@@ -1,0 +1,22 @@
+<div class="landing">
+    <!-- No reveal on the header: a transform on its host would break position: sticky. -->
+    <app-landing-header [isLoggedIn]="isLoggedIn()"></app-landing-header>
+
+    <main>
+        <app-landing-hero
+            appRevealOnScroll
+            [isLoggedIn]="isLoggedIn()"
+        ></app-landing-hero>
+        <app-landing-problem appRevealOnScroll></app-landing-problem>
+        <app-landing-how-it-works appRevealOnScroll></app-landing-how-it-works>
+        <app-landing-features appRevealOnScroll></app-landing-features>
+        <app-landing-development appRevealOnScroll></app-landing-development>
+        <app-landing-faq appRevealOnScroll></app-landing-faq>
+        <app-landing-cta
+            appRevealOnScroll
+            [isLoggedIn]="isLoggedIn()"
+        ></app-landing-cta>
+    </main>
+
+    <app-landing-footer appRevealOnScroll></app-landing-footer>
+</div>

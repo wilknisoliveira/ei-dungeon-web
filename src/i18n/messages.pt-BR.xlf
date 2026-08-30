@@ -450,13 +450,277 @@
         <source>Spanish</source>
         <target>Espanhol</target>
       </trans-unit>
-      <trans-unit id="deleteAccountDialogMessage" datatype="html">
+      <trans-unit id="6472107528361453618" datatype="html">
         <source>Are you sure you want to delete your account? This action is irreversible and all your data will be permanently lost.</source>
         <target>Tem certeza que deseja apagar sua conta? Esta ação é irreversível e todos os seus dados serão permanentemente perdidos.</target>
       </trans-unit>
       <trans-unit id="gameOptionsTooltip" datatype="html">
         <source>Game options</source>
         <target>Opções do jogo</target>
+      </trans-unit>
+      <trans-unit id="landingSignIn" datatype="html">
+        <source>Sign in</source>
+        <target>Entrar</target>
+      </trans-unit>
+      <trans-unit id="landingLogoShortAlt" datatype="html">
+        <source>EI-D, the EI-DUNGEON mark</source>
+        <target>EI-D, a marca do EI-DUNGEON</target>
+      </trans-unit>
+      <trans-unit id="landingLogoCompletedAlt" datatype="html">
+        <source>EI-DUNGEON — an A.I. driven RPG simulator</source>
+        <target>EI-DUNGEON — um simulador de RPG movido por I.A.</target>
+      </trans-unit>
+      <trans-unit id="landingHeroHeadline" datatype="html">
+        <source> Your Game Master never cancels. </source>
+        <target>Seu Mestre nunca desmarca.</target>
+      </trans-unit>
+      <trans-unit id="landingHeroSub" datatype="html">
+        <source> A solo role-playing game run by AI. Build a character, step into the dark, and play whenever you want — no group to gather, no night to agree on, no one to talk into running it. </source>
+        <target>Um RPG solo conduzido por I.A. Crie um personagem, entre na escuridão e jogue quando quiser — sem grupo para reunir, sem noite para combinar, sem ninguém para convencer a mestrar.</target>
+      </trans-unit>
+      <trans-unit id="landingHeroCta" datatype="html">
+        <source>Create your character</source>
+        <target>Crie seu personagem</target>
+      </trans-unit>
+      <trans-unit id="landingHeroSecondary" datatype="html">
+        <source>I already have an account</source>
+        <target>Já tenho uma conta</target>
+      </trans-unit>
+      <trans-unit id="landingHeroNote" datatype="html">
+        <source> Free to start · Play in Portuguese, English or Spanish </source>
+        <target>Grátis para começar · Jogue em português, inglês ou espanhol</target>
+      </trans-unit>
+      <trans-unit id="landingProblemEyebrow" datatype="html">
+        <source> The real obstacle </source>
+        <target>O verdadeiro obstáculo</target>
+      </trans-unit>
+      <trans-unit id="landingProblemHeading" datatype="html">
+        <source> The hardest part of a role-playing game isn&apos;t the dragon. </source>
+        <target>A parte mais difícil de um RPG não é o dragão.</target>
+      </trans-unit>
+      <trans-unit id="landingProblemLede" datatype="html">
+        <source> It&apos;s everything that has to happen before anyone rolls a die. </source>
+        <target>É tudo o que precisa acontecer antes de alguém rolar um dado.</target>
+      </trans-unit>
+      <trans-unit id="landingPainScheduleTitle" datatype="html">
+        <source>Four people, one calendar</source>
+        <target>Quatro pessoas, uma agenda</target>
+      </trans-unit>
+      <trans-unit id="landingPainScheduleBody" datatype="html">
+        <source>Finding a night everyone is free takes longer than the session itself.</source>
+        <target>Achar uma noite em que todo mundo esteja livre demora mais que a própria sessão.</target>
+      </trans-unit>
+      <trans-unit id="landingPainMasterTitle" datatype="html">
+        <source>Somebody has to run it</source>
+        <target>Alguém precisa mestrar</target>
+      </trans-unit>
+      <trans-unit id="landingPainMasterBody" datatype="html">
+        <source>And that somebody spends the week preparing while everyone else just shows up.</source>
+        <target>E esse alguém passa a semana preparando tudo enquanto o resto só aparece.</target>
+      </trans-unit>
+      <trans-unit id="landingPainDeadTitle" datatype="html">
+        <source>The campaign that died at session three</source>
+        <target>A campanha que morreu na terceira sessão</target>
+      </trans-unit>
+      <trans-unit id="landingPainDeadBody" datatype="html">
+        <source>Not from a total party kill. From a group chat that slowly went quiet.</source>
+        <target>Não por um massacre do grupo. Por um grupo de mensagens que foi ficando quieto.</target>
+      </trans-unit>
+      <trans-unit id="landingHowEyebrow" datatype="html">
+        <source>The way out</source>
+        <target>A saída</target>
+      </trans-unit>
+      <trans-unit id="landingHowHeading" datatype="html">
+        <source> None of that is required here. </source>
+        <target>Nada disso é necessário aqui.</target>
+      </trans-unit>
+      <trans-unit id="landingStepCharacterTitle" datatype="html">
+        <source>Build your character</source>
+        <target>Crie seu personagem</target>
+      </trans-unit>
+      <trans-unit id="landingStepCharacterBody" datatype="html">
+        <source>Choose a race, spend thirty points across six attributes, and write who they are. Nine races, each with its own bonuses.</source>
+        <target>Escolha uma raça, distribua trinta pontos entre seis atributos e escreva quem ele é. Nove raças, cada uma com seus próprios bônus.</target>
+      </trans-unit>
+      <trans-unit id="landingStepMasterTitle" datatype="html">
+        <source>The Game Master sets the scene</source>
+        <target>O Mestre abre a cena</target>
+      </trans-unit>
+      <trans-unit id="landingStepMasterBody" datatype="html">
+        <source>An AI narrator opens the world in the language you picked, and reacts to what you actually do — not to a script.</source>
+        <target>Um narrador de I.A. apresenta o mundo no idioma que você escolheu e reage ao que você realmente faz — não a um roteiro.</target>
+      </trans-unit>
+      <trans-unit id="landingStepPlayTitle" datatype="html">
+        <source>Play by chat</source>
+        <target>Jogue pelo chat</target>
+      </trans-unit>
+      <trans-unit id="landingStepPlayBody" datatype="html">
+        <source>Type what your character does. The world answers. Stop in the middle of a scene and pick it up tomorrow.</source>
+        <target>Escreva o que seu personagem faz. O mundo responde. Pare no meio de uma cena e continue amanhã.</target>
+      </trans-unit>
+      <trans-unit id="landingFeaturesEyebrow" datatype="html">
+        <source> What&apos;s inside </source>
+        <target>O que tem dentro</target>
+      </trans-unit>
+      <trans-unit id="landingFeaturesHeading" datatype="html">
+        <source> A character sheet with consequences. </source>
+        <target>Uma ficha de personagem com consequências.</target>
+      </trans-unit>
+      <trans-unit id="landingFeaturesLede" datatype="html">
+        <source> Not a chat window with a fantasy skin. The numbers you pick shape what the world lets you do. </source>
+        <target>Não é uma janela de chat com tema de fantasia. Os números que você escolhe definem o que o mundo deixa você fazer.</target>
+      </trans-unit>
+      <trans-unit id="landingFeatureRacesTitle" datatype="html">
+        <source>Nine races, real trade-offs</source>
+        <target>Nove raças, escolhas de verdade</target>
+      </trans-unit>
+      <trans-unit id="landingFeatureRacesBody" datatype="html">
+        <source>Human, Elf, Dwarf, Half-Elf, Halfling, Tiefling, Dragonborn, Half-Orc and Gnome. Each one carries its own attribute bonuses.</source>
+        <target>Humano, Elfo, Anão, Meio-Elfo, Halfling, Tiefling, Draconato, Meio-Orc e Gnomo. Cada um carrega seus próprios bônus de atributo.</target>
+      </trans-unit>
+      <trans-unit id="landingFeaturePointsTitle" datatype="html">
+        <source>Thirty points, your call</source>
+        <target>Trinta pontos, sua decisão</target>
+      </trans-unit>
+      <trans-unit id="landingFeaturePointsBody" datatype="html">
+        <source>Six attributes, a floor of 8 and a ceiling of 18. Build the hero you want, then live with the character you made.</source>
+        <target>Seis atributos, mínimo de 8 e máximo de 18. Construa o herói que quiser e conviva com o personagem que você criou.</target>
+      </trans-unit>
+      <trans-unit id="landingFeatureLanguageTitle" datatype="html">
+        <source>Narrated in your language</source>
+        <target>Narrado no seu idioma</target>
+      </trans-unit>
+      <trans-unit id="landingFeatureLanguageBody" datatype="html">
+        <source>The Game Master tells the story in Portuguese, English or Spanish. You set it per game, so it does not have to match the interface.</source>
+        <target>O Mestre conta a história em português, inglês ou espanhol. Você define por jogo, então não precisa ser igual ao idioma da interface.</target>
+      </trans-unit>
+      <trans-unit id="landingFeatureSaveTitle" datatype="html">
+        <source>Your campaign keeps its place</source>
+        <target>Sua campanha guarda o lugar</target>
+      </trans-unit>
+      <trans-unit id="landingFeatureSaveBody" datatype="html">
+        <source>Every game is saved to your account. Close the tab mid-sentence and the scene is still waiting when you come back.</source>
+        <target>Todo jogo fica salvo na sua conta. Feche a aba no meio de uma frase e a cena continua esperando quando você voltar.</target>
+      </trans-unit>
+      <trans-unit id="landingDevBadge" datatype="html">
+        <source>In development</source>
+        <target>Em desenvolvimento</target>
+      </trans-unit>
+      <trans-unit id="landingDevHeading" datatype="html">
+        <source> Built in the open, and still being built. </source>
+        <target>Feito às claras, e ainda em construção.</target>
+      </trans-unit>
+      <trans-unit id="landingDevBody" datatype="html">
+        <source> EI-DUNGEON is an active project, not a finished product. Features land regularly and things will change under you. If you would rather see how it works than take our word for it, both repositories are public. </source>
+        <target>O EI-DUNGEON é um projeto ativo, não um produto pronto. Novidades chegam com frequência e as coisas vão mudar embaixo de você. Se preferir ver como funciona em vez de acreditar na nossa palavra, os dois repositórios são públicos.</target>
+      </trans-unit>
+      <trans-unit id="landingDevWebRepo" datatype="html">
+        <source>Web repository</source>
+        <target>Repositório web</target>
+      </trans-unit>
+      <trans-unit id="landingDevApiRepo" datatype="html">
+        <source>API repository</source>
+        <target>Repositório da API</target>
+      </trans-unit>
+      <trans-unit id="landingFaqEyebrow" datatype="html">
+        <source> Before you sign up </source>
+        <target>Antes de criar sua conta</target>
+      </trans-unit>
+      <trans-unit id="landingFaqHeading" datatype="html">
+        <source> The questions everyone asks. </source>
+        <target>As perguntas que todo mundo faz.</target>
+      </trans-unit>
+      <trans-unit id="landingFaqSoloQ" datatype="html">
+        <source>Do I need other players?</source>
+        <target>Preciso de outros jogadores?</target>
+      </trans-unit>
+      <trans-unit id="landingFaqSoloA" datatype="html">
+        <source>No. EI-DUNGEON is built for solo play. The AI Game Master runs the world, the characters in it, and everything that happens to you.</source>
+        <target>Não. O EI-DUNGEON foi feito para jogar sozinho. O Mestre de I.A. conduz o mundo, os personagens dele e tudo o que acontece com você.</target>
+      </trans-unit>
+      <trans-unit id="landingFaqRulesQ" datatype="html">
+        <source>Do I need to know role-playing rules?</source>
+        <target>Preciso conhecer as regras de RPG?</target>
+      </trans-unit>
+      <trans-unit id="landingFaqRulesA" datatype="html">
+        <source>No. Character creation walks you through race, attributes and description one step at a time. If you have never rolled a die in your life, you can still play.</source>
+        <target>Não. A criação de personagem guia você por raça, atributos e descrição, um passo de cada vez. Se você nunca rolou um dado na vida, ainda assim dá para jogar.</target>
+      </trans-unit>
+      <trans-unit id="landingFaqPriceQ" datatype="html">
+        <source>What does it cost?</source>
+        <target>Quanto custa?</target>
+      </trans-unit>
+      <trans-unit id="landingFaqPriceA" datatype="html">
+        <source>It is free to start. A paid tier is planned for later, but nothing is behind a paywall today.</source>
+        <target>É grátis para começar. Um plano pago está previsto para o futuro, mas hoje nada está atrás de um paywall.</target>
+      </trans-unit>
+      <trans-unit id="landingFaqLanguageQ" datatype="html">
+        <source>What language is the story told in?</source>
+        <target>Em que idioma a história é contada?</target>
+      </trans-unit>
+      <trans-unit id="landingFaqLanguageA" datatype="html">
+        <source>Portuguese, English or Spanish. You choose it per game, so the language of the narration does not have to match the language of the interface.</source>
+        <target>Português, inglês ou espanhol. Você escolhe por jogo, então o idioma da narração não precisa ser o mesmo da interface.</target>
+      </trans-unit>
+      <trans-unit id="landingFaqSaveQ" datatype="html">
+        <source>Do my games get saved?</source>
+        <target>Meus jogos ficam salvos?</target>
+      </trans-unit>
+      <trans-unit id="landingFaqSaveA" datatype="html">
+        <source>Yes. Every game and every exchange is stored on your account. Come back a month later and the scene is where you left it.</source>
+        <target>Sim. Todo jogo e cada troca de mensagem ficam guardados na sua conta. Volte um mês depois e a cena está onde você parou.</target>
+      </trans-unit>
+      <trans-unit id="landingFaqPrivacyQ" datatype="html">
+        <source>Who can see my games?</source>
+        <target>Quem pode ver meus jogos?</target>
+      </trans-unit>
+      <trans-unit id="landingFaqPrivacyA" datatype="html">
+        <source>Your games are tied to your account and reached by signing in. They are not published anywhere and they are not shared with other players.</source>
+        <target>Seus jogos ficam vinculados à sua conta e são acessados fazendo login. Eles não são publicados em lugar nenhum e não são compartilhados com outros jogadores.</target>
+      </trans-unit>
+      <trans-unit id="landingCtaHeading" datatype="html">
+        <source> The dungeon doesn&apos;t need a calendar invite. </source>
+        <target>A masmorra não precisa de convite na agenda.</target>
+      </trans-unit>
+      <trans-unit id="landingCtaBody" datatype="html">
+        <source> Make a character and be in your first scene in a couple of minutes. </source>
+        <target>Crie um personagem e esteja na sua primeira cena em poucos minutos.</target>
+      </trans-unit>
+      <trans-unit id="landingCtaButton" datatype="html">
+        <source>Create your character</source>
+        <target>Crie seu personagem</target>
+      </trans-unit>
+      <trans-unit id="landingCtaLoginLink" datatype="html">
+        <source>Already playing? Sign in</source>
+        <target>Já joga? Entre aqui</target>
+      </trans-unit>
+      <trans-unit id="landingFooterTagline" datatype="html">
+        <source>An A.I. driven RPG simulator</source>
+        <target>Um simulador de RPG movido por I.A.</target>
+      </trans-unit>
+      <trans-unit id="landingFooterSignup" datatype="html">
+        <source>Sign up</source>
+        <target>Criar conta</target>
+      </trans-unit>
+      <trans-unit id="landingFooterLogin" datatype="html">
+        <source>Sign in</source>
+        <target>Entrar</target>
+      </trans-unit>
+      <trans-unit id="landingHowLede" datatype="html">
+        <source> Three steps, and you&apos;re in your first scene. </source>
+        <target>Três passos e você está na sua primeira cena.</target>
+      </trans-unit>
+      <trans-unit id="landingGoToGames" datatype="html">
+        <source>Go to my games</source>
+        <target>Ir para meus jogos</target>
+      </trans-unit>
+      <trans-unit id="landingContinueAdventure" datatype="html">
+        <source>Continue your adventure</source>
+        <target>Continue sua aventura</target>
+      </trans-unit>
+      <trans-unit id="landingCtaBodyLoggedIn" datatype="html">
+        <source> Your world is where you left it. </source>
+        <target>Seu mundo está onde você parou.</target>
       </trans-unit>
     </body>
   </file>

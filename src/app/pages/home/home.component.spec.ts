@@ -13,8 +13,8 @@ describe('HomeComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [HomeComponent],
             imports: [
+                HomeComponent,
                 RouterTestingModule,
                 HttpClientTestingModule,
                 MatDialogModule,

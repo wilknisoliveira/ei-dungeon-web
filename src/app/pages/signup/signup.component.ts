@@ -10,8 +10,6 @@ import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { LoadingComponent } from 'src/app/shared/loading/loading.component';
 import { LanguageSelectorComponent } from 'src/app/shared/components/language-selector/language-selector.component';
 import { ThemeToggleComponent } from 'src/app/shared/theme-toggle/theme-toggle.component';
-import { BrandingIconComponent } from 'src/app/shared/components/branding-icon/branding-icon.component';
-
 @Component({
     standalone: true,
     imports: [
@@ -24,7 +22,6 @@ import { BrandingIconComponent } from 'src/app/shared/components/branding-icon/b
         LoadingComponent,
         LanguageSelectorComponent,
         ThemeToggleComponent,
-        BrandingIconComponent,
     ],
     selector: 'app-signup',
     templateUrl: './signup.component.html',

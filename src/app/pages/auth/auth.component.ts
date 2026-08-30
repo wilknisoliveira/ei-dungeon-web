@@ -11,8 +11,6 @@ import { UserLogin } from 'src/app/types/auth/user-login';
 import { LoadingComponent } from 'src/app/shared/loading/loading.component';
 import { LanguageSelectorComponent } from 'src/app/shared/components/language-selector/language-selector.component';
 import { ThemeToggleComponent } from 'src/app/shared/theme-toggle/theme-toggle.component';
-import { BrandingIconComponent } from 'src/app/shared/components/branding-icon/branding-icon.component';
-
 @Component({
     standalone: true,
     imports: [
@@ -25,7 +23,6 @@ import { BrandingIconComponent } from 'src/app/shared/components/branding-icon/b
         LoadingComponent,
         LanguageSelectorComponent,
         ThemeToggleComponent,
-        BrandingIconComponent,
     ],
     selector: 'app-auth',
     templateUrl: './auth.component.html',

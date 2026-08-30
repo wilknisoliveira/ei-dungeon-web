@@ -17,8 +17,8 @@ describe('SettingsComponent', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [SettingsComponent],
             imports: [
+                SettingsComponent,
                 RouterTestingModule,
                 HttpClientTestingModule,
                 ReactiveFormsModule,

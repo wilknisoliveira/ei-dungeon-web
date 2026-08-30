@@ -1,0 +1,36 @@
+<header class="landing-header">
+    <div class="header-inner">
+        <a class="brand" routerLink="/" aria-label="EI-DUNGEON">
+            <img
+                src="assets/logo_short.webp"
+                [alt]="logoAlt"
+                width="160"
+                height="80"
+                decoding="async"
+            />
+        </a>
+
+        <nav class="actions">
+            <app-language-selector></app-language-selector>
+
+            @if (isLoggedIn()) {
+                <a
+                    mat-flat-button
+                    color="primary"
+                    routerLink="/home"
+                    class="signin"
+                    i18n="@@landingGoToGames"
+                    >Go to my games</a
+                >
+            } @else {
+                <a
+                    mat-stroked-button
+                    routerLink="/login"
+                    class="signin"
+                    i18n="@@landingSignIn"
+                    >Sign in</a
+                >
+            }
+        </nav>
+    </div>
+</header>

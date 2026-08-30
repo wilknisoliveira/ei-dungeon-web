@@ -4,5 +4,5 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ../dist/ei-dungeon-web:/usr/share/nginx/html:ro
+      - ../dist/ei-dungeon-web/browser:/usr/share/nginx/html:ro
       - ./nginx.conf:/etc/nginx/nginx.conf:ro

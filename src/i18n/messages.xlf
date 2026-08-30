@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
-  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+  <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
       <trans-unit id="appWordmark" datatype="html">
         <source>EI-DUNGEON</source>
@@ -11,6 +11,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/home.component.html</context>
           <context context-type="linenumber">8,9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-footer/landing-footer.component.html</context>
+          <context context-type="linenumber">4,5</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/settings/settings.component.html</context>
@@ -501,6 +505,472 @@
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/home.component.ts</context>
           <context context-type="linenumber">210</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingCtaHeading" datatype="html">
+        <source> The dungeon doesn&apos;t need a calendar invite. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-cta/landing-cta.component.html</context>
+          <context context-type="linenumber">4,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingCtaBodyLoggedIn" datatype="html">
+        <source> Your world is where you left it. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-cta/landing-cta.component.html</context>
+          <context context-type="linenumber">9,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingContinueAdventure" datatype="html">
+        <source>Continue your adventure</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-cta/landing-cta.component.html</context>
+          <context context-type="linenumber">19,21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-hero/landing-hero.component.html</context>
+          <context context-type="linenumber">31,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingCtaBody" datatype="html">
+        <source> Make a character and be in your first scene in a couple of minutes. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-cta/landing-cta.component.html</context>
+          <context context-type="linenumber">24,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingCtaButton" datatype="html">
+        <source>Create your character</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-cta/landing-cta.component.html</context>
+          <context context-type="linenumber">35,37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingCtaLoginLink" datatype="html">
+        <source>Already playing? Sign in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-cta/landing-cta.component.html</context>
+          <context context-type="linenumber">41,43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingDevBadge" datatype="html">
+        <source>In development</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-development/landing-development.component.html</context>
+          <context context-type="linenumber">3,5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingDevHeading" datatype="html">
+        <source> Built in the open, and still being built. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-development/landing-development.component.html</context>
+          <context context-type="linenumber">6,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingDevBody" datatype="html">
+        <source> EI-DUNGEON is an active project, not a finished product. Features land regularly and things will change under you. If you would rather see how it works than take our word for it, both repositories are public. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-development/landing-development.component.html</context>
+          <context context-type="linenumber">10,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingDevWebRepo" datatype="html">
+        <source>Web repository</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-development/landing-development.component.html</context>
+          <context context-type="linenumber">24,26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingDevApiRepo" datatype="html">
+        <source>API repository</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-development/landing-development.component.html</context>
+          <context context-type="linenumber">33,35</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFaqEyebrow" datatype="html">
+        <source> Before you sign up </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-faq/landing-faq.component.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFaqHeading" datatype="html">
+        <source> The questions everyone asks. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-faq/landing-faq.component.html</context>
+          <context context-type="linenumber">7,10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFaqSoloQ" datatype="html">
+        <source>Do I need other players?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-faq/landing-faq.component.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFaqSoloA" datatype="html">
+        <source>No. EI-DUNGEON is built for solo play. The AI Game Master runs the world, the characters in it, and everything that happens to you.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-faq/landing-faq.component.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFaqRulesQ" datatype="html">
+        <source>Do I need to know role-playing rules?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-faq/landing-faq.component.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFaqRulesA" datatype="html">
+        <source>No. Character creation walks you through race, attributes and description one step at a time. If you have never rolled a die in your life, you can still play.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-faq/landing-faq.component.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFaqPriceQ" datatype="html">
+        <source>What does it cost?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-faq/landing-faq.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFaqPriceA" datatype="html">
+        <source>It is free to start. A paid tier is planned for later, but nothing is behind a paywall today.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-faq/landing-faq.component.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFaqLanguageQ" datatype="html">
+        <source>What language is the story told in?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-faq/landing-faq.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFaqLanguageA" datatype="html">
+        <source>Portuguese, English or Spanish. You choose it per game, so the language of the narration does not have to match the language of the interface.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-faq/landing-faq.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFaqSaveQ" datatype="html">
+        <source>Do my games get saved?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-faq/landing-faq.component.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFaqSaveA" datatype="html">
+        <source>Yes. Every game and every exchange is stored on your account. Come back a month later and the scene is where you left it.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-faq/landing-faq.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFaqPrivacyQ" datatype="html">
+        <source>Who can see my games?</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-faq/landing-faq.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFaqPrivacyA" datatype="html">
+        <source>Your games are tied to your account and reached by signing in. They are not published anywhere and they are not shared with other players.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-faq/landing-faq.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFeaturesEyebrow" datatype="html">
+        <source> What&apos;s inside </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-features/landing-features.component.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFeaturesHeading" datatype="html">
+        <source> A character sheet with consequences. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-features/landing-features.component.html</context>
+          <context context-type="linenumber">7,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFeaturesLede" datatype="html">
+        <source> Not a chat window with a fantasy skin. The numbers you pick shape what the world lets you do. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-features/landing-features.component.html</context>
+          <context context-type="linenumber">10,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFeatureRacesTitle" datatype="html">
+        <source>Nine races, real trade-offs</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-features/landing-features.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFeatureRacesBody" datatype="html">
+        <source>Human, Elf, Dwarf, Half-Elf, Halfling, Tiefling, Dragonborn, Half-Orc and Gnome. Each one carries its own attribute bonuses.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-features/landing-features.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFeaturePointsTitle" datatype="html">
+        <source>Thirty points, your call</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-features/landing-features.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFeaturePointsBody" datatype="html">
+        <source>Six attributes, a floor of 8 and a ceiling of 18. Build the hero you want, then live with the character you made.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-features/landing-features.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFeatureLanguageTitle" datatype="html">
+        <source>Narrated in your language</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-features/landing-features.component.ts</context>
+          <context context-type="linenumber">37</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFeatureLanguageBody" datatype="html">
+        <source>The Game Master tells the story in Portuguese, English or Spanish. You set it per game, so it does not have to match the interface.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-features/landing-features.component.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFeatureSaveTitle" datatype="html">
+        <source>Your campaign keeps its place</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-features/landing-features.component.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFeatureSaveBody" datatype="html">
+        <source>Every game is saved to your account. Close the tab mid-sentence and the scene is still waiting when you come back.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-features/landing-features.component.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFooterTagline" datatype="html">
+        <source>An A.I. driven RPG simulator</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-footer/landing-footer.component.html</context>
+          <context context-type="linenumber">6,8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFooterSignup" datatype="html">
+        <source>Sign up</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-footer/landing-footer.component.html</context>
+          <context context-type="linenumber">11,12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingFooterLogin" datatype="html">
+        <source>Sign in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-footer/landing-footer.component.html</context>
+          <context context-type="linenumber">12,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingGoToGames" datatype="html">
+        <source>Go to my games</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-header/landing-header.component.html</context>
+          <context context-type="linenumber">23,25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingSignIn" datatype="html">
+        <source>Sign in</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-header/landing-header.component.html</context>
+          <context context-type="linenumber">31,33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingLogoShortAlt" datatype="html">
+        <source>EI-D, the EI-DUNGEON mark</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-header/landing-header.component.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingHeroHeadline" datatype="html">
+        <source> Your Game Master never cancels. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-hero/landing-hero.component.html</context>
+          <context context-type="linenumber">14,17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingHeroSub" datatype="html">
+        <source> A solo role-playing game run by AI. Build a character, step into the dark, and play whenever you want — no group to gather, no night to agree on, no one to talk into running it. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-hero/landing-hero.component.html</context>
+          <context context-type="linenumber">18,20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingHeroCta" datatype="html">
+        <source>Create your character</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-hero/landing-hero.component.html</context>
+          <context context-type="linenumber">40,42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingHeroSecondary" datatype="html">
+        <source>I already have an account</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-hero/landing-hero.component.html</context>
+          <context context-type="linenumber">47,49</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingHeroNote" datatype="html">
+        <source> Free to start · Play in Portuguese, English or Spanish </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-hero/landing-hero.component.html</context>
+          <context context-type="linenumber">54,55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingLogoCompletedAlt" datatype="html">
+        <source>EI-DUNGEON — an A.I. driven RPG simulator</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-hero/landing-hero.component.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingHowEyebrow" datatype="html">
+        <source>The way out</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-how-it-works/landing-how-it-works.component.html</context>
+          <context context-type="linenumber">3,4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingHowHeading" datatype="html">
+        <source> None of that is required here. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-how-it-works/landing-how-it-works.component.html</context>
+          <context context-type="linenumber">5,7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingHowLede" datatype="html">
+        <source> Three steps, and you&apos;re in your first scene. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-how-it-works/landing-how-it-works.component.html</context>
+          <context context-type="linenumber">8,11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingStepCharacterTitle" datatype="html">
+        <source>Build your character</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-how-it-works/landing-how-it-works.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingStepCharacterBody" datatype="html">
+        <source>Choose a race, spend thirty points across six attributes, and write who they are. Nine races, each with its own bonuses.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-how-it-works/landing-how-it-works.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingStepMasterTitle" datatype="html">
+        <source>The Game Master sets the scene</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-how-it-works/landing-how-it-works.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingStepMasterBody" datatype="html">
+        <source>An AI narrator opens the world in the language you picked, and reacts to what you actually do — not to a script.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-how-it-works/landing-how-it-works.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingStepPlayTitle" datatype="html">
+        <source>Play by chat</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-how-it-works/landing-how-it-works.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingStepPlayBody" datatype="html">
+        <source>Type what your character does. The world answers. Stop in the middle of a scene and pick it up tomorrow.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-how-it-works/landing-how-it-works.component.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingProblemEyebrow" datatype="html">
+        <source> The real obstacle </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-problem/landing-problem.component.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingProblemHeading" datatype="html">
+        <source> The hardest part of a role-playing game isn&apos;t the dragon. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-problem/landing-problem.component.html</context>
+          <context context-type="linenumber">7,9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingProblemLede" datatype="html">
+        <source> It&apos;s everything that has to happen before anyone rolls a die. </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-problem/landing-problem.component.html</context>
+          <context context-type="linenumber">10,13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingPainScheduleTitle" datatype="html">
+        <source>Four people, one calendar</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-problem/landing-problem.component.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingPainScheduleBody" datatype="html">
+        <source>Finding a night everyone is free takes longer than the session itself.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-problem/landing-problem.component.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingPainMasterTitle" datatype="html">
+        <source>Somebody has to run it</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-problem/landing-problem.component.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingPainMasterBody" datatype="html">
+        <source>And that somebody spends the week preparing while everyone else just shows up.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-problem/landing-problem.component.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingPainDeadTitle" datatype="html">
+        <source>The campaign that died at session three</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-problem/landing-problem.component.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingPainDeadBody" datatype="html">
+        <source>Not from a total party kill. From a group chat that slowly went quiet.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-problem/landing-problem.component.ts</context>
+          <context context-type="linenumber">33</context>
         </context-group>
       </trans-unit>
       <trans-unit id="settingsSubtitle" datatype="html">

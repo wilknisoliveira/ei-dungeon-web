@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { RouterModule } from '@angular/router';
+import { ThemeService } from 'src/app/service/theme/theme.service';
 import {
     trigger,
     transition,
@@ -40,8 +41,14 @@ import {
         ]),
     ],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
     title = 'ei-dungeon-web';
+
+    private themeService = inject(ThemeService);
+
+    ngOnInit(): void {
+        this.themeService.initTheme();
+    }
 
     getRouteAnimation(): number {
         return 1;

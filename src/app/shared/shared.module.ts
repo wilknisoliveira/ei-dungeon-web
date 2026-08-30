@@ -11,7 +11,6 @@ import { MatInputModule } from '@angular/material/input';
 import { SmallLoadingComponent } from './small-loading/small-loading.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { ThemeToggleComponent } from './theme-toggle/theme-toggle.component';
-import { BrandingIconComponent } from './components/branding-icon/branding-icon.component';
 import { LanguageSelectorComponent } from './components/language-selector/language-selector.component';
 import { TimezoneAwareDatePipe } from './pipes/timezone-aware-date.pipe';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -31,8 +30,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         SmallLoadingComponent,
         ConfirmationDialogComponent,
         ThemeToggleComponent,
-        BrandingIconComponent,
-        LanguageSelectorComponent,
+                LanguageSelectorComponent,
         TimezoneAwareDatePipe,
     ],
     exports: [
@@ -40,8 +38,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
         SmallLoadingComponent,
         ConfirmationDialogComponent,
         ThemeToggleComponent,
-        BrandingIconComponent,
-        LanguageSelectorComponent,
+                LanguageSelectorComponent,
         TimezoneAwareDatePipe,
     ],
 })

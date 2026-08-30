@@ -75,7 +75,7 @@ ng serve --configuration=es
 ng build --configuration=production
 ```
 
-This generates separate builds in `dist/ei-dungeon-web/`:
+This generates separate builds in `dist/ei-dungeon-web/browser/`:
 
 | Directory | Language |
 |-----------|----------|
@@ -122,7 +122,7 @@ The long-term goal would be to scale the application so RPG lovers can create qu
 - [ ] PremiumUser Enable Flow
 - [ ] Admin page for tunning the AI responses and manage users
 - [x] Multilanguage
-- [ ] Home page
+- [x] Home page (public landing page at /)
 
 # Author
 

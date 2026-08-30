@@ -10,6 +10,19 @@
                     "style": "scss"
                 }
             },
+            "i18n": {
+                "sourceLocale": "en",
+                "locales": {
+                    "pt-BR": {
+                        "translation": "src/i18n/messages.pt-BR.xlf",
+                        "baseHref": "/pt-BR/"
+                    },
+                    "es": {
+                        "translation": "src/i18n/messages.es.xlf",
+                        "baseHref": "/es/"
+                    }
+                }
+            },
             "root": "",
             "sourceRoot": "src",
             "prefix": "app",
@@ -25,10 +38,12 @@
                         "inlineStyleLanguage": "scss",
                         "assets": ["src/favicon.ico", "src/assets"],
                         "styles": ["src/styles.scss"],
-                        "scripts": []
+                        "scripts": [],
+                        "i18nMissingTranslation": "error"
                     },
                     "configurations": {
                         "production": {
+                            "localize": true,
                             "budgets": [
                                 {
                                     "type": "initial",
@@ -47,6 +62,15 @@
                             "optimization": false,
                             "extractLicenses": false,
                             "sourceMap": true
+                        },
+                        "en": {
+                            "localize": ["en"]
+                        },
+                        "pt-BR": {
+                            "localize": ["pt-BR"]
+                        },
+                        "es": {
+                            "localize": ["es"]
                         }
                     },
                     "defaultConfiguration": "production"
@@ -59,6 +83,15 @@
                         },
                         "development": {
                             "buildTarget": "ei-dungeon-web:build:development"
+                        },
+                        "en": {
+                            "buildTarget": "ei-dungeon-web:build:development,en"
+                        },
+                        "pt-BR": {
+                            "buildTarget": "ei-dungeon-web:build:development,pt-BR"
+                        },
+                        "es": {
+                            "buildTarget": "ei-dungeon-web:build:development,es"
                         }
                     },
                     "defaultConfiguration": "development"
