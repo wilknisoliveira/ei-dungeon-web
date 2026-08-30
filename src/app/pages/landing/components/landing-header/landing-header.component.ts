@@ -13,6 +13,4 @@ import { LanguageSelectorComponent } from 'src/app/shared/components/language-se
 export class LandingHeaderComponent {
     /** Swaps the sign-in control for a route back into the player's games. */
     isLoggedIn = input<boolean>(false);
-
-    logoAlt = $localize`:@@landingLogoShortAlt:EI-D, the EI-DUNGEON mark`;
 }

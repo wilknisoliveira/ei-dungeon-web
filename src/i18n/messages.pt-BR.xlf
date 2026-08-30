@@ -462,10 +462,6 @@
         <source>Sign in</source>
         <target>Entrar</target>
       </trans-unit>
-      <trans-unit id="landingLogoShortAlt" datatype="html">
-        <source>EI-D, the EI-DUNGEON mark</source>
-        <target>EI-D, a marca do EI-DUNGEON</target>
-      </trans-unit>
       <trans-unit id="landingLogoCompletedAlt" datatype="html">
         <source>EI-DUNGEON — an A.I. driven RPG simulator</source>
         <target>EI-DUNGEON — um simulador de RPG movido por I.A.</target>

@@ -55,11 +55,10 @@ describe('LandingHeaderComponent', () => {
         expect(host().querySelectorAll('.signin').length).toBe(1);
     });
 
-    it('should show the short logo with localized alt text', () => {
-        const logo = host().querySelector<HTMLImageElement>('.brand img');
+    it('should show the EI-DUNGEON wordmark', () => {
+        const wordmark = host().querySelector('.brand .wordmark');
 
-        expect(logo?.getAttribute('src')).toBe('assets/logo_short.webp');
-        expect(logo?.alt.length).toBeGreaterThan(0);
+        expect(wordmark?.textContent?.trim()).toBe('EI-DUNGEON');
     });
 
     it('should render the language selector', () => {
