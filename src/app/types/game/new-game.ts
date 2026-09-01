@@ -1,8 +1,8 @@
 export interface NewGame {
-    characterName: string;
-    characterDescription: string;
+    protagonistName: string;
+    protagonistDescription: string;
     name: string;
-    race: string;
+    protagonistRace: string;
     gameLanguage: string;
     skills: Skills;
 }

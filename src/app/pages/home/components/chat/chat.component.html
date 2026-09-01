@@ -55,15 +55,15 @@
                             class="message"
                             role="listitem"
                             [class.user]="
-                                play.playerDtoResponse.type === 'RealPlayer'
+                                play.playType === 'Protagonist'
                             "
                             [class.other-player]="
-                                play.playerDtoResponse.type !== 'RealPlayer'
+                                play.playType !== 'Protagonist'
                             "
                         >
                             <div class="span-container">
                                 <span>{{ getDisplayName(play) }}</span>
-                                <span>{{ play.prompt }}</span>
+                                <span>{{ play.response }}</span>
                             </div>
                         </div>
                     }

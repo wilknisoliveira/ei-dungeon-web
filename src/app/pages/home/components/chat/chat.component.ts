@@ -28,7 +28,6 @@ import { Game } from 'src/app/types/game/game';
 import { PagedSearch } from 'src/app/types/general/paged-search';
 import { NewPlay } from 'src/app/types/play/new-play';
 import { Play } from 'src/app/types/play/play';
-import { Player } from 'src/app/types/play/player';
 import { StreamPlay } from 'src/app/types/play/stream-play';
 
 /** Plays requested per page. */
@@ -166,8 +165,8 @@ export class ChatComponent implements OnChanges {
     }
 
     getDisplayName(play: Play): string {
-        if (play.playerDtoResponse.type === 'RealPlayer') {
-            return play.playerDtoResponse.name;
+        if (play.playType === 'Protagonist') {
+            return this.game()?.protagonistName ?? $localize`Player`;
         }
         return $localize`Game Master`;
     }
@@ -496,9 +495,9 @@ export class ChatComponent implements OnChanges {
         const playsToAdd: Play[] = [];
 
         if (!initialPlay) {
-            playsToAdd.push(this.createPendingPlay(this.currentPlayer(), prompt));
+            playsToAdd.push(this.createPendingPlay('Protagonist', prompt));
         }
-        playsToAdd.push(this.createPendingPlay(this.gameMasterPlayer(), ''));
+        playsToAdd.push(this.createPendingPlay('GameMaster', ''));
 
         this.streamedPlaysStartIndex = this.plays().length;
         this.plays.update((current) => [...current, ...playsToAdd]);
@@ -517,7 +516,7 @@ export class ChatComponent implements OnChanges {
             const updated = [...current];
             updated[lastIndex] = {
                 ...updated[lastIndex],
-                prompt: updated[lastIndex].prompt + content,
+                response: updated[lastIndex].response + content,
             };
             return updated;
         });
@@ -556,28 +555,19 @@ export class ChatComponent implements OnChanges {
     }
 
     /** A play that only exists in the browser until the server sends the real one. */
-    private createPendingPlay(player: Player, prompt: string): Play {
+    private createPendingPlay(
+        playType: Play['playType'],
+        response: string,
+    ): Play {
         return {
             // Local id, distinct from any server id. The list is tracked by id,
             // and streaming replaces the last play on every chunk -- without a
             // stable key Angular would rebuild its node on each one.
             id: `pending-${++this.pendingPlaySequence}`,
-            playerDtoResponse: player,
-            prompt,
+            playType,
+            response,
             createdAt: new Date(),
         };
-    }
-
-    private gameMasterPlayer(): Player {
-        return { id: '', name: $localize`Game Master`, type: 'Master' };
-    }
-
-    private currentPlayer(): Player {
-        const known = this.plays().find(
-            (play) => play.playerDtoResponse.type === 'RealPlayer',
-        )?.playerDtoResponse;
-
-        return known ?? { id: '', name: $localize`Player`, type: 'RealPlayer' };
     }
 
     adjustTextAreaHeightEvent(event: Event): void {

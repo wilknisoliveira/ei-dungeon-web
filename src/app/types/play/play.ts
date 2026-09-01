@@ -1,8 +1,6 @@
-import { Player } from './player';
-
 export interface Play {
     id: string;
-    playerDtoResponse: Player;
-    prompt: string;
+    playType: 'Protagonist' | 'GameMaster' | 'Summary';
+    response: string;
     createdAt: Date;
 }

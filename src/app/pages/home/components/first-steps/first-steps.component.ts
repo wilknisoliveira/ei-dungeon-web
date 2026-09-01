@@ -143,13 +143,14 @@ export class FirstStepsComponent {
     onSubmit(): void {
         this.loading = true;
         let newGame: NewGame = {
-            characterDescription: this.gameFormGroup.get(
+            protagonistDescription: this.gameFormGroup.get(
                 'characterDescriptionControl',
             )?.value,
-            characterName: this.gameFormGroup.get('characterNameControl')
+            protagonistName: this.gameFormGroup.get('characterNameControl')
                 ?.value,
             name: this.gameFormGroup.get('gameNameControl')?.value,
-            race: this.gameFormGroup.get('characterRaceControl')?.value,
+            protagonistRace: this.gameFormGroup.get('characterRaceControl')
+                ?.value,
             gameLanguage: this.gameFormGroup.get('gameLanguageControl')?.value,
             skills: {
                 Strength: this.gameFormGroup.get('skillsGroup.Strength')?.value,

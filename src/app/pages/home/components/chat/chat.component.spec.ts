@@ -21,6 +21,7 @@ function makeGame(id: string): Game {
     return {
         id,
         name: `Game ${id}`,
+        protagonistName: `Hero ${id}`,
         ownerUserId: 'owner',
         gameLanguage: 'English',
         gameStatus: 'Playing',
@@ -32,8 +33,8 @@ function makeGame(id: string): Game {
 function makePage(count: number, prefix = 'p'): PagedSearch<Play> {
     const items: Play[] = Array.from({ length: count }, (_, index) => ({
         id: `${prefix}-${index}`,
-        playerDtoResponse: { id: 'gm', name: 'Master', type: 'Master' },
-        prompt: `${prefix}-${index}`,
+        playType: 'GameMaster' as const,
+        response: `${prefix}-${index}`,
         createdAt: new Date(0),
     }));
 
@@ -367,7 +368,7 @@ describe('ChatComponent', () => {
 
             const after = component.plays();
             expect(after).not.toBe(before);
-            expect(after[after.length - 1].prompt).toBe('The door creaks.');
+            expect(after[after.length - 1].response).toBe('The door creaks.');
         });
 
         it('gives every optimistic play its own id so its node is stable', async () => {
