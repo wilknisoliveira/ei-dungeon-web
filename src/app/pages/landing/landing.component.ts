@@ -1,4 +1,11 @@
-import { Component, OnDestroy, OnInit, inject, signal } from '@angular/core';
+import {
+    Component,
+    OnDestroy,
+    OnInit,
+    afterNextRender,
+    inject,
+    signal,
+} from '@angular/core';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { ThemeService } from 'src/app/service/theme/theme.service';
 import { RevealOnScrollDirective } from 'src/app/shared/directives/reveal-on-scroll.directive';
@@ -11,6 +18,7 @@ import { LandingDevelopmentComponent } from './components/landing-development/la
 import { LandingFaqComponent } from './components/landing-faq/landing-faq.component';
 import { LandingCtaComponent } from './components/landing-cta/landing-cta.component';
 import { LandingFooterComponent } from './components/landing-footer/landing-footer.component';
+import { LandingSeoService } from 'src/app/core/seo/landing-seo.service';
 
 /**
  * Public marketing page at the application root. Open to everyone, including players who are
@@ -40,16 +48,24 @@ import { LandingFooterComponent } from './components/landing-footer/landing-foot
 export class LandingComponent implements OnInit, OnDestroy {
     private themeService = inject(ThemeService);
     private authService = inject(AuthService);
+    private landingSeo = inject(LandingSeoService);
 
     /** Resolved once on init. The sections are presentational and just read this. */
     readonly isLoggedIn = signal(false);
 
+    constructor() {
+        afterNextRender(() => {
+            this.isLoggedIn.set(this.authService.isUserLoggedIn());
+        });
+    }
+
     ngOnInit(): void {
         this.themeService.forceDark();
-        this.isLoggedIn.set(this.authService.isUserLoggedIn());
+        this.landingSeo.apply();
     }
 
     ngOnDestroy(): void {
         this.themeService.restoreStoredTheme();
+        this.landingSeo.clear();
     }
 }

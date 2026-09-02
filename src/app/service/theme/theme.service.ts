@@ -1,6 +1,7 @@
-import { Injectable, inject, signal } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { LOCAL_STORAGE } from 'src/app/core/storage/app-storage';
 
 export const DARK_THEME = 'theme-dark';
 export const LIGHT_THEME = 'theme-light';
@@ -19,6 +20,8 @@ export const THEME_STORAGE_KEY = 'app-theme';
 export class ThemeService {
     private document = inject(DOCUMENT);
     private overlay = inject(OverlayContainer);
+    private platformId = inject(PLATFORM_ID);
+    private storage = inject(LOCAL_STORAGE);
 
     private readonly currentTheme = signal<string>(DARK_THEME);
 
@@ -65,7 +68,7 @@ export class ThemeService {
     /** Reads the stored preference, falling back to dark. */
     getStoredTheme(): string {
         try {
-            const stored = localStorage.getItem(THEME_STORAGE_KEY);
+            const stored = this.storage.getItem(THEME_STORAGE_KEY);
             if (stored === LIGHT_THEME || stored === DARK_THEME) {
                 return stored;
             }
@@ -82,16 +85,18 @@ export class ThemeService {
         this.document.body.classList.add(theme);
         this.document.body.classList.remove(other);
 
-        const overlayClasses = this.overlay.getContainerElement().classList;
-        overlayClasses.add(theme);
-        overlayClasses.remove(other);
+        if (isPlatformBrowser(this.platformId)) {
+            const overlayClasses = this.overlay.getContainerElement().classList;
+            overlayClasses.add(theme);
+            overlayClasses.remove(other);
+        }
 
         this.currentTheme.set(theme);
     }
 
     private savePreference(theme: string): void {
         try {
-            localStorage.setItem(THEME_STORAGE_KEY, theme);
+            this.storage.setItem(THEME_STORAGE_KEY, theme);
         } catch (e) {
             console.warn('Failed to save theme preference:', e);
         }

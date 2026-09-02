@@ -31,7 +31,8 @@
     color: var(--mat-sys-on-surface-variant);
 }
 
-.footer-links {
+.footer-links,
+.language-links {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem 1.25rem;

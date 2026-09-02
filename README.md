@@ -71,11 +71,14 @@ ng serve --configuration=es
 
 ## Building for production (all languages)
 
-```
-ng build --configuration=production
+Set `SITE_URL` to the final public HTTPS origin (without a path), then run:
+
+```powershell
+$env:SITE_URL = "https://example.com"
+npm run build
 ```
 
-This generates separate builds in `dist/ei-dungeon-web/browser/`:
+This statically prerenders the public landing pages and generates crawler files in `dist/ei-dungeon-web/browser/`:
 
 | Directory | Language |
 |-----------|----------|
@@ -83,15 +86,13 @@ This generates separate builds in `dist/ei-dungeon-web/browser/`:
 | `pt-BR/` | Portuguese |
 | `es/` | Spanish |
 
-## Testing all languages simultaneously
+Deploy the contents of `dist/ei-dungeon-web/browser/` to a static HTTPS host. Preserve the locale directories and serve `/robots.txt` and `/sitemap.xml` from the site root. Only the localized landing pages are intended for indexing; authenticated application routes remain client-rendered and default to `noindex`.
 
-The production build requires a server with SPA fallback per locale. Use the included nginx setup:
+## Local nginx debugging
+
+The `nginx/` folder is developer-only infrastructure for local debugging. It is not the production deployment configuration:
 
 ```
-# 1. Build for production
-ng build --configuration=production
-
-# 2. Start nginx (requires Docker)
 cd nginx
 docker-compose up -d
 ```

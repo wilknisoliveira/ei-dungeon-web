@@ -2,11 +2,36 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="landingSeoTitle" datatype="html">
+        <source>EI-DUNGEON | Your AI Game Master</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/seo/landing-seo.service.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingSeoDescription" datatype="html">
+        <source>Play tabletop adventures with an AI Game Master that is ready whenever you are.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/seo/landing-seo.service.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingSeoImageAlt" datatype="html">
+        <source>EI-DUNGEON logo over a fantasy dungeon landscape</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/seo/landing-seo.service.ts</context>
+          <context context-type="linenumber">49</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/core/seo/landing-seo.service.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="appWordmark" datatype="html">
         <source>EI-DUNGEON</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/auth/auth.component.html</context>
-          <context context-type="linenumber">15,16</context>
+          <context context-type="linenumber">14,15</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/home.component.html</context>
@@ -17,26 +42,30 @@
           <context context-type="linenumber">4,5</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-header/landing-header.component.html</context>
+          <context context-type="linenumber">4,6</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/settings/settings.component.html</context>
           <context context-type="linenumber">8,9</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">15,16</context>
+          <context context-type="linenumber">14,15</context>
         </context-group>
       </trans-unit>
       <trans-unit id="loginDescription" datatype="html">
         <source>Log in to your account</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/auth/auth.component.html</context>
-          <context context-type="linenumber">17,19</context>
+          <context context-type="linenumber">16,18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="usernameLabel" datatype="html">
         <source>Username</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/auth/auth.component.html</context>
-          <context context-type="linenumber">21,22</context>
+          <context context-type="linenumber">20,21</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/settings/settings.component.html</context>
@@ -47,28 +76,28 @@
         <source>Enter your password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/auth/auth.component.html</context>
-          <context context-type="linenumber">31,32</context>
+          <context context-type="linenumber">30,31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="loginButton" datatype="html">
         <source> Login </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/auth/auth.component.html</context>
-          <context context-type="linenumber">49,50</context>
+          <context context-type="linenumber">48,49</context>
         </context-group>
       </trans-unit>
       <trans-unit id="noAccountPrompt" datatype="html">
         <source>Don&apos;t have an account?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/auth/auth.component.html</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">54</context>
         </context-group>
       </trans-unit>
       <trans-unit id="signUpLink" datatype="html">
         <source>Sign Up Now</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/auth/auth.component.html</context>
-          <context context-type="linenumber">55,57</context>
+          <context context-type="linenumber">54,56</context>
         </context-group>
       </trans-unit>
       <trans-unit id="gameOptionsTooltip" datatype="html">
@@ -110,7 +139,7 @@
         <source>Portuguese</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
-          <context context-type="linenumber">108</context>
+          <context context-type="linenumber">107</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
@@ -121,7 +150,7 @@
         <source>English</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
-          <context context-type="linenumber">109</context>
+          <context context-type="linenumber">108</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
@@ -132,7 +161,7 @@
         <source>Spanish</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
-          <context context-type="linenumber">110</context>
+          <context context-type="linenumber">109</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
@@ -143,67 +172,63 @@
         <source>What do you do?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
-          <context context-type="linenumber">117</context>
+          <context context-type="linenumber">116</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6900473553536680806" datatype="html">
         <source>This game has been finished, create a new one to start a new adventure!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
-          <context context-type="linenumber">118</context>
+          <context context-type="linenumber">117</context>
         </context-group>
       </trans-unit>
       <trans-unit id="334139479101771120" datatype="html">
         <source>Game language updated.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
-          <context context-type="linenumber">153</context>
+          <context context-type="linenumber">152</context>
         </context-group>
       </trans-unit>
       <trans-unit id="394543175828208356" datatype="html">
         <source>Something went wrong while attempting to update the game language.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
-          <context context-type="linenumber">163</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7910849620457936504" datatype="html">
-        <source>Game Master</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
-          <context context-type="linenumber">172</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
-          <context context-type="linenumber">572</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="3338122603397139235" datatype="html">
-        <source>Something went wrong while attempting to get the play list.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
-          <context context-type="linenumber">346</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="883225603593837541" datatype="html">
-        <source>Something went wrong. Please try again.</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
-          <context context-type="linenumber">463</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="6081488370267137537" datatype="html">
-        <source>The gods have not answered your call. Speak again, brave adventurer!</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
-          <context context-type="linenumber">554</context>
+          <context context-type="linenumber">162</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7683705529753923369" datatype="html">
         <source>Player</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
-          <context context-type="linenumber">580</context>
+          <context context-type="linenumber">169</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7910849620457936504" datatype="html">
+        <source>Game Master</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
+          <context context-type="linenumber">171</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3338122603397139235" datatype="html">
+        <source>Something went wrong while attempting to get the play list.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
+          <context context-type="linenumber">345</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="883225603593837541" datatype="html">
+        <source>Something went wrong. Please try again.</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
+          <context context-type="linenumber">462</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6081488370267137537" datatype="html">
+        <source>The gods have not answered your call. Speak again, brave adventurer!</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/home/components/chat/chat.component.ts</context>
+          <context context-type="linenumber">553</context>
         </context-group>
       </trans-unit>
       <trans-unit id="firstStepsHeading" datatype="html">
@@ -406,14 +431,14 @@
         <source>Game &apos;<x id="PH" equiv-text="newGame.name"/>&apos; created!</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">172</context>
+          <context context-type="linenumber">173</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3688639030371133915" datatype="html">
         <source>Something went wrong while attempting to create the game. Verify with the admin if you have the permissions.</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/home/components/first-steps/first-steps.component.ts</context>
-          <context context-type="linenumber">179</context>
+          <context context-type="linenumber">180</context>
         </context-group>
       </trans-unit>
       <trans-unit id="homeSubtitle" datatype="html">
@@ -518,7 +543,7 @@
         <source> Your world is where you left it. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/landing/components/landing-cta/landing-cta.component.html</context>
-          <context context-type="linenumber">9,12</context>
+          <context context-type="linenumber">9,11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="landingContinueAdventure" datatype="html">
@@ -571,7 +596,7 @@
         <source> EI-DUNGEON is an active project, not a finished product. Features land regularly and things will change under you. If you would rather see how it works than take our word for it, both repositories are public. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/landing/components/landing-development/landing-development.component.html</context>
-          <context context-type="linenumber">10,13</context>
+          <context context-type="linenumber">10,12</context>
         </context-group>
       </trans-unit>
       <trans-unit id="landingDevWebRepo" datatype="html">
@@ -770,6 +795,13 @@
           <context context-type="linenumber">6,8</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="landingFooterLinksLabel" datatype="html">
+        <source>Account and project links</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-footer/landing-footer.component.html</context>
+          <context context-type="linenumber">10,11</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="landingFooterSignup" datatype="html">
         <source>Sign up</source>
         <context-group purpose="location">
@@ -784,22 +816,36 @@
           <context context-type="linenumber">12,13</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="landingLocaleLinksLabel" datatype="html">
+        <source>Choose a language version</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-footer/landing-footer.component.html</context>
+          <context context-type="linenumber">21,22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="landingHeaderActionsLabel" datatype="html">
+        <source>Account navigation</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">src/app/pages/landing/components/landing-header/landing-header.component.html</context>
+          <context context-type="linenumber">7,8</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="landingGoToGames" datatype="html">
         <source>Go to my games</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/landing/components/landing-header/landing-header.component.html</context>
-          <context context-type="linenumber">23,25</context>
+          <context context-type="linenumber">17,19</context>
         </context-group>
       </trans-unit>
       <trans-unit id="landingSignIn" datatype="html">
         <source>Sign in</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/landing/components/landing-header/landing-header.component.html</context>
-          <context context-type="linenumber">31,33</context>
+          <context context-type="linenumber">25,27</context>
         </context-group>
       </trans-unit>
       <trans-unit id="landingHeroHeadline" datatype="html">
-        <source> Your Game Master never cancels. </source>
+        <source> Your AI Game Master never cancels. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/landing/components/landing-hero/landing-hero.component.html</context>
           <context context-type="linenumber">14,17</context>
@@ -858,7 +904,7 @@
         <source> Three steps, and you&apos;re in your first scene. </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/landing/components/landing-how-it-works/landing-how-it-works.component.html</context>
-          <context context-type="linenumber">8,11</context>
+          <context context-type="linenumber">8,10</context>
         </context-group>
       </trans-unit>
       <trans-unit id="landingStepCharacterTitle" datatype="html">
@@ -1018,7 +1064,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">70,71</context>
+          <context context-type="linenumber">69,70</context>
         </context-group>
       </trans-unit>
       <trans-unit id="roleLabel" datatype="html">
@@ -1082,7 +1128,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">117,118</context>
+          <context context-type="linenumber">116,117</context>
         </context-group>
       </trans-unit>
       <trans-unit id="newPasswordLabel" datatype="html">
@@ -1117,144 +1163,144 @@
         <source>Sign Up</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">17,19</context>
+          <context context-type="linenumber">16,18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="signupUsernameLabel" datatype="html">
         <source>Username</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">21,22</context>
+          <context context-type="linenumber">20,21</context>
         </context-group>
       </trans-unit>
       <trans-unit id="usernameRequiredError" datatype="html">
         <source> Username is <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>required<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">28,29</context>
+          <context context-type="linenumber">27,28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="usernameMinLengthError" datatype="html">
         <source> Minimum 4 characters </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">31,32</context>
+          <context context-type="linenumber">30,31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="usernameMaxLengthError" datatype="html">
         <source> Maximum 20 characters </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">34,35</context>
+          <context context-type="linenumber">33,34</context>
         </context-group>
       </trans-unit>
       <trans-unit id="usernameTakenError" datatype="html">
         <source> Username is already taken </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">42,43</context>
+          <context context-type="linenumber">41,42</context>
         </context-group>
       </trans-unit>
       <trans-unit id="checkingAvailability" datatype="html">
         <source> Checking availability... </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">49,50</context>
+          <context context-type="linenumber">48,49</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">103,104</context>
+          <context context-type="linenumber">102,103</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fullnameLabel" datatype="html">
         <source>Fullname</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">53,54</context>
+          <context context-type="linenumber">52,53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fullnameRequiredError" datatype="html">
         <source> Fullname is <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>required<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">59,60</context>
+          <context context-type="linenumber">58,59</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fullnameMinLengthError" datatype="html">
         <source> Minimum 4 characters </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">62,63</context>
+          <context context-type="linenumber">61,62</context>
         </context-group>
       </trans-unit>
       <trans-unit id="fullnameMaxLengthError" datatype="html">
         <source> Maximum 50 characters </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">65,66</context>
+          <context context-type="linenumber">64,65</context>
         </context-group>
       </trans-unit>
       <trans-unit id="emailInvalidError" datatype="html">
         <source>Please enter a valid email address</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">84,85</context>
+          <context context-type="linenumber">83,84</context>
         </context-group>
       </trans-unit>
       <trans-unit id="emailRequiredError" datatype="html">
         <source>Email is <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>required<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">87,88</context>
+          <context context-type="linenumber">86,87</context>
         </context-group>
       </trans-unit>
       <trans-unit id="emailTakenError" datatype="html">
         <source> Email is already registered </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">96,97</context>
+          <context context-type="linenumber">95,96</context>
         </context-group>
       </trans-unit>
       <trans-unit id="signupPasswordLabel" datatype="html">
         <source>Enter your password</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">107,108</context>
+          <context context-type="linenumber">106,107</context>
         </context-group>
       </trans-unit>
       <trans-unit id="passwordRequiredError" datatype="html">
         <source> Password is <x id="START_TAG_STRONG" ctype="x-strong" equiv-text="&lt;strong&gt;"/>required<x id="CLOSE_TAG_STRONG" ctype="x-strong" equiv-text="&lt;/strong&gt;"/></source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">114,115</context>
+          <context context-type="linenumber">113,114</context>
         </context-group>
       </trans-unit>
       <trans-unit id="passwordMaxLengthError" datatype="html">
         <source> Maximum 50 characters </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">120,121</context>
+          <context context-type="linenumber">119,120</context>
         </context-group>
       </trans-unit>
       <trans-unit id="signupButton" datatype="html">
         <source> Sign Up </source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">132,133</context>
+          <context context-type="linenumber">131,132</context>
         </context-group>
       </trans-unit>
       <trans-unit id="alreadyHaveAccountPrompt" datatype="html">
         <source>Do you already have an account?</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">138,139</context>
+          <context context-type="linenumber">137,138</context>
         </context-group>
       </trans-unit>
       <trans-unit id="signInLink" datatype="html">
         <source>Sign In Now</source>
         <context-group purpose="location">
           <context context-type="sourcefile">src/app/pages/signup/signup.component.html</context>
-          <context context-type="linenumber">139,141</context>
+          <context context-type="linenumber">138,140</context>
         </context-group>
       </trans-unit>
       <trans-unit id="confirmDialogYes" datatype="html">

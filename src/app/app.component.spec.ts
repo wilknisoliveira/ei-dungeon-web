@@ -40,6 +40,13 @@ describe('AppComponent', () => {
         expect(app.title).toEqual('ei-dungeon-web');
     });
 
+    it('should leave the main landmark to the active route', () => {
+        const fixture = TestBed.createComponent(AppComponent);
+        fixture.detectChanges();
+
+        expect((fixture.nativeElement as HTMLElement).querySelector('main')).toBeNull();
+    });
+
     it('should apply the dark theme on startup when nothing is stored', () => {
         const fixture = TestBed.createComponent(AppComponent);
         fixture.detectChanges();

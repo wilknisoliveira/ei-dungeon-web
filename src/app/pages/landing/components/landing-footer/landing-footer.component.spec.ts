@@ -36,4 +36,17 @@ describe('LandingFooterComponent', () => {
         expect(hrefs).toContain('/signup');
         expect(hrefs).toContain('/login');
     });
+
+    it('should expose crawlable links to every landing locale', () => {
+        const host: HTMLElement = fixture.nativeElement;
+        const localeLinks = Array.from(
+            host.querySelectorAll<HTMLAnchorElement>('.language-links a'),
+        ).map((anchor) => [anchor.getAttribute('hreflang'), anchor.getAttribute('href')]);
+
+        expect(localeLinks).toEqual([
+            ['en', '/en/'],
+            ['pt-BR', '/pt-BR/'],
+            ['es', '/es/'],
+        ]);
+    });
 });

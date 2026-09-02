@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { DOCUMENT } from '@angular/common';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { PLATFORM_ID } from '@angular/core';
 
 import {
     DARK_THEME,
@@ -113,5 +114,18 @@ describe('ThemeService', () => {
         service.initTheme();
 
         expect(document.body.classList.contains(DARK_THEME)).toBeTrue();
+    });
+
+    it('should apply the deterministic dark theme on the server', () => {
+        TestBed.resetTestingModule();
+        TestBed.configureTestingModule({
+            providers: [{ provide: PLATFORM_ID, useValue: 'server' }],
+        });
+        const serverService = TestBed.inject(ThemeService);
+        const serverDocument = TestBed.inject(DOCUMENT);
+
+        serverService.initTheme();
+
+        expect(serverDocument.body.classList.contains(DARK_THEME)).toBeTrue();
     });
 });

@@ -33,6 +33,8 @@
                         "outputPath": "dist/ei-dungeon-web",
                         "index": "src/index.html",
                         "browser": "src/main.ts",
+                        "server": "src/main.server.ts",
+                        "outputMode": "static",
                         "polyfills": ["zone.js", "@angular/localize/init"],
                         "tsConfig": "tsconfig.app.json",
                         "inlineStyleLanguage": "scss",

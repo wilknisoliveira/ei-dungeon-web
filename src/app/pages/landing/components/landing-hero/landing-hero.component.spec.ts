@@ -85,5 +85,8 @@ describe('LandingHeroComponent', () => {
 
     it('should render exactly one h1', () => {
         expect(host().querySelectorAll('h1').length).toBe(1);
+        expect(host().querySelector('h1')?.textContent?.trim()).toBe(
+            'Your AI Game Master never cancels.',
+        );
     });
 });

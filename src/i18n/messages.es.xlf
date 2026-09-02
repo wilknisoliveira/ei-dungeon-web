@@ -2,6 +2,30 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en" target-language="es" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="landingSeoTitle" datatype="html">
+        <source>EI-DUNGEON | Your AI Game Master</source>
+        <target>EI-DUNGEON | Tu Máster con IA</target>
+      </trans-unit>
+      <trans-unit id="landingSeoDescription" datatype="html">
+        <source>Play tabletop adventures with an AI Game Master that is ready whenever you are.</source>
+        <target>Juega aventuras de rol de mesa con un Máster de IA listo cuando tú lo estés.</target>
+      </trans-unit>
+      <trans-unit id="landingSeoImageAlt" datatype="html">
+        <source>EI-DUNGEON logo over a fantasy dungeon landscape</source>
+        <target>Logotipo de EI-DUNGEON sobre un paisaje de mazmorra fantástica</target>
+      </trans-unit>
+      <trans-unit id="landingFooterLinksLabel" datatype="html">
+        <source>Account and project links</source>
+        <target>Enlaces de cuenta y proyecto</target>
+      </trans-unit>
+      <trans-unit id="landingLocaleLinksLabel" datatype="html">
+        <source>Choose a language version</source>
+        <target>Elige una versión de idioma</target>
+      </trans-unit>
+      <trans-unit id="landingHeaderActionsLabel" datatype="html">
+        <source>Account navigation</source>
+        <target>Navegación de la cuenta</target>
+      </trans-unit>
       <trans-unit id="appWordmark" datatype="html">
         <source>EI-DUNGEON</source>
         <target>EI-DUNGEON</target>
@@ -467,8 +491,8 @@
         <target>EI-DUNGEON — un simulador de rol impulsado por I.A.</target>
       </trans-unit>
       <trans-unit id="landingHeroHeadline" datatype="html">
-        <source> Your Game Master never cancels. </source>
-        <target>Tu Máster nunca cancela.</target>
+        <source> Your AI Game Master never cancels. </source>
+        <target>Tu Máster de IA nunca cancela.</target>
       </trans-unit>
       <trans-unit id="landingHeroSub" datatype="html">
         <source> A solo role-playing game run by AI. Build a character, step into the dark, and play whenever you want — no group to gather, no night to agree on, no one to talk into running it. </source>

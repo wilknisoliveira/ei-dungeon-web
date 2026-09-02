@@ -1,10 +1,4 @@
-import {
-    AfterViewInit,
-    Directive,
-    ElementRef,
-    OnDestroy,
-    inject,
-} from '@angular/core';
+import { Directive, ElementRef, OnDestroy, afterNextRender, inject } from '@angular/core';
 
 /**
  * Reveals an element once it scrolls into view, by adding `is-revealed`.
@@ -17,11 +11,15 @@ import {
     standalone: true,
     selector: '[appRevealOnScroll]',
 })
-export class RevealOnScrollDirective implements AfterViewInit, OnDestroy {
+export class RevealOnScrollDirective implements OnDestroy {
     private elementRef = inject<ElementRef<HTMLElement>>(ElementRef);
     private observer?: IntersectionObserver;
 
-    ngAfterViewInit(): void {
+    constructor() {
+        afterNextRender(() => this.startObserver());
+    }
+
+    private startObserver(): void {
         const element = this.elementRef.nativeElement;
 
         // Without IntersectionObserver the element simply stays in its revealed state.

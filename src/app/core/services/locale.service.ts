@@ -1,33 +1,28 @@
-import { Injectable, inject } from '@angular/core';
-import { DOCUMENT } from '@angular/common';
+import { Injectable, LOCALE_ID, PLATFORM_ID, inject } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
     SUPPORTED_LANGUAGES,
     DEFAULT_LANGUAGE,
     LANGUAGE_STORAGE_KEY,
 } from '../config/supported-languages';
 import { LanguageConfiguration } from '../models/language.model';
+import { LOCAL_STORAGE } from '../storage/app-storage';
 
 @Injectable({
     providedIn: 'root',
 })
 export class LocaleService {
     private document = inject(DOCUMENT);
+    private localeId = inject(LOCALE_ID);
+    private platformId = inject(PLATFORM_ID);
+    private storage = inject(LOCAL_STORAGE);
 
     getSupportedLanguages(): LanguageConfiguration[] {
         return SUPPORTED_LANGUAGES;
     }
 
     getCurrentLanguage(): string {
-        const pathSegments = this.document.location.pathname
-            .split('/')
-            .filter(Boolean);
-        const firstSegment = pathSegments[0];
-
-        if (this.isValidLanguage(firstSegment)) {
-            return firstSegment;
-        }
-
-        return DEFAULT_LANGUAGE;
+        return this.mapRegionalVariant(this.localeId) || DEFAULT_LANGUAGE;
     }
 
     resolveLanguage(browserLang: string, stored: string): string {
@@ -46,6 +41,10 @@ export class LocaleService {
     }
 
     getBrowserLanguage(): string {
+        if (!isPlatformBrowser(this.platformId)) {
+            return '';
+        }
+
         const languages = navigator.languages || [navigator.language];
 
         for (const lang of languages) {
@@ -61,7 +60,7 @@ export class LocaleService {
     savePreference(lang: string): void {
         try {
             if (this.isValidLanguage(lang)) {
-                localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+                this.storage.setItem(LANGUAGE_STORAGE_KEY, lang);
             }
         } catch (e) {
             console.warn('Failed to save language preference:', e);
@@ -70,7 +69,7 @@ export class LocaleService {
 
     getStoredPreference(): string {
         try {
-            const stored = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+            const stored = this.storage.getItem(LANGUAGE_STORAGE_KEY);
             if (stored && this.isValidLanguage(stored)) {
                 return stored;
             }

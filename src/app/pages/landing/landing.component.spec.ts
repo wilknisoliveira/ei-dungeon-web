@@ -21,6 +21,8 @@ describe('LandingComponent', () => {
         spyOn(authService, 'isUserLoggedIn').and.returnValue(loggedIn);
         const created = TestBed.createComponent(LandingComponent);
         created.detectChanges();
+        TestBed.tick();
+        created.detectChanges();
         return created;
     };
 
@@ -49,6 +51,15 @@ describe('LandingComponent', () => {
     it('should create', () => {
         fixture = create(false);
         expect(fixture.componentInstance).toBeTruthy();
+    });
+
+    it('should start with the anonymous state before the first render', () => {
+        spyOn(authService, 'isUserLoggedIn').and.returnValue(true);
+
+        fixture = TestBed.createComponent(LandingComponent);
+
+        expect(fixture.componentInstance.isLoggedIn()).toBeFalse();
+        expect(authService.isUserLoggedIn).not.toHaveBeenCalled();
     });
 
     it('should render every section in order', () => {
@@ -126,6 +137,24 @@ describe('LandingComponent', () => {
 
         expect(document.body.classList.contains(LIGHT_THEME)).toBeTrue();
         expect(document.body.classList.contains(DARK_THEME)).toBeFalse();
+    });
+
+    it('should apply indexable landing metadata and remove it when leaving', () => {
+        fixture = create(false);
+
+        expect(document.head.querySelector('link[rel="canonical"]')?.getAttribute('href')).toContain(
+            '/en/',
+        );
+        expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe(
+            'index, follow',
+        );
+
+        fixture.destroy();
+
+        expect(document.head.querySelector('link[rel="canonical"]')).toBeNull();
+        expect(document.head.querySelector('meta[name="robots"]')?.getAttribute('content')).toBe(
+            'noindex, nofollow',
+        );
     });
 
     it('should not render a theme toggle', () => {

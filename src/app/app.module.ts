@@ -7,6 +7,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './http-interceptors/auth-interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {
+    provideClientHydration,
+    withI18nSupport,
+} from '@angular/platform-browser';
 
 @NgModule({
     imports: [
@@ -16,7 +20,10 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
         MatSnackBarModule,
         AppComponent,
     ],
-    providers: [provideHttpClient(withInterceptors([authInterceptor]))],
+    providers: [
+        provideHttpClient(withInterceptors([authInterceptor])),
+        provideClientHydration(withI18nSupport()),
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
