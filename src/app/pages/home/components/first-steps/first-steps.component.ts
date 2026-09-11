@@ -21,6 +21,7 @@ import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { LocaleService } from 'src/app/core/services/locale.service';
 import { NewGame } from 'src/app/types/game/new-game';
 import { LoadingComponent } from 'src/app/shared/loading/loading.component';
+import { AuthService } from 'src/app/service/auth/auth.service';
 
 @Component({
     standalone: true,
@@ -107,11 +108,16 @@ export class FirstStepsComponent {
     maxSkillPointsToDistribute: number = 30;
     currentSkillPointsDistributed: number = 0;
 
+    get isCommonUser(): boolean {
+        return this.authService.getRole() === 'CommonUser';
+    }
+
     constructor(
         private _formBuilder: FormBuilder,
         private gameService: GameService,
         private snackBar: SnackbarService,
         private localeService: LocaleService,
+        private authService: AuthService,
     ) {
         this.gameFormGroup = this._formBuilder.group({
             gameNameControl: ['', Validators.required],
@@ -141,6 +147,8 @@ export class FirstStepsComponent {
     }
 
     onSubmit(): void {
+        if (this.isCommonUser) return;
+
         this.loading = true;
         let newGame: NewGame = {
             protagonistDescription: this.gameFormGroup.get(

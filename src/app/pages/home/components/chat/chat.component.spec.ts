@@ -10,6 +10,7 @@ import { Game } from 'src/app/types/game/game';
 import { PagedSearch } from 'src/app/types/general/paged-search';
 import { Play } from 'src/app/types/play/play';
 import { StreamPlay } from 'src/app/types/play/stream-play';
+import { AuthService } from 'src/app/service/auth/auth.service';
 
 const PAGE_SIZE = 20;
 
@@ -53,6 +54,7 @@ describe('ChatComponent', () => {
     let playService: jasmine.SpyObj<PlayService>;
     let gameService: jasmine.SpyObj<GameService>;
     let snackBar: jasmine.SpyObj<SnackbarService>;
+    let authService: jasmine.SpyObj<AuthService>;
 
     /** Reaches the scroll state the component deliberately keeps private. */
     function internals(): {
@@ -153,6 +155,8 @@ describe('ChatComponent', () => {
             'addError',
             'addSuccess',
         ]);
+        authService = jasmine.createSpyObj<AuthService>('AuthService', ['getRole']);
+        authService.getRole.and.returnValue('Admin');
 
         gameService.getById.and.resolveTo(makeGame('a'));
         gameService.patchGame.and.returnValue(of(makeGame('a')));
@@ -166,6 +170,7 @@ describe('ChatComponent', () => {
                 { provide: PlayService, useValue: playService },
                 { provide: GameService, useValue: gameService },
                 { provide: SnackbarService, useValue: snackBar },
+                { provide: AuthService, useValue: authService },
             ],
         }).compileComponents();
 
@@ -176,6 +181,23 @@ describe('ChatComponent', () => {
     it('should create', () => {
         fixture.detectChanges();
         expect(component).toBeTruthy();
+    });
+
+    it('disables and ignores plays for a common user', async () => {
+        await openSession('a', makePage(1));
+        authService.getRole.and.returnValue('CommonUser');
+        component.newPlayFormGroup.get('newPlayControl')?.setValue('go north');
+        fixture.detectChanges();
+
+        const submitButton = fixture.nativeElement.querySelector(
+            'button[type="submit"]',
+        ) as HTMLButtonElement;
+
+        expect(submitButton.disabled).toBeTrue();
+
+        await component.onSubmit();
+
+        expect(playService.streamNewPlay).not.toHaveBeenCalled();
     });
 
     describe('opening a session', () => {

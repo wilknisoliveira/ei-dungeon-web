@@ -29,6 +29,7 @@ import { PagedSearch } from 'src/app/types/general/paged-search';
 import { NewPlay } from 'src/app/types/play/new-play';
 import { Play } from 'src/app/types/play/play';
 import { StreamPlay } from 'src/app/types/play/stream-play';
+import { AuthService } from 'src/app/service/auth/auth.service';
 
 /** Plays requested per page. */
 const PLAYS_PAGE_SIZE = 20;
@@ -119,6 +120,10 @@ export class ChatComponent implements OnChanges {
 
     get isDisabled(): boolean {
         return this.game()?.gameStatus === 'PlayerDied';
+    }
+
+    get isCommonUser(): boolean {
+        return this.authService.getRole() === 'CommonUser';
     }
 
     get currentGameLanguage(): string {
@@ -227,6 +232,7 @@ export class ChatComponent implements OnChanges {
         private formBuilder: FormBuilder,
         private injector: Injector,
         private ngZone: NgZone,
+        private authService: AuthService,
     ) {
         this.newPlayFormGroup = this.formBuilder.group({
             newPlayControl: ['', Validators.required],
@@ -435,6 +441,8 @@ export class ChatComponent implements OnChanges {
     }
 
     async onSubmit(initialPlay: boolean = false): Promise<void> {
+        if (this.isCommonUser) return;
+
         const prompt: string = (
             this.newPlayFormGroup.get('newPlayControl')?.value ?? ''
         ).trim();
