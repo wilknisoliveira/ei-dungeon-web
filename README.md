@@ -88,26 +88,52 @@ This statically prerenders the public landing pages and generates crawler files 
 
 Deploy the contents of `dist/ei-dungeon-web/browser/` to a static HTTPS host. Preserve the locale directories and serve `/robots.txt` and `/sitemap.xml` from the site root. Only the localized landing pages are intended for indexing; authenticated application routes remain client-rendered and default to `noindex`.
 
-## Local nginx debugging
+## Docker
 
-The `nginx/` folder is developer-only infrastructure for local debugging. It is not the production deployment configuration:
+The production image builds all three localized Angular applications and serves the static output with nginx. Docker and the Docker Compose plugin are the only host requirements.
 
+For local use, build and start the application with:
+
+```sh
+docker compose up --build -d
 ```
-cd nginx
-docker-compose up -d
+
+The local defaults are `SITE_URL=http://localhost:8000` and host port `8000`. Open:
+
+- `http://localhost:8000/` — redirects using the browser's preferred language
+- `http://localhost:8000/en/` — English
+- `http://localhost:8000/pt-BR/` — Portuguese (Brazil)
+- `http://localhost:8000/es/` — Spanish
+- `http://localhost:8000/robots.txt` and `http://localhost:8000/sitemap.xml` — crawler files served from the site root
+
+Docker Compose reads a root `.env` file automatically. Copy the versioned example when you want persistent local or deployment-specific values:
+
+```powershell
+Copy-Item .env.example .env
 ```
 
-Then visit `http://localhost`:
-- Root `/` redirects to your browser's detected language
-- `/en/home` — English
-- `/pt-BR/home` — Portuguese
-- `/es/home` — Spanish
+Keep `SITE_URL` aligned with the published port for local builds. For example, to use port `8001`, update `.env` or set both variables before rebuilding:
 
-To stop nginx:
-
+```powershell
+$env:APP_PORT = "8001"
+$env:SITE_URL = "http://localhost:8001"
+docker compose up --build -d
 ```
-cd nginx
-docker-compose down
+
+For production, set `SITE_URL` to the final public HTTPS origin before building. The value is embedded in canonical links, `hreflang` links, social metadata, `robots.txt`, and `sitemap.xml`:
+
+```powershell
+$env:SITE_URL = "https://example.com"
+$env:APP_PORT = "8000"
+docker compose up --build -d
+```
+
+The container listens for HTTP on port 80. Terminate public HTTPS in the hosting platform, load balancer, or reverse proxy in front of the container.
+
+Check container health with `docker compose ps`. Stop and remove the service with:
+
+```sh
+docker compose down
 ```
 
 # 👨‍💻 Next Steps
