@@ -53,6 +53,9 @@ export class LandingComponent implements OnInit, OnDestroy {
     /** Resolved once on init. The sections are presentational and just read this. */
     readonly isLoggedIn = signal(false);
 
+    /** Temporary MVP gate for account and game actions on the public landing page. */
+    readonly isInDevelopment = true;
+
     constructor() {
         afterNextRender(() => {
             this.isLoggedIn.set(this.authService.isUserLoggedIn());

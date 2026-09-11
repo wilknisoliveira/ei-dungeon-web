@@ -21,7 +21,19 @@
         </p>
 
         <div class="hero-actions">
-            @if (isLoggedIn()) {
+            @if (isInDevelopment()) {
+                <button mat-flat-button color="primary" class="cta-primary" disabled i18n="@@landingComingSoon">
+                    Coming soon
+                </button>
+                <!-- Current account-action labels, restored once MVP features are ready.
+                @if (isLoggedIn()) {
+                    Continue your adventure
+                } @else {
+                    Create your character
+                    I already have an account
+                }
+                -->
+            } @else if (isLoggedIn()) {
                 <a
                     mat-flat-button
                     color="primary"

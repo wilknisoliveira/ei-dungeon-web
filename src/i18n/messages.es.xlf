@@ -742,6 +742,10 @@
         <source> Your world is where you left it. </source>
         <target>Tu mundo está donde lo dejaste.</target>
       </trans-unit>
+      <trans-unit id="landingComingSoon" datatype="html">
+        <source> Coming soon </source>
+        <target>Próximamente</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
