@@ -93,28 +93,21 @@ describe('LandingComponent', () => {
         ).toBeTruthy();
     });
 
-    it('should point the calls to action at home for a logged-in visitor', () => {
-        fixture = create(true);
-        const host: HTMLElement = fixture.nativeElement;
+    [false, true].forEach((loggedIn) => {
+        it(`should disable account actions during development for ${loggedIn ? 'a logged-in' : 'an anonymous'} visitor`, () => {
+            fixture = create(loggedIn);
+            const host: HTMLElement = fixture.nativeElement;
+            const actions = Array.from(
+                host.querySelectorAll<HTMLButtonElement>('button.cta-primary, button.signin'),
+            );
 
-        const hrefs = Array.from(
-            host.querySelectorAll<HTMLAnchorElement>('.cta-primary, .signin'),
-        ).map((anchor) => anchor.getAttribute('href'));
-
-        expect(hrefs.length).toBeGreaterThan(0);
-        hrefs.forEach((href) => expect(href).toBe('/home'));
-    });
-
-    it('should point the calls to action at signup for an anonymous visitor', () => {
-        fixture = create(false);
-        const host: HTMLElement = fixture.nativeElement;
-
-        const ctas = Array.from(
-            host.querySelectorAll<HTMLAnchorElement>('.cta-primary'),
-        ).map((anchor) => anchor.getAttribute('href'));
-
-        expect(ctas.length).toBeGreaterThan(0);
-        ctas.forEach((href) => expect(href).toBe('/signup'));
+            expect(actions.length).toBe(3);
+            actions.forEach((button) => {
+                expect(button.disabled).toBeTrue();
+                expect(button.textContent?.trim()).toBe('Coming soon');
+            });
+            expect(host.querySelector('a.cta-primary, a.signin')).toBeNull();
+        });
     });
 
     it('should force the dark theme on init', () => {

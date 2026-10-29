@@ -10,7 +10,9 @@ COPY scripts/ ./scripts/
 COPY src/ ./src/
 
 ARG SITE_URL
+ARG API_URL
 ENV SITE_URL=${SITE_URL}
+ENV API_URL=${API_URL}
 
 RUN npm run build
 

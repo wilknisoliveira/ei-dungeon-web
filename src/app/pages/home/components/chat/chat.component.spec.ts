@@ -143,6 +143,9 @@ describe('ChatComponent', () => {
     }
 
     beforeEach(async () => {
+        sessionStorage.removeItem('game-cache-a');
+        sessionStorage.removeItem('game-cache-b');
+
         playService = jasmine.createSpyObj<PlayService>('PlayService', [
             'getPlays',
             'streamNewPlay',
@@ -176,6 +179,11 @@ describe('ChatComponent', () => {
 
         fixture = TestBed.createComponent(ChatComponent);
         component = fixture.componentInstance;
+    });
+
+    afterEach(() => {
+        sessionStorage.removeItem('game-cache-a');
+        sessionStorage.removeItem('game-cache-b');
     });
 
     it('should create', () => {

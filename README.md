@@ -136,6 +136,37 @@ Check container health with `docker compose ps`. Stop and remove the service wit
 docker compose down
 ```
 
+## GitHub Actions container publishing
+
+The container workflow checks pull requests to `main` and pushes to `main`. It runs
+TypeScript checks, headless unit tests, the production build for all three locales,
+SEO output verification, and an npm dependency audit. The Docker image is built only
+after those checks pass. There is currently no lint command configured in this project.
+
+Before publishing, add these **repository variables** under GitHub Settings → Secrets
+and variables → Actions → Variables:
+
+| Variable | Value |
+|---|---|
+| `SITE_URL` | Final public HTTPS site origin, such as `https://dungeon.example.com` |
+| `API_URL` | Public HTTPS backend URL, such as `https://api.example.com` |
+
+Both values are public and embedded at build time; changing them requires a new build.
+Pull requests use placeholder HTTPS URLs so checks also work for forks. Main builds
+fail if either variable is missing. Local builds may use HTTP for localhost; when
+`API_URL` is omitted from `npm run build`, the production environment file provides
+the local API fallback.
+
+Pushes to `main` publish `ghcr.io/<owner>/ei-dungeon-web:latest` and
+`ghcr.io/<owner>/ei-dungeon-web:sha-<full-commit-sha>` using the built-in `GITHUB_TOKEN`.
+Pull requests build without publishing. The image targets `linux/amd64` and uses
+GitHub Actions Docker layer caching. Allow GitHub Actions to publish packages in
+the repository or organization settings. No registry password secret is needed.
+
+Deploy a chosen image tag through your hosting platform. Use a previous `sha-...`
+tag for rollback. This workflow publishes images; deployment remains a separate step.
+Configure branch protection to require the workflow checks before merging.
+
 # 👨‍💻 Next Steps
 
 The long-term goal would be to scale the application so RPG lovers can create quick matches.

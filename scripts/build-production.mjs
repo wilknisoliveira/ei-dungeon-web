@@ -31,8 +31,20 @@ function normalizeSiteUrl(value) {
 }
 
 let siteUrl;
+const apiDefines = [];
 try {
     siteUrl = normalizeSiteUrl(process.env.SITE_URL);
+    if (process.env.API_URL) {
+        const apiUrl = new URL(process.env.API_URL);
+        const isLocal = ['localhost', '127.0.0.1', '[::1]'].includes(apiUrl.hostname);
+        if (
+            (apiUrl.protocol !== 'https:' && !(isLocal && apiUrl.protocol === 'http:')) ||
+            apiUrl.username || apiUrl.password || apiUrl.search || apiUrl.hash
+        ) {
+            throw new Error('API_URL must use HTTPS outside local development and contain no credentials, query, or fragment.');
+        }
+        apiDefines.push('--define', `API_URL=${JSON.stringify(apiUrl.href.replace(/\/$/, ''))}`);
+    }
 } catch (error) {
     process.stderr.write(`${error.message}\n`);
     process.exit(1);
@@ -48,6 +60,7 @@ const result = spawnSync(
         'production',
         '--define',
         `SITE_URL=${JSON.stringify(siteUrl)}`,
+        ...apiDefines,
     ],
     { stdio: 'inherit' },
 );
