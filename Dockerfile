@@ -3,7 +3,7 @@ FROM node:22-alpine AS build
 WORKDIR /app
 
 COPY package.json package-lock.json ./
-RUN npm ci --legacy-peer-deps
+RUN npm ci
 
 COPY angular.json tsconfig.json tsconfig.app.json tsconfig.spec.json ./
 COPY scripts/ ./scripts/
