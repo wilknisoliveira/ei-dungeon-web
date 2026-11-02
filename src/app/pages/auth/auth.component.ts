@@ -32,7 +32,7 @@ import { ThemeToggleComponent } from 'src/app/shared/theme-toggle/theme-toggle.c
 })
 export class AuthComponent {
     private readonly flow = inject(EmailAuthFlowService);
-    error = '';
+    readonly error = signal('');
     private loginDeadline = 0;
     hide = signal(true);
     userLogin: UserLogin = {
@@ -40,7 +40,7 @@ export class AuthComponent {
         password: '',
     };
 
-    loading: boolean = false;
+    readonly loading = signal(false);
 
     constructor(
         private authService: AuthService,
@@ -49,9 +49,9 @@ export class AuthComponent {
     ) {}
 
     async onSubmit() {
-        if (this.loading || !this.userLogin.userName || !this.userLogin.password || this.loginDeadline > Date.now()) return;
-        this.loading = true;
-        this.error = '';
+        if (this.loading() || !this.userLogin.userName || !this.userLogin.password || this.loginDeadline > Date.now()) return;
+        this.loading.set(true);
+        this.error.set('');
         try {
             await this.authService.login(this.userLogin);
             await this.router.navigate(['/home']);
@@ -61,16 +61,16 @@ export class AuthComponent {
                 this.userLogin.password = '';
                 await this.router.navigate(['/email-verification']);
             } else if (error instanceof HttpErrorResponse && error.status === 401) {
-                this.error = $localize`:@@loginInvalidCredentials:Invalid username or password.`;
+                this.error.set($localize`:@@loginInvalidCredentials:Invalid username or password.`);
             } else if (error instanceof HttpErrorResponse && error.status === 429) {
                 const header = error.headers.get('Retry-After') || '';
                 this.loginDeadline = Date.now() + (/^\d+$/.test(header) && Number(header) > 0 && Number.isSafeInteger(Number(header)) ? Number(header) : 60) * 1000;
-                this.error = $localize`:@@emailAuthThrottled:Too many requests. Please wait before trying again.`;
+                this.error.set($localize`:@@emailAuthThrottled:Too many requests. Please wait before trying again.`);
             } else {
-                this.error = this.flow.error(error, 'verification').message;
+                this.error.set(this.flow.error(error, 'verification').message);
             }
         } finally {
-            this.loading = false;
+            this.loading.set(false);
         }
     }
 }

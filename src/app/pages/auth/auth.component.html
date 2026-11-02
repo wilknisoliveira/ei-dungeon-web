@@ -1,6 +1,6 @@
 <section class="atmospheric-bg">
-    <app-loading [isLoading]="loading"></app-loading>
-    <div class="main-container" *ngIf="!loading">
+    <app-loading [isLoading]="loading()"></app-loading>
+    <div class="main-container" *ngIf="!loading()">
         <div class="login">
             <div class="header-actions">
                 <div class="language-button">
@@ -49,7 +49,7 @@
                         Login
                     </button>
                 </div>
-                @if (error) { <p class="login__error" role="alert">{{ error }}</p> }
+                @if (error()) { <p class="login__error" role="alert">{{ error() }}</p> }
             </form>
         </div>
         <div class="sign-up">
