@@ -37,6 +37,7 @@
                     />
                 </mat-form-field>
 
+                <a class="login__forgot-password" routerLink="/forgot-password" i18n="@@forgotPasswordLink">Forgot password?</a>
                 <div class="login-button">
                     <button
                         type="submit"
@@ -48,6 +49,7 @@
                         Login
                     </button>
                 </div>
+                @if (error) { <p class="login__error" role="alert">{{ error }}</p> }
             </form>
         </div>
         <div class="sign-up">

@@ -1,10 +1,12 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { EmailAuthFlowService } from 'src/app/service/auth/email-auth-flow.service';
+import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { LoadingComponent } from 'src/app/shared/loading/loading.component';
@@ -28,6 +30,8 @@ import { ThemeToggleComponent } from 'src/app/shared/theme-toggle/theme-toggle.c
     styleUrls: ['./signup.component.scss'],
 })
 export class SignupComponent {
+    private readonly flow = inject(EmailAuthFlowService);
+    error = '';
     hide = signal(true);
     formGroup: FormGroup;
     loading: boolean = false;
@@ -75,17 +79,22 @@ export class SignupComponent {
     }
 
     async onSubmit() {
+        if (this.loading || this.formGroup.invalid) {
+            this.formGroup.markAllAsTouched();
+            return;
+        }
+        this.loading = true;
+        this.error = '';
         try {
-            this.loading = true;
-            const result = await this.authService.signup(this.formGroup.value);
-            this.snackBar.addSuccess(
-                'Account created successfully. Please log in.',
-            );
-            this.router.navigate(['login']);
+            const result = await this.authService.signup({ ...this.formGroup.value, email: this.formGroup.value.email.trim() });
+            this.flow.registered(result.userName, result.email);
+            await this.router.navigate(['/email-verification']);
         } catch (error) {
+            this.error = error instanceof HttpErrorResponse && error.status === 400
+                ? $localize`:@@registrationFailure:Could not create your account. Check your registration details and try again.`
+                : this.flow.error(error, 'verification').message;
+        } finally {
             this.loading = false;
-            this.snackBar.addError('Something went wrong :(');
-            console.log(`Sign Up error: ${error}`);
         }
     }
 

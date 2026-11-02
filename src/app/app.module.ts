@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { authInterceptor } from './http-interceptors/auth-interceptor';
+import { languageInterceptor } from './http-interceptors/language-interceptor';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {
     provideClientHydration,
@@ -21,7 +22,7 @@ import {
         AppComponent,
     ],
     providers: [
-        provideHttpClient(withInterceptors([authInterceptor])),
+        provideHttpClient(withInterceptors([languageInterceptor, authInterceptor])),
         provideClientHydration(withI18nSupport()),
     ],
     bootstrap: [AppComponent],

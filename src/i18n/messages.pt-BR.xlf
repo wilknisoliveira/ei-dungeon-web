@@ -254,10 +254,6 @@
         <source>Player</source>
         <target>Jogador</target>
       </trans-unit>
-      <trans-unit id="8083897527920072255" datatype="html">
-        <source>Master</source>
-        <target>Mestre</target>
-      </trans-unit>
       <trans-unit id="6081488370267137537" datatype="html">
         <source>The gods have not answered your call. Speak again, brave adventurer!</source>
         <target>Os deuses não responderam à sua chamada. Fale novamente, bravo aventureiro!</target>
@@ -425,26 +421,6 @@
       <trans-unit id="deleteMenuItem" datatype="html">
         <source>Delete</source>
         <target>Excluir</target>
-      </trans-unit>
-      <trans-unit id="renameDialogTitle" datatype="html">
-        <source>Rename game</source>
-        <target>Renomear jogo</target>
-      </trans-unit>
-      <trans-unit id="renameDialogInputLabel" datatype="html">
-        <source>New name</source>
-        <target>Novo nome</target>
-      </trans-unit>
-      <trans-unit id="renameDialogPlaceholder" datatype="html">
-        <source>Game name</source>
-        <target>Nome do jogo</target>
-      </trans-unit>
-      <trans-unit id="renameDialogCancel" datatype="html">
-        <source>Cancel</source>
-        <target>Cancelar</target>
-      </trans-unit>
-      <trans-unit id="renameDialogConfirm" datatype="html">
-        <source>Rename</source>
-        <target>Renomear</target>
       </trans-unit>
       <trans-unit id="153799456510623899" datatype="html">
         <source>Portuguese</source>
@@ -745,6 +721,178 @@
       <trans-unit id="landingComingSoon" datatype="html">
         <source> Coming soon </source>
         <target>Em breve</target>
+      </trans-unit>
+      <trans-unit id="sessionExpired" datatype="html">
+        <source>Session expired. Please log in again.</source>
+        <target>Sua sessão expirou. Entre novamente.</target>
+      </trans-unit>
+      <trans-unit id="forgotPasswordLink" datatype="html">
+        <source>Forgot password?</source>
+        <target>Esqueceu a senha?</target>
+      </trans-unit>
+      <trans-unit id="loginInvalidCredentials" datatype="html">
+        <source>Invalid username or password.</source>
+        <target>Nome de usuário ou senha inválidos.</target>
+      </trans-unit>
+      <trans-unit id="emailAuthThrottled" datatype="html">
+        <source>Too many requests. Please wait before trying again.</source>
+        <target>Muitas solicitações. Aguarde antes de tentar novamente.</target>
+      </trans-unit>
+      <trans-unit id="verifyEmailTitle" datatype="html">
+        <source>Verify your email</source>
+        <target>Confirme seu e-mail</target>
+      </trans-unit>
+      <trans-unit id="verifyEmailDescription" datatype="html">
+        <source>Enter your registered email and verification code to finish setting up your account.</source>
+        <target>Informe seu e-mail cadastrado e o código de confirmação para concluir a criação da conta.</target>
+      </trans-unit>
+      <trans-unit id="emailAuthEmailLabel" datatype="html">
+        <source>Email address</source>
+        <target>Endereço de e-mail</target>
+      </trans-unit>
+      <trans-unit id="emailAuthCodeLabel" datatype="html">
+        <source>Six-digit code</source>
+        <target>Código de seis dígitos</target>
+      </trans-unit>
+      <trans-unit id="emailAuthNewestCode" datatype="html">
+        <source>Use the most recent code you received.</source>
+        <target>Use o código mais recente que você recebeu.</target>
+      </trans-unit>
+      <trans-unit id="emailAuthWorking" datatype="html">
+        <source>Please wait…</source>
+        <target>Aguarde…</target>
+      </trans-unit>
+      <trans-unit id="verifyEmailButton" datatype="html">
+        <source>Verify email</source>
+        <target>Confirmar e-mail</target>
+      </trans-unit>
+      <trans-unit id="emailAuthConfirmWait" datatype="html">
+        <source>Try confirming again in <x id="INTERPOLATION" equiv-text="{{ confirmWait() }}"/> seconds.</source>
+        <target>Tente confirmar novamente em <x id="INTERPOLATION" equiv-text="{{ confirmWait() }}"/> segundos.</target>
+      </trans-unit>
+      <trans-unit id="sendVerificationCode" datatype="html">
+        <source>Send verification code</source>
+        <target>Enviar código de confirmação</target>
+      </trans-unit>
+      <trans-unit id="emailAuthResendWait" datatype="html">
+        <source>You can request another code in <x id="INTERPOLATION" equiv-text="{{ resendWait() }}"/> seconds.</source>
+        <target>Você poderá solicitar outro código em <x id="INTERPOLATION" equiv-text="{{ resendWait() }}"/> segundos.</target>
+      </trans-unit>
+      <trans-unit id="emailAuthBackToLogin" datatype="html">
+        <source>Back to login</source>
+        <target>Voltar para entrar</target>
+      </trans-unit>
+      <trans-unit id="emailAuthEmailError" datatype="html">
+        <source>Enter a valid email address.</source>
+        <target>Informe um endereço de e-mail válido.</target>
+      </trans-unit>
+      <trans-unit id="emailAuthCodeError" datatype="html">
+        <source>Enter exactly six digits.</source>
+        <target>Informe exatamente seis dígitos.</target>
+      </trans-unit>
+      <trans-unit id="emailVerifiedSuccess" datatype="html">
+        <source>Email verified. You can now log in.</source>
+        <target>E-mail confirmado. Você já pode entrar.</target>
+      </trans-unit>
+      <trans-unit id="forgotPasswordTitle" datatype="html">
+        <source>Forgot your password?</source>
+        <target>Esqueceu sua senha?</target>
+      </trans-unit>
+      <trans-unit id="forgotPasswordDescription" datatype="html">
+        <source>Enter your registered email to request a recovery code.</source>
+        <target>Informe seu e-mail cadastrado para solicitar um código de recuperação.</target>
+      </trans-unit>
+      <trans-unit id="sendRecoveryCode" datatype="html">
+        <source>Send recovery code</source>
+        <target>Enviar código de recuperação</target>
+      </trans-unit>
+      <trans-unit id="emailAuthHaveRecoveryCode" datatype="html">
+        <source>I already have a recovery code</source>
+        <target>Já tenho um código de recuperação</target>
+      </trans-unit>
+      <trans-unit id="resetPasswordTitle" datatype="html">
+        <source>Reset your password</source>
+        <target>Redefina sua senha</target>
+      </trans-unit>
+      <trans-unit id="resetPasswordDescription" datatype="html">
+        <source>Enter your registered email, recovery code, and a new password.</source>
+        <target>Informe seu e-mail cadastrado, o código de recuperação e uma nova senha.</target>
+      </trans-unit>
+      <trans-unit id="emailAuthNewPasswordLabel" datatype="html">
+        <source>New password</source>
+        <target>Nova senha</target>
+      </trans-unit>
+      <trans-unit id="emailAuthShowPassword" datatype="html">
+        <source>Show new password</source>
+        <target>Mostrar nova senha</target>
+      </trans-unit>
+      <trans-unit id="emailAuthConfirmPasswordLabel" datatype="html">
+        <source>Repeat new password</source>
+        <target>Repita a nova senha</target>
+      </trans-unit>
+      <trans-unit id="emailAuthRepeatRequired" datatype="html">
+        <source>Repeat your new password.</source>
+        <target>Repita sua nova senha.</target>
+      </trans-unit>
+      <trans-unit id="emailAuthShowConfirmation" datatype="html">
+        <source>Show repeated password</source>
+        <target>Mostrar senha repetida</target>
+      </trans-unit>
+      <trans-unit id="emailAuthPasswordMismatch" datatype="html">
+        <source>The passwords do not match.</source>
+        <target>As senhas não coincidem.</target>
+      </trans-unit>
+      <trans-unit id="resetPasswordButton" datatype="html">
+        <source>Reset password</source>
+        <target>Redefinir senha</target>
+      </trans-unit>
+      <trans-unit id="emailAuthVerifyInstead" datatype="html">
+        <source>Need to verify your email?</source>
+        <target>Precisa confirmar seu e-mail?</target>
+      </trans-unit>
+      <trans-unit id="emailAuthPasswordError" datatype="html">
+        <source>Use a password with 4–50 characters.</source>
+        <target>Use uma senha com 4 a 50 caracteres.</target>
+      </trans-unit>
+      <trans-unit id="passwordRecoverySuccess" datatype="html">
+        <source>Password changed. Log in with your new password.</source>
+        <target>Senha alterada. Entre com sua nova senha.</target>
+      </trans-unit>
+      <trans-unit id="signupPasswordMinLengthError" datatype="html">
+        <source> Minimum 8 characters </source>
+        <target> Mínimo de 8 caracteres </target>
+      </trans-unit>
+      <trans-unit id="registrationFailure" datatype="html">
+        <source>Could not create your account. Check your registration details and try again.</source>
+        <target>Não foi possível criar sua conta. Confira os dados do cadastro e tente novamente.</target>
+      </trans-unit>
+      <trans-unit id="verificationAcknowledgement" datatype="html">
+        <source>If this account needs verification, a code will be sent. Check your inbox and spam folder.</source>
+        <target>Se esta conta precisar de confirmação, um código será enviado. Confira sua caixa de entrada e a pasta de spam.</target>
+      </trans-unit>
+      <trans-unit id="recoveryAcknowledgement" datatype="html">
+        <source>If a verified account exists for this email, a recovery code will be sent. Check your inbox and spam folder.</source>
+        <target>Se existir uma conta com e-mail confirmado para este endereço, um código de recuperação será enviado. Confira sua caixa de entrada e a pasta de spam.</target>
+      </trans-unit>
+      <trans-unit id="emailAuthUncertain" datatype="html">
+        <source>We could not confirm the result. Try logging in, or request another code if needed.</source>
+        <target>Não foi possível confirmar o resultado. Tente entrar ou solicite outro código, se necessário.</target>
+      </trans-unit>
+      <trans-unit id="emailAuthNetwork" datatype="html">
+        <source>Connection lost. Check your connection before requesting another code.</source>
+        <target>Conexão perdida. Verifique sua conexão antes de solicitar outro código.</target>
+      </trans-unit>
+      <trans-unit id="emailAuthInvalidCode" datatype="html">
+        <source>This code could not be confirmed. Check your email and code, or request another code.</source>
+        <target>Não foi possível confirmar este código. Confira seu e-mail e o código ou solicite outro código.</target>
+      </trans-unit>
+      <trans-unit id="emailAuthCheckFields" datatype="html">
+        <source>Check the highlighted fields and try again.</source>
+        <target>Confira os campos destacados e tente novamente.</target>
+      </trans-unit>
+      <trans-unit id="emailAuthFailure" datatype="html">
+        <source>Something went wrong. Please try again.</source>
+        <target>Algo deu errado. Tente novamente.</target>
       </trans-unit>
     </body>
   </file>

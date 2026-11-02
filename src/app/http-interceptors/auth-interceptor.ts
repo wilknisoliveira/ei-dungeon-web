@@ -1,117 +1,52 @@
-import { HttpErrorResponse, HttpEvent, HttpInterceptorFn } from '@angular/common/http';
+import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-    BehaviorSubject,
-    catchError,
-    filter,
-    from,
-    Observable,
-    switchMap,
-    take,
-    throwError,
-} from 'rxjs';
-import { AuthService } from '../service/auth/auth.service';
-import { SnackbarService } from '../service/snackbar/snackbar.service';
-import { TokenObject } from '../types/auth/token-object';
+import { catchError, from, switchMap, throwError } from 'rxjs';
+import { AuthService } from 'src/app/service/auth/auth.service';
+import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
+import { LOCAL_STORAGE } from 'src/app/core/storage/app-storage';
+import { PUBLIC_AUTH } from 'src/app/types/auth/email-auth';
+import { TokenObject } from 'src/app/types/auth/token-object';
 
-let isRefreshing = false;
-const refreshSubject = new BehaviorSubject<TokenObject | null>(null);
-
-function getStoredRefreshToken(): string {
-    const tokenJson = localStorage.getItem('tokenInfo');
-    if (tokenJson) {
-        return JSON.parse(tokenJson).refreshToken;
-    }
-    return '';
-}
+// Share rejection as well as success so waiting requests always terminate.
+const refreshes = new WeakMap<AuthService, Promise<TokenObject>>();
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-    const authService = inject(AuthService);
-    const router = inject(Router);
-    const snackBar = inject(SnackbarService);
-
-    const token = authService.getAuthToken();
-    let request = req;
-
-    if (token) {
-        request = req.clone({
-            headers: req.headers.set('Authorization', `Bearer ${token}`),
-        });
+    if (req.context.get(PUBLIC_AUTH)) {
+        return next(req.clone({ headers: req.headers.delete('Authorization') }));
     }
+    const auth = inject(AuthService);
+    const router = inject(Router);
+    const snackbar = inject(SnackbarService);
+    const storage = inject(LOCAL_STORAGE);
+    const isRefresh = /\/api\/user\/auth\/refresh(?:\?|$)/i.test(req.url);
+    const token = auth.getAuthToken();
+    const request = token && !isRefresh
+        ? req.clone({ setHeaders: { Authorization: 'Bearer ' + token } }) : req;
 
-    return next(request).pipe(
-        catchError((error: HttpErrorResponse) => {
-            if (error.status === 401) {
-                if (request.url.includes('/auth/refresh')) {
-                    authService.logout();
-                    router.navigate(['login']);
-                    return throwError(() => new Error('Refresh token expired'));
+    return next(request).pipe(catchError((error: HttpErrorResponse) => {
+        if (error.status !== 401 || isRefresh) return throwError(() => error);
+        let pending = refreshes.get(auth);
+        if (!pending) {
+            pending = (async () => {
+                try {
+                    const stored = JSON.parse(storage.getItem('tokenInfo') || '{}');
+                    const accessToken = auth.getAuthToken();
+                    if (!accessToken || !stored.refreshToken) throw error;
+                    return await auth.refreshToken(accessToken, stored.refreshToken);
+                } catch (failure) {
+                    auth.logout();
+                    snackbar.addError($localize`:@@sessionExpired:Session expired. Please log in again.`);
+                    void router.navigate(['/login']);
+                    throw failure;
+                } finally {
+                    queueMicrotask(() => refreshes.delete(auth));
                 }
-
-                if (!isRefreshing) {
-                    isRefreshing = true;
-                    refreshSubject.next(null);
-
-                    const currentToken = authService.getAuthToken();
-                    const refreshToken = getStoredRefreshToken();
-
-                    if (!currentToken || !refreshToken) {
-                        isRefreshing = false;
-                        authService.logout();
-                        snackBar.addError('Session expired. Please log in again.');
-                        router.navigate(['login']);
-                        return throwError(() => new Error('No tokens available'));
-                    }
-
-                    return from(
-                        authService.refreshToken(currentToken, refreshToken)
-                    ).pipe(
-                        switchMap((tokenObject: TokenObject) => {
-                            isRefreshing = false;
-                            refreshSubject.next(tokenObject);
-                            const cloned = request.clone({
-                                headers: request.headers.set(
-                                    'Authorization',
-                                    `Bearer ${tokenObject.accessToken}`
-                                ),
-                            });
-                            return next(cloned);
-                        }),
-                        catchError((refreshError) => {
-                            isRefreshing = false;
-                            authService.logout();
-                            snackBar.addError('Session expired. Please log in again.');
-                            router.navigate(['login']);
-                            return throwError(() => refreshError);
-                        })
-                    );
-                } else {
-                    return refreshSubject.pipe(
-                        filter((result): result is TokenObject => result !== null),
-                        take(1),
-                        switchMap((tokenObject) => {
-                            const cloned = request.clone({
-                                headers: request.headers.set(
-                                    'Authorization',
-                                    `Bearer ${tokenObject.accessToken}`
-                                ),
-                            });
-                            return next(cloned);
-                        })
-                    );
-                }
-            }
-
-            if (error.error instanceof ErrorEvent) {
-                console.error('Something went wrong: ', error.error.message);
-            } else {
-                console.error(
-                    `Error code: ${error.status}` +
-                        `Error: ${JSON.stringify(error.error)}`
-                );
-            }
-            return throwError(() => error);
-        })
-    );
+            })();
+            refreshes.set(auth, pending);
+        }
+        return from(pending).pipe(switchMap(result => next(request.clone({
+            setHeaders: { Authorization: 'Bearer ' + result.accessToken },
+        }))));
+    }));
 };

@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpContext, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { UserLogin } from 'src/app/types/auth/user-login';
 import { BehaviorSubject, Observable, lastValueFrom, tap } from 'rxjs';
@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { jwtDecode } from 'jwt-decode';
 import { UserSignUp } from 'src/app/types/auth/user-signup';
 import { UserInfoCheckResponse } from 'src/app/types/auth/user-info-check-response';
+import { PUBLIC_AUTH, EmailRequest, EmailConfirmation, RecoveryConfirmation, RegistrationResponse } from 'src/app/types/auth/email-auth';
 import { LOCAL_STORAGE } from 'src/app/core/storage/app-storage';
 
 @Injectable({
@@ -23,8 +24,9 @@ export class AuthService {
     async login(userLogin: UserLogin): Promise<TokenObject> {
         const tokenObject$ = this.http
             .post<TokenObject>(
-                `${this.baseUrl}/api/user/Auth/signin`,
-                userLogin
+                `${this.baseUrl}/api/user/auth/signin`,
+                userLogin,
+                this.publicOptions()
             )
             .pipe(
                 tap((tokenObject) => {
@@ -109,13 +111,37 @@ export class AuthService {
         return '';
     }
 
-    async signup(userSignUp: UserSignUp): Promise<any> {
-        const result$ = this.http.post<any>(
+    async signup(userSignUp: UserSignUp): Promise<RegistrationResponse> {
+        const result$ = this.http.post<RegistrationResponse>(
             `${this.baseUrl}/api/user`,
-            userSignUp
+            userSignUp,
+            this.publicOptions()
         );
 
         return lastValueFrom(result$);
+    }
+
+    private publicOptions() {
+        return {
+            context: new HttpContext().set(PUBLIC_AUTH, true),
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        };
+    }
+
+    async requestEmailVerification(body: EmailRequest): Promise<void> {
+        await lastValueFrom(this.http.post<void>(`${this.baseUrl}/api/user/auth/email-verification`, body, this.publicOptions()));
+    }
+
+    async confirmEmailVerification(body: EmailConfirmation): Promise<void> {
+        await lastValueFrom(this.http.post<void>(`${this.baseUrl}/api/user/auth/email-verification/confirm`, body, this.publicOptions()));
+    }
+
+    async requestPasswordRecovery(body: EmailRequest): Promise<void> {
+        await lastValueFrom(this.http.post<void>(`${this.baseUrl}/api/user/auth/password-recovery`, body, this.publicOptions()));
+    }
+
+    async confirmPasswordRecovery(body: RecoveryConfirmation): Promise<void> {
+        await lastValueFrom(this.http.post<void>(`${this.baseUrl}/api/user/auth/password-recovery/confirm`, body, this.publicOptions()));
     }
 
     async refreshToken(accessToken: string, refreshToken: string): Promise<TokenObject> {

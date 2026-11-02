@@ -112,7 +112,7 @@
                     <mat-error *ngIf="formGroup.get('password')?.hasError('required')" i18n="@@passwordRequiredError">
                         Password is <strong>required</strong>
                     </mat-error>
-                    <mat-error *ngIf="formGroup.get('password')?.hasError('minlength')" i18n="@@passwordMinLengthError">
+                    <mat-error *ngIf="formGroup.get('password')?.hasError('minlength')" i18n="@@signupPasswordMinLengthError">
                         Minimum 8 characters
                     </mat-error>
                     <mat-error *ngIf="formGroup.get('password')?.hasError('maxlength')" i18n="@@passwordMaxLengthError">
@@ -131,6 +131,7 @@
                         Sign Up
                     </button>
                 </div>
+                @if (error) { <p role="alert">{{ error }}</p> }
             </form>
         </div>
         <div class="sign-up">

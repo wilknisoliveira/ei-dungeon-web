@@ -1,3 +1,6 @@
+import { HttpTestingController } from '@angular/common/http/testing';
+import { environment } from 'src/environments/environment';
+import { PUBLIC_AUTH } from 'src/app/types/auth/email-auth';
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
@@ -78,5 +81,34 @@ describe('AuthService', () => {
     function tokenExpiringAt(exp: number): string {
         const body = btoa(JSON.stringify({ exp }));
         return `eyJhbGciOiJub25lIn0.${body}.signature`;
+    }
+});
+
+// HTTP contract tests use empty success responses, just like the backend.
+describe('AuthService email endpoints', () => {
+    let service: AuthService;
+    let http: import('@angular/common/http/testing').HttpTestingController;
+    beforeEach(() => {
+        TestBed.configureTestingModule({ imports: [HttpClientTestingModule] });
+        service = TestBed.inject(AuthService);
+        http = TestBed.inject(HttpTestingController);
+    });
+    afterEach(() => http.verify());
+    for (const [method, suffix, status, body] of [
+        ['requestEmailVerification', 'email-verification', 202, { email: 'p@example.com' }],
+        ['confirmEmailVerification', 'email-verification/confirm', 204, { email: 'p@example.com', code: '000123' }],
+        ['requestPasswordRecovery', 'password-recovery', 202, { email: 'p@example.com' }],
+        ['confirmPasswordRecovery', 'password-recovery/confirm', 204, { email: 'p@example.com', code: '000123', newPassword: 'abcd' }],
+    ] as const) {
+        it('posts exact public payload for ' + suffix, async () => {
+            const result = (service[method] as (value: unknown) => Promise<void>)(body);
+            const req = http.expectOne(environment.api + '/api/user/auth/' + suffix);
+            expect(req.request.method).toBe('POST');
+            expect(req.request.body).toEqual(body);
+            expect(req.request.context.get(PUBLIC_AUTH)).toBeTrue();
+            expect(req.request.headers.get('Accept')).toBe('application/json');
+            req.flush(null, { status, statusText: 'Success' });
+            await result;
+        });
     }
 });

@@ -92,3 +92,14 @@ section {
         }
     }
 }
+
+.login__forgot-password {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    color: var(--mat-sys-tertiary);
+}
+
+.login__error {
+    color: var(--mat-sys-error);
+}

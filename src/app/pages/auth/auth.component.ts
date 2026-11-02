@@ -1,10 +1,12 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { HttpErrorResponse } from '@angular/common/http';
+import { EmailAuthFlowService } from 'src/app/service/auth/email-auth-flow.service';
 import { AuthService } from 'src/app/service/auth/auth.service';
 import { SnackbarService } from 'src/app/service/snackbar/snackbar.service';
 import { UserLogin } from 'src/app/types/auth/user-login';
@@ -29,6 +31,9 @@ import { ThemeToggleComponent } from 'src/app/shared/theme-toggle/theme-toggle.c
     styleUrls: ['./auth.component.scss'],
 })
 export class AuthComponent {
+    private readonly flow = inject(EmailAuthFlowService);
+    error = '';
+    private loginDeadline = 0;
     hide = signal(true);
     userLogin: UserLogin = {
         userName: '',
@@ -44,14 +49,28 @@ export class AuthComponent {
     ) {}
 
     async onSubmit() {
+        if (this.loading || !this.userLogin.userName || !this.userLogin.password || this.loginDeadline > Date.now()) return;
+        this.loading = true;
+        this.error = '';
         try {
-            this.loading = true;
-            const result = await this.authService.login(this.userLogin);
-            this.router.navigate(['home']);
+            await this.authService.login(this.userLogin);
+            await this.router.navigate(['/home']);
         } catch (error) {
+            if (error instanceof HttpErrorResponse && error.status === 403 && error.error?.code === 'email_verification_required') {
+                this.flow.prepareVerification(this.userLogin.userName);
+                this.userLogin.password = '';
+                await this.router.navigate(['/email-verification']);
+            } else if (error instanceof HttpErrorResponse && error.status === 401) {
+                this.error = $localize`:@@loginInvalidCredentials:Invalid username or password.`;
+            } else if (error instanceof HttpErrorResponse && error.status === 429) {
+                const header = error.headers.get('Retry-After') || '';
+                this.loginDeadline = Date.now() + (/^\d+$/.test(header) && Number(header) > 0 && Number.isSafeInteger(Number(header)) ? Number(header) : 60) * 1000;
+                this.error = $localize`:@@emailAuthThrottled:Too many requests. Please wait before trying again.`;
+            } else {
+                this.error = this.flow.error(error, 'verification').message;
+            }
+        } finally {
             this.loading = false;
-            this.snackBar.addError('Something went wrong :(');
-            console.log(`Login error: ${error}`);
         }
     }
 }
